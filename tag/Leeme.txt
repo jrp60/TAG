@@ -1,0 +1,43 @@
+﻿//Funcionalidades de la aplicación
+
+----- Desplegable de Malla
+Todos los montacargas estan divididos en 3 mallas, en este desplegable puedes seleccionar una malla y cambiarle la textura o trasladar y rotar a esa malla
+
+------Desplegable de Camara--------
+Botones para rotar y trasladar la camara
+
+----- Deplegable luz---------------
+Puedes cambiar los valores de intensidad de la luz especular y de la luz ambiente, tambien puedes seleccionar un color para la luz difusa. Y por último se puede cambiar la posicion de la luz mediante los botones.
+
+----- Cambiar montacargas-----------
+Puedes pulsar el boton "cambiar montacargas" para volver al menu principal y seleccionar otro distinto.
+
+------ Explicacion controles por teclado al pinchar en el canvas-----------
+
+CTRL: Alternar entre rotacion/traslacion de la camara
+Flecha arriba: Mover/Rotar camara hacia arriba
+Flecha derecha: Mover/rotar camara hacia la derecha
+Flecha izquierda: Mover/rotar camara hacia la izquierda
+Flecha abajo: Mover/rotar camara hacia la abajo
+
++: Disminuir la distancia entre la camara y la malla
+-: Aumentar la distancia entre la camara y la malla
+
+
+// Explicacion archivos adicionales
+
+----- INDEX.HTML -----
+
+-Contiene la pagina principal donde se elige que modelo de montacargas queremos que cargue el motor
+
+----- Montacargas.HTML ----
+
+-inicializamos ciertas variables globales como algunas matrices que se utilizan luego para las transformaciones
+-Tenemos el menu con las funcionalidades
+-Llamamos a las funciones que necesitemos de la interfaz como cargar mallas y textura
+-Canvas
+
+----- Botones.js ------
+
+-Contiene todas las funciones que se llaman a traves de todos los botones de la aplicación, para rotar y trasladar los nodos
+-Nos tuvimos que descargar una libreria para que aceptase que los botones en javascript se pudiesen mantener pulsados, ya que JS no permite de manera nativa esta funcionalidad.

@@ -1,0 +1,343 @@
+<html>
+
+<head>
+
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+    <script src="js/jquery.click-hold.js"></script>
+
+	<script type='text/javascript' src='js/utils.js'></script>
+	<script type="text/javascript" src="js/glMatrix-0.9.5.min.js"></script>
+	<script type="text/javascript" src="js/webgl-utils.js"></script>
+	<script type="text/javascript" src="GestorRecursos.js"></script>
+	<script type="text/javascript" src="tEntidad.js"></script>
+	<script type="text/javascript" src="tNodo.js"></script>
+	<script type="text/javascript" src="tMalla.js"></script>
+	<script type="text/javascript" src="Interfaz.js"></script>
+	<script type="text/javascript" src="Botones.js"></script>
+	<script type="text/javascript" src="tLuz.js"></script>
+	<script type="text/javascript" src="tTransform.js"></script>
+	<script type="text/javascript" src="tCamara.js"></script>
+	<script type="text/javascript" src="js/util.js"></script>
+
+	
+
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+	<meta http-equiv="content-type" content="text/html; charset=ISO-8859-1">
+
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+
+   	<title>Crea tu montacargas</title>
+</head>
+
+
+<body onload="start()">
+	<div class="cabecera2">
+		<h1>Visualizador 3D</h1>
+
+		<div class="dropdown">
+		  <button class="dropbtn">Controles camara</button>
+		  <div class="dropdown-content">
+		    <p>Flechas: mover y rotar</p>
+		    <p>Ctrl: Alternar modo rotar o trasladar</p>
+		    <p> +/- : Alejar o acercar la camara</p>
+		  </div>
+		</div>
+
+
+	</div>
+
+
+	<div class="container ">
+		<div class="row">
+
+			<div class="col-lg canva">
+				<canvas id="glcanvas" width="950px" height="560px">
+					Tu navegador parece no soportar el elemento HTML5 <code>&lt;canvas&gt;</code>.
+				</canvas>
+
+			</div>
+
+			<div class="col-lg cuadromando">
+				<button class="collapsible">Malla</button>
+				<div class="content">
+					<div class="col-md bg-light">
+						<div>
+							<br>
+							<p>Seleccionar:</p>
+							<form>
+							<input type="radio" name="dibujar" id="objeto1" onchange="cambioObj1()"> Objeto1<br>
+							<input type="radio" name="dibujar" id="objeto2" onchange="cambioObj2()"> Objeto2<br>
+							<input type="radio" name="dibujar" id="objeto3" onchange="cambioObj3()"> Objeto3<br>
+							</form>
+							<br>
+							<form>
+							<p>Textura objeto:</p>
+							<input type="radio" name="dibujar" id="textura1" onchange="cambioTex1()"> 
+							Textura1<br>
+							<input type="radio" name="dibujar" id="textura2" onchange="cambioTex2()">
+							 Textura2<br>
+							
+							</form>
+						</div>
+						<br>
+						<p>Rotacion:</p>
+						
+						
+						<div>
+							<p>Eje X:<button type="button" class="btn btn-light" id="RMXPlus">
+								<img src="./css/png/plus-2x.png" /></button>
+								<button type="button" class="btn btn-light" id="RMXMinus">
+									<img src="./css/png/minus-2x.png" /></button></p>
+						</div>
+
+						<div>
+							<p>Eje Y:<button type="button" class="btn btn-light" id="RMYPlus">
+								<img src="./css/png/plus-2x.png" /></button>
+								<button type="button" class="btn btn-light" id="RMYMinus">
+									<img src="./css/png/minus-2x.png" /></button></p>
+						</div>
+
+						<div>
+							<p>Eje Z:<button type="button" class="btn btn-light" id="RMZPlus">
+								<img src="./css/png/plus-2x.png" /></button>
+								<button type="button" class="btn btn-light" id="RMZMinus">
+									<img src="./css/png/minus-2x.png" /></button></p>
+						</div>
+
+						<p>Traslacion:</p>
+					<br>
+
+						<div>
+							<p>Eje X:<button type="button" class="btn btn-light" id="TMXPlus">
+								<img src="./css/png/plus-2x.png" /></button>
+								<button type="button" class="btn btn-light" id="TMXMinus">
+									<img src="./css/png/minus-2x.png" /></button></p>
+						</div>
+
+						<div>
+							<p>Eje Y:<button type="button" class="btn btn-light" id="TMYPlus">
+								<img src="./css/png/plus-2x.png" /></button>
+								<button type="button" class="btn btn-light" id="TMYMinus">
+									<img src="./css/png/minus-2x.png" /></button></p>
+						</div>
+
+						<div>
+							<p>Eje Z:<button type="button" class="btn btn-light" id="TMZPlus">
+								<img src="./css/png/plus-2x.png" /></button>
+								<button type="button" class="btn btn-light" id="TMZMinus">
+									<img src="./css/png/minus-2x.png" /></button></p>
+						</div>
+					</div>
+				</div>
+
+
+				<button class="collapsible">Camara</button>
+				<div class="content">
+					<div class="col-md bg-light">
+						<p>Alejar/acercar: </p>
+						<div class="slidecontainer">
+							<button type="button" class="btn btn-light" id="camaraZPlus">
+								<img src="./css/png/zoom-out-2x.png" /></button>
+							<button type="button" class="btn btn-light" id="camaraZMinus">
+								<img src="./css/png/zoom-in-2x.png" /></button>
+						</div>
+						<br>
+						<p>Mover camara: </p>
+						<div class="slidecontainer">
+							<button type="button" class="btn btn-light" id="camaraXPlus">				
+							<img src="./css/png/arrow-left-2x.png"/></button>
+							<button type="button" class="btn btn-light" id="camaraXMinus">
+								<img src="./css/png/arrow-right-2x.png"/></button>
+
+								<button type="button" class="btn btn-light" id="camaraYMinus">
+									<img src="./css/png/arrow-top-2x.png"/></button>
+								<button type="button" class="btn btn-light" id="camaraYPlus">
+									<img src="./css/png/arrow-bottom-2x.png"/>
+								</button>
+							</div>
+							<br>
+							<p>Rotar camara: </p>
+							<div class="slidecontainer">
+								<button type="button" class="btn btn-light" id="camaraRXPlus">
+								<img src="./css/png/arrow-left-2x.png"/></button>
+								<button type="button" class="btn btn-light" id="camaraRXMinus">
+									<img src="./css/png/arrow-right-2x.png"/></button>
+
+								<button type="button" class="btn btn-light" id="camaraRYPlus">
+									<img src="./css/png/arrow-top-2x.png"/></button>
+								<button type="button" class="btn btn-light" id="camaraRYMinus">
+									<img src="./css/png/arrow-bottom-2x.png"/></button>
+							</div>
+							<br>
+
+						</div>
+					</div>
+
+					<button class="collapsible">Luz</button>
+				<div class="content">
+					<div class="col-md bg-light">
+
+						<div class="slidecontainer">
+							<p>Luz Ambiente:</p>
+							<input type="range" min="0" max="100" value="1" class="slider" id="ambiente">
+						</div>
+
+						<div class="slidecontainer">
+							<p>Luz Especular:</p>
+							<input type="range" min="0" max="100" value="1" class="slider" id="especular">
+						</div>
+						<div>
+							<br>
+							<p>Luz difusa:</p>
+							<input name="Color Picker" type="color" id="difusa" />
+						</div>
+						<br>
+						<p>Posicion</p>
+						<div class="iconos">
+							<p>Eje X:<button type="button" class="btn btn-light" id="luzXPlus">
+								<img src="./css/png/plus-2x.png" /></button>
+								<button type="button" class="btn btn-light" id="luzXMinus">
+									<img src="./css/png/minus-2x.png" /></button></p>
+						</div>
+
+						<div>
+							<p>Eje Y:<button type="button" class="btn btn-light" id="luzYPlus">
+								<img src="./css/png/plus-2x.png" /></button>
+								<button type="button" class="btn btn-light" id="luzYMinus">
+									<img src="./css/png/minus-2x.png" /></button></p>
+						</div>
+
+						<div>
+							<p>Eje Z:<button type="button" class="btn btn-light" id="luzZPlus">
+								<img src="./css/png/plus-2x.png" /></button>
+								<button type="button" class="btn btn-light" id="luzZMinus">
+									<img src="./css/png/minus-2x.png" /></button></p>
+						</div>
+
+					</div>
+				</div>
+
+				<div class="volver">
+					<a href="./index.html"><button type="button" class="btn btn-primary" >Cambiar Montacargas</button></a>
+				</div>
+
+			</div>
+
+		</div>
+
+
+
+
+	</div>
+
+
+	<script type="text/javascript">
+		var coll = document.getElementsByClassName("collapsible");
+		
+		var Ambiente = document.getElementById("ambiente");
+		var Especular = document.getElementById("especular");
+		var Difusa = document.getElementById("difusa");
+
+		var luzX = document.getElementById("luzX");
+		var luzY = document.getElementById("luzY");
+		var luzZ = document.getElementById("luzZ");
+
+
+		// variables para la gestion de la luz
+		var luzDifusa = [0.8, 0.8, 0.8];
+		var luzEspecular = [0.5, 0.5, 0.5];
+		var posicion = [31000, 14000, 24000];
+		var posicionAux = [0, 0, 50];
+
+		var c_width = 0; // Variable to store the width of the canvas
+		var c_height = 0; // Variable to store the height of the canvas
+
+
+		var lastTime = 0;
+		var angle = 0;
+
+		var gl = null; // Un variable global para el contexto WebGL
+		var nodoEscena = null;
+		var GestorRecursos = null;
+		var mallas = [];
+		var luces = [];
+		var camara = [];
+
+
+		var nMatrix = mat4.create(); // The normal matrix
+
+		// MATRIZ MODEL
+		var modelMatrix = mat4.identity(mat4.create());
+		var camaraMatrix = mat4.identity(mat4.create());
+		var viewMatrix = mat4.identity(mat4.create());
+		var pMatrix = mat4.identity(mat4.create());
+
+		var pilaMatrix = [];
+
+
+			for (var i = 0; i < coll.length; i++) {
+			coll[i].addEventListener("click", function() {
+				this.classList.toggle("active");
+				var content = this.nextElementSibling;
+				if (content.style.display === "block") {
+					content.style.display = "none";
+				} else {
+					content.style.display = "block";
+				}
+			});
+		}
+
+
+		function start() {
+
+			var valor = getGET();
+
+			if(valor){
+				var montacargas = valor['m'];
+			}
+
+			gl = utils.getGLContext('glcanvas');
+
+			loadShaders();
+
+			setTimeout(function() { // darle tiempo para cargar los shaders
+				
+				
+				GestorRecursos = new TGestorRecursos();
+
+				nodoEscena = new tNodo(null, null, null, "Nodo Escena");
+
+				camara[0] = crearCamara(nodoEscena, posicion);
+				luces[0] = crearLuz(nodoEscena, luzDifusa, luzEspecular, posicionAux);
+
+				if(montacargas == 1){
+					trasladarNodo(camara[0], [0, 2 ,8]); //iniciamos la camara en ese punto
+				mallas[0] = crearMalla(nodoEscena, "modelos/ruedas.json", "modelos/ruedas.png");
+				mallas[1] = crearMalla(nodoEscena, "modelos/asiento.json", "modelos/asiento.png");
+				mallas[2] = crearMalla(nodoEscena, "modelos/carroceria.json", "modelos/carroceria.png");
+				}
+				else if(montacargas == 2){
+					trasladarNodo(camara[0], [0, 5, 15]); //iniciamos la camara en ese punto
+				mallas[0] = crearMalla(nodoEscena, "modelos/pared.json", "modelos/pared.png");
+				mallas[1] = crearMalla(nodoEscena, "modelos/suelo.json", "modelos/suelo.png");
+				mallas[2] = crearMalla(nodoEscena, "modelos/mecanismo.json", "modelos/mecanismo.png");
+				}
+				else if(montacargas == 3){
+					trasladarNodo(camara[0], [0, 5, 20]); //iniciamos la camara en ese punto
+				mallas[0] = crearMalla(nodoEscena, "modelos/pared2.json", "modelos/pared.png");
+				mallas[1] = crearMalla(nodoEscena, "modelos/suelo2.json", "modelos/pared2.png");
+				mallas[2] = crearMalla(nodoEscena, "modelos/mecanismo.json", "modelos/mecanismo.png");
+				}
+		
+
+				setTimeout(function() {
+					renderLoop();
+				}, 500);
+
+			
+			}, 500);
+		}
+	</script>
+</body>
+
+</html>
