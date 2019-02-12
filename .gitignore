@@ -1,0 +1,13 @@
+# Cosas de ubuntu que mete porque si
+.bash_history
+.cache/
+.config/
+.npm/
+.pm2/
+*.tgz
+*.tgz
+*.7z
+
+# Por npm
+node_modules/
+public/doc/

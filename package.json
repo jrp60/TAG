@@ -1,0 +1,20 @@
+{
+  "name": "tagdavidjavi1819",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "start": "node ./app.js",
+    "doc": "jsdoc public/js/ -r -d public/doc/ -c jsdoc.json",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "David Liqiu Hu",
+  "license": "GPL-3.0",
+  "dependencies": {
+    "express": "^4.16.4"
+  },
+  "devDependencies": {
+    "jsdoc": "^3.5.5",
+    "tui-jsdoc-template": "^1.2.2"
+  }
+}
