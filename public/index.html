@@ -1,7 +1,6 @@
+<!DOCTYPE html>
 <html>
-
 <head>
-
     <script>
         var gl; // Un variable global para el contexto WebGL
 
@@ -11,12 +10,11 @@
             gl = initWebGL(canvas);      // Inicializar el contexto GL
 
             // Solo continuar si WebGL esta disponible y trabajando
-
             if (gl) {
                 gl.clearColor(0.0, 0.0, 0.0, 1.0);                      // Establecer el color base en negro, totalmente opaco
                 gl.enable(gl.DEPTH_TEST);                               // Habilitar prueba de profundidad
                 gl.depthFunc(gl.LEQUAL);                                // Objetos cercanos opacan objetos lejanos
-                gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);      // Limpiar el buffer de color asi como el de profundidad
+                gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);    // Limpiar el buffer de color asi como el de profundidad
             }
         }
 
@@ -34,25 +32,55 @@
                 alert("Imposible inicializar WebGL. Tu navegador puede no soportarlo.");
                 gl = null;
             }
-
             return gl;
         }
     </script>
+
     <script src="./js/gl-matrix-min.js"></script>
     <script>
         const mat4 = glMatrix.mat4;
         const vec3 = glMatrix.vec3;
         if (mat4) console.log("IT WORKS");
-        </script>
+    </script>
     <script async="" src="main.js" type="module"></script>
+    <link rel="stylesheet" href="style.css" type="text/css" media="screen">
+    <title>Title of the document</title>
 </head>
 
-
-
 <body onload="start()">
-    <canvas id="glcanvas" width="640" height="480">
-        Tu navegador parece no soportar el elemento HTML5 <code>&lt;canvas&gt;</code>.
-    </canvas>
+    <div class="canvasDiv">
+      <canvas id="glcanvas">
+          Tu navegador parece no soportar el elemento HTML5 <code>&lt;canvas&gt;</code>.
+      </canvas>
+
+    </div>
+    <form id="formu">
+	<input type="text" value="altura" name="altura">
+  <input type="button" value="Guardar" onclick="msg()">
+</form>
+<form action="" method="post" name="formu" id="formu" onsubmit="return comprobar()">
+   Tu nombre: <input type="text" name="nombre" value=""><br>
+   <label for="altura">Altura </label> <input type="text" name="altura" value=""><br>
+   <input type="submit" value="   Enviar   ">
+</form>
+
+
+<script language="javascript">
+function comprobar(){
+   var arr = [];
+
+   var nombre = document.formu.nombre.value;
+
+   var altura = document.formu.altura.value;
+   console.log(altura);
+   arr.push(altura.toString());
+   console.log(arr);
+
+   
+
+   return false;
+}
+</script>
 </body>
 
 </html>

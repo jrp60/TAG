@@ -8,7 +8,7 @@ import { TEntidad } from './TEntidad.js';
  * @summary Gestiona los atributos de la camara.
  * @see {@link http://localhost:3000/pdf/S2.pdf#page=17 | S2.17}
  * @author David
- * @version 0.2
+ * @version 0.2 - rev.(02/12)
  */
 export class TCamara extends TEntidad {
 
@@ -18,9 +18,17 @@ export class TCamara extends TEntidad {
     _cercano;
     /** @type {float} */
     _lejano;
+    /** @type {float} */
+    _superior;
+    /** @type {float} */
+    _inferior;
+    /** @type {float} */
+    _izquierda;
+    /** @type {float} */
+    _derecha;
 
     /**
-     * @summary 
+     * @summary
      * @param {float} x
      * @param {float} y
      * @see {@link http://localhost:3000/pdf/S2.pdf#page=17 | S2.17}
@@ -32,7 +40,7 @@ export class TCamara extends TEntidad {
     }
 
     /**
-     * @summary 
+     * @summary
      * @param {float} x
      * @param {float} y
      * @see {@link http://localhost:3000/pdf/S2.pdf#page=17 | S2.17}
@@ -44,7 +52,7 @@ export class TCamara extends TEntidad {
     }
 
     /**
-     * @summary 
+     * @summary
      * @see {@link http://localhost:3000/pdf/S2.pdf#page=17 | S2.17}
      * @author David
      * @version 0.2
@@ -54,7 +62,7 @@ export class TCamara extends TEntidad {
     }
 
     /**
-     * @summary 
+     * @summary
      * @see {@link http://localhost:3000/pdf/S2.pdf#page=17 | S2.17}
      * @author David
      * @version 0.2
@@ -63,4 +71,3 @@ export class TCamara extends TEntidad {
 
     }
 }
-

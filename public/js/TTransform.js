@@ -17,7 +17,7 @@ export class TTransform extends TEntidad {
 
 
     /**
-     * @summary 
+     * @summary
      * @see {@link http://localhost:3000/pdf/S2.pdf#page=16 | S2.16}
      * @author David
      * @version 0.2 - rev.(01/28)
@@ -28,7 +28,7 @@ export class TTransform extends TEntidad {
     }
 
     /**
-     * @summary 
+     * @summary
      * @see {@link http://localhost:3000/pdf/S2.pdf#page=16 | S2.16}
      * @author David
      * @version 0.2 - rev.(01/28)
@@ -38,7 +38,7 @@ export class TTransform extends TEntidad {
     }
 
     /**
-     * @summary 
+     * @summary
      * @see {@link http://localhost:3000/pdf/S2.pdf#page=16 | S2.16}
      * @author David
      * @version 0.2 - rev.(01/28)
@@ -48,7 +48,28 @@ export class TTransform extends TEntidad {
     }
 
     /**
-     * @summary 
+     * @summary
+     * @see {@link http://localhost:3000/pdf/S2.pdf#page=16 | S2.16}
+     * @author Javi
+     * @version 0.2
+     */
+    invertir() {
+        matriz.setMatriz(invert(matriz.getMatriz()));
+    }
+    /**
+     * @summary
+     * @param {mat4} matrix
+     * @see {@link http://localhost:3000/pdf/S2.pdf#page=16 | S2.16}
+     * @author Javi
+     * @version 0.2
+     */
+    multiplicarMatriz(matrix) {
+        matriz.setMatriz(multiply(matriz.getMatriz()),matrix);
+    }
+
+
+    /**
+     * @summary
      * @param {float} x
      * @param {float} y
      * @param {float} z
@@ -61,7 +82,7 @@ export class TTransform extends TEntidad {
     }
 
     /**
-     * @summary 
+     * @summary
      * @param {float} x
      * @param {float} y
      * @param {float} z
@@ -75,7 +96,7 @@ export class TTransform extends TEntidad {
     }
 
     /**
-     * @summary 
+     * @summary
      * @param {float} x
      * @param {float} y
      * @param {float} z
@@ -92,10 +113,15 @@ export class TTransform extends TEntidad {
      * Multiplicar la matriz de la transformación a la matriz actual
      * @see {@link http://localhost:3000/pdf/S2.pdf#page=16 | S2.16}
      * @author David
-     * @version 0.2 - rev.(01/28)
+     * @version 0.2 - rev.(01/28) - rev.(02/12)
      */
     beginDraw() {
-
+      let aux = new mat4.create();
+      for(var i = 0; i<matrizView.length; i++){
+        aux[i]=matrizView[i];
+      }
+       //apilamos matriz actual
+      matrizView=mat4.multiply(matrizView,this.matriz); //multiplicamos matriz actual x matriz de transformacion
     }
 
     /**

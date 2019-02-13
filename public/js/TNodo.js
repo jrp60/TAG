@@ -12,7 +12,7 @@
 import { TEntidad } from './TEntidad.js';
 
 /**
- * @summary Dato que define un escenario virtual y controla 
+ * @summary Dato que define un escenario virtual y controla
  * su proceso de dibujado
  * @see {@link http://localhost:3000/pdf/S2.pdf#page=7 | S2.7}
  * @author David
@@ -32,7 +32,7 @@ export class TNodo extends TEntidad {
      * @param {TNodo} hijo El nodo que quieras añadir.
      * @returns {Number} Cantidad de hijos actuales.
      * @see {@link http://localhost:3000/pdf/S2.pdf#page=14 | S2.14}
-     * @author David 
+     * @author David
      * @version 0.2
      */
     addHijo(hijo) {
@@ -45,7 +45,7 @@ export class TNodo extends TEntidad {
      * @param {TNodo} hijo El nodo hijo a eliminar.
      * @returns {Number} La posición en el array del nodo hijo a eliminar o -1 si no existe.
      * @see {@link http://localhost:3000/pdf/S2.pdf#page=14 | S2.14}
-     * @author David 
+     * @author David
      * @version 0.2
      */
     remHijo(hijo) {
@@ -63,7 +63,7 @@ export class TNodo extends TEntidad {
      * @param {TEntidad} entidad El nodo hijo a eliminar.
      * @returns {Boolean} Si se ha podido insertar la entidad.
      * @see {@link http://localhost:3000/pdf/S2.pdf#page=14 | S2.14}
-     * @author David 
+     * @author David
      * @version 0.2
      */
     setEntidad(entidad) {
@@ -75,7 +75,7 @@ export class TNodo extends TEntidad {
      * @summary Getter de entidad.
      * @returns {TEntidad} La entidad.
      * @see {@link http://localhost:3000/pdf/S2.pdf#page=14 | S2.14}
-     * @author David 
+     * @author David
      * @version 0.2
      */
     getEntidad() {
@@ -86,7 +86,7 @@ export class TNodo extends TEntidad {
      * @summary Getter del nodo padre.
      * @returns {TNodo} El padre del nodo.
      * @see {@link http://localhost:3000/pdf/S2.pdf#page=14 | S2.14}
-     * @author David 
+     * @author David
      * @version 0.2
      */
     getPadre() {
@@ -94,21 +94,23 @@ export class TNodo extends TEntidad {
     }
 
     /**
-     * @summary El método draw de cada nodo llama al método beginDraw
+     * @summary Comprueba no estar en raíz.El método draw de cada nodo llama al método beginDraw
      *  de la entidad asociada. A continuación, el dibujado se desencadena
      *  en cascada, llamando al dibujado de los nodos hijos de cada nodo padre.
      * @returns {TNodo} El padre del nodo.
      * @see {@link http://localhost:3000/pdf/S2.pdf#page=21 | S2.21}
-     * @author David 
-     * @version 0.2
+     * @author David
+     * @version 0.2 - rev.(02/12)
      * @todo Cambiar numero de beginDraw
      */
     draw() {
+      if (this._entidad!=null) {
         this._entidad.beginDraw(1);
         for (const hijo of this._hijos) {
             hijo.draw();
         }
         this._entidad.endDraw();
+      }
     }
 
 
