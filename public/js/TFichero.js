@@ -12,6 +12,9 @@ import { TEntidad } from './TEntidad.js';
  */
 export class TFichero extends TEntidad {
 
+
+    
+
     /**
     * @summary 
     * @see {@link http://localhost:3000/pdf/S2.pdf#page=18 | S2.18}
