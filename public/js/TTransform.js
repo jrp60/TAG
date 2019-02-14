@@ -1,6 +1,7 @@
 //===== Changelog ============================================
 //=  - 0.2 Init. S2.16 [David]
 //=  - 01/28 - Rafa recomienda el uso de la libreria GLM [David]
+//=  - 02/14 - Termina de transcribir lo que tenía de C++ a JS [David]
 //============================================================
 
 import { TEntidad } from './TEntidad.js';
@@ -9,103 +10,114 @@ import { TEntidad } from './TEntidad.js';
  * @summary Gestiona la matriz, para operaciones de transformacion.
  * @see {@link http://localhost:3000/pdf/S2.pdf#page=16 | S2.16}
  * @author David
- * @version 0.2 - rev.(01/28)
+ * @version 0.2 - rev.(02/14)
  */
 export class TTransform extends TEntidad {
-    /** @type {Mat4} */
+    /** @type {mat4} glMatrix.ARRAY_TYPE(16)*/
     _matriz;
 
 
     /**
-     * @summary
+     * @summary Devuelve la matriz identidad de tamaño 4 de glMatrix.
+     * @returns {mat4} La matriz identidad.
      * @see {@link http://localhost:3000/pdf/S2.pdf#page=16 | S2.16}
      * @author David
-     * @version 0.2 - rev.(01/28)
+     * @version 0.2 - rev.(02/14)
      */
     identidad() {
-        matrizIdentidad; // Mat4x4
-        matriz.setMatriz(matrizIdentidad);
+        return mat4.identity(mat4.create());
     }
 
     /**
-     * @summary
+     * @summary Copia la matriz dada, para que TTransform lo transforme.
+     * @param {mat4} matrix La matriz en glMatrix.
      * @see {@link http://localhost:3000/pdf/S2.pdf#page=16 | S2.16}
      * @author David
-     * @version 0.2 - rev.(01/28)
+     * @version 0.2 - rev.(02/14)
      */
-    cargar(matrix) { // Mat4x4
-        matriz.setMatriz(matrix.getMatriz);
+    cargar(matrix) {
+        _matriz = mat4.clone(matrix);
     }
 
     /**
-     * @summary
+     * @summary Transpone la matriz, también devuelve una copia por si la necesitas.
+     * @returns {mat4} Una copia de la matriz transpuesta.
      * @see {@link http://localhost:3000/pdf/S2.pdf#page=16 | S2.16}
      * @author David
-     * @version 0.2 - rev.(01/28)
+     * @version 0.2 - rev.(02/14)
      */
     transponer() {
-        matriz.setMatriz(transpose(matriz.getMatriz()));
+        return mat4.transpose(this._matriz, this._matriz);
     }
 
     /**
-     * @summary
+     * @summary Invierte la matriz, también devuelve una copia por si la necesitas.
+     * @returns {mat4} Una copia de la matriz inversa.
      * @see {@link http://localhost:3000/pdf/S2.pdf#page=16 | S2.16}
-     * @author Javi
-     * @version 0.2
+     * @author David
+     * @version 0.2 - rev.(02/14)
      */
     invertir() {
-        matriz.setMatriz(invert(matriz.getMatriz()));
+        return mat4.invert(this._matriz, this._matriz);
     }
     /**
-     * @summary
-     * @param {mat4} matrix
+     * @summary Multiplica dos matrices, 
+     * también devuelve una copia por si la necesitas.
+     * @param {mat4} matrix La matriz a múltiplicar.
+     * @returns {mat4} Una copia de la matriz resultante.
      * @see {@link http://localhost:3000/pdf/S2.pdf#page=16 | S2.16}
-     * @author Javi
-     * @version 0.2
+     * @author David
+     * @version 0.2 - rev.(02/14)
      */
     multiplicarMatriz(matrix) {
-        matriz.setMatriz(multiply(matriz.getMatriz()),matrix);
+        return mat4.multiply(this._matriz, this._matriz, matrix);
     }
 
 
     /**
-     * @summary
-     * @param {float} x
-     * @param {float} y
-     * @param {float} z
+     * @summary Translada la matriz según el vector que se le da, 
+     * también devuelve una copia por si la necesitas.
+     * @param {float} x Axis X
+     * @param {float} y Axis Y
+     * @param {float} z Axis Z
+     * @returns {mat4} Una copia de la matriz resultante.
      * @see {@link http://localhost:3000/pdf/S2.pdf#page=16 | S2.16}
      * @author David
-     * @version 0.2 - rev.(01/28)
+     * @version 0.2 - rev.(02/14)
      */
-    transladar(x, y, z) { // Float
-        matriz.setMatriz(translate(matriz.getMatriz(), vec3(x, y, z)));
+    transladar(x, y, z) {
+        return mat4.translate(this._matriz, this._matriz, vec3.fromValues(x, y, z));
     }
 
     /**
-     * @summary
-     * @param {float} x
-     * @param {float} y
-     * @param {float} z
-     * @param {float} t
+     * @summary Rota la matriz contenida en la clase, 
+     * respecto a los grados y a la posición, 
+     * también devuelve una copia por si la necesitas.
+     * @param {float} x Axis X
+     * @param {float} y Axis Y
+     * @param {float} z Axis Z
+     * @param {float} t Grados
      * @see {@link http://localhost:3000/pdf/S2.pdf#page=16 | S2.16}
      * @author David
-     * @version 0.2 - rev.(01/28)
+     * @version 0.2 - rev.(02/14)
      */
-    rotar(x, y, z, t) { // Float
-        matriz.setMatriz(rotate(matriz.getMatriz(), t, vec3(x, y, z)));
+    rotar(x, y, z, t) {
+        const rads = t * Math.PI / 180;
+        return mat4.rotate(this._matrix, this._matrix, rads, vec3.fromValues(x, y, z));
     }
 
     /**
-     * @summary
-     * @param {float} x
-     * @param {float} y
-     * @param {float} z
+     * @summary Escala la matriz contenida en la clase,
+     * también devuelve una copia por si la necesitas.
+     * @param {float} x Axis X
+     * @param {float} y Axis Y
+     * @param {float} z Axis Z
      * @see {@link http://localhost:3000/pdf/S2.pdf#page=16 | S2.16}
      * @author David
-     * @version 0.2 - rev.(01/28)
+     * @version 0.2 - rev.(02/14)
      */
-    escalar(x, y, z) { // Float
-        matriz.setMatriz(scale(matriz.getMatriz(), vec3(x, y, z)));
+    escalar(x, y, z) {
+        return mat4.scale(this._matrix, this._matrix, vec3.fromValues(x, y, z));
     }
 
     /**
@@ -113,15 +125,15 @@ export class TTransform extends TEntidad {
      * Multiplicar la matriz de la transformación a la matriz actual
      * @see {@link http://localhost:3000/pdf/S2.pdf#page=16 | S2.16}
      * @author David
-     * @version 0.2 - rev.(01/28) - rev.(02/12)
+     * @version 0.2 - rev.(02/12)
      */
     beginDraw() {
-      let aux = new mat4.create();
-      for(var i = 0; i<matrizView.length; i++){
-        aux[i]=matrizView[i];
-      }
-       //apilamos matriz actual
-      matrizView=mat4.multiply(matrizView,this.matriz); //multiplicamos matriz actual x matriz de transformacion
+        let aux = new mat4.create();
+        for (var i = 0; i < matrizView.length; i++) {
+            aux[i] = matrizView[i];
+        }
+        //apilamos matriz actual
+        matrizView = mat4.multiply(matrizView, this.matriz); //multiplicamos matriz actual x matriz de transformacion
     }
 
     /**
