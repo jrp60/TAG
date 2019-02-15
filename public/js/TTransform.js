@@ -112,15 +112,15 @@ export class TTransform extends TEntidad {
      * @summary Apilar matriz actual
      * Multiplicar la matriz de la transformación a la matriz actual
      * @see {@link http://localhost:3000/pdf/S2.pdf#page=16 | S2.16}
-     * @author David
+     * @author David - Javi
      * @version 0.2 - rev.(01/28) - rev.(02/12)
      */
     beginDraw() {
       let aux = new mat4.create();
-      for(var i = 0; i<matrizView.length; i++){
+      for(var i = 0; i<matrizView.length; i++){ //donde se almacena la matrizView? se crea multiplicando las matrices Transform hasta llegar a nodo cámara
         aux[i]=matrizView[i];
       }
-       //apilamos matriz actual
+       //apilamos matriz actual (matriz aux)
       matrizView=mat4.multiply(matrizView,this.matriz); //multiplicamos matriz actual x matriz de transformacion
     }
 

@@ -32,7 +32,7 @@ import { TTransform } from './js/TTransform.js';
 //===== Tutorial =============================================
 
 var gl; // Un variable global para el contexto WebGL
-
+console.log("hola mundo");
 const canvas = document.getElementById("glcanvas");
 
 gl = initWebGL(canvas);      // Inicializar el contexto GL
@@ -45,7 +45,38 @@ if (gl) {
    gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);    // Limpiar el buffer de color asi como el de profundidad
 }
 
+console.log("hola mundo");
+
+document.getElementById("arbol").onclick = () => {
+  console.log("hola mundo 2");
+    raiz=new TNode();
+    console.log(raiz);
+  };
+
+  document.getElementById("hijo").onclick = (tipoEntidad) => {
+    console.log("hola hijo");
+    auxHijo=new TNode();
+    if (tipoEntidad==0) {
+          auxEntidad=new TTransform();
+    }
+    else if (tipoEntidad==1) {
+          auxEntidad=new TLuz();
+    }
+    else if (tipoEntidad==2) {
+          auxEntidad=new TCamara();
+    }
+    else if (tipoEntidad==3) {
+          auxEntidad=new TMalla();
+    }
+    auxHijo.setEntidad(auxEntidad);
+      raiz.addHijo(auxHijo);
+
+      console.log(raiz);
+    };
+
+
 function initWebGL(canvas) {
+  console.log("hola mundo");
    gl = null;
 
    try {
@@ -75,6 +106,7 @@ init();
 animate();
 
 function init() {
+  console.log("hola mundo");
 
    container = document.createElement('div');
    document.body.appendChild(container);

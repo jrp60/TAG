@@ -11,6 +11,7 @@ main {
 
 #glcanvas {
   min-height: 400px;
+  background: red;
 }
 
 footer {

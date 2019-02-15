@@ -18,7 +18,7 @@ import { TEntidad } from './TEntidad.js';
  * @author David
  * @version 0.2
  */
-export class TNodo extends TEntidad {
+export class TNodo{
 
     /** @type {TEntidad} */
     _entidad;
@@ -99,7 +99,7 @@ export class TNodo extends TEntidad {
      *  en cascada, llamando al dibujado de los nodos hijos de cada nodo padre.
      * @returns {TNodo} El padre del nodo.
      * @see {@link http://localhost:3000/pdf/S2.pdf#page=21 | S2.21}
-     * @author David
+     * @author David - Javi
      * @version 0.2 - rev.(02/12)
      * @todo Cambiar numero de beginDraw
      */

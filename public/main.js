@@ -7,6 +7,9 @@
 //===== Changelog ============================================
 //= 1.0 sin comentarios. [David]
 
+
+
+
 class Persona {
    constructor(nombre, altura) {
       this.nombre = nombre;
@@ -15,9 +18,13 @@ class Persona {
 }
 const personas = [];
 var i = 1;
+var raiz;
 window.onload = () => {
 
-   document.getElementById("enviar").onclick = () => {
+
+
+
+    document.getElementById("enviar").onclick = () => {
       personas.length = 0; // No reinicia exactamente el array, pero hace que empiece desde el 0.
       const personas_aux = document.getElementsByTagName("article");
       for (const dom of personas_aux) {
