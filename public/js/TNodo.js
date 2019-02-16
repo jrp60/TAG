@@ -18,7 +18,7 @@ import { TEntidad } from './TEntidad.js';
  * @author David
  * @version 0.2
  */
-export class TNodo{
+export class TNodo extends TEntidad {
 
     /** @type {TEntidad} */
     _entidad;
@@ -105,7 +105,7 @@ export class TNodo{
      * @author David
      * @version 0.2
      */
-    setEntidad(entidad) {
+    set entidad(entidad) {
         this._entidad = entidad;
         return true;
     }
@@ -117,7 +117,7 @@ export class TNodo{
      * @author David
      * @version 0.2
      */
-    getEntidad() {
+    get entidad() {
         return this._entidad;
     }
     /**
@@ -151,7 +151,7 @@ export class TNodo{
      * @author David
      * @version 0.2
      */
-    getPadre() {
+    get padre() {
         return this._padre;
     }
 
@@ -166,13 +166,13 @@ export class TNodo{
      * @todo Cambiar numero de beginDraw
      */
     draw() {
-      if (this._entidad!=null) {
-        this._entidad.beginDraw(1);
-        for (const hijo of this._hijos) {
-            hijo.draw();
+        if (this.entidad != null) {
+            this.entidad.beginDraw(1);
+            for (const hijo of this._hijos) {
+                hijo.draw();
+            }
+            this.entidad.endDraw();
         }
-        this._entidad.endDraw();
-      }
     }
 
 

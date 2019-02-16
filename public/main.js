@@ -1,14 +1,12 @@
 //===== David Liqiu Hu =======================================
-//= Mejoras en client side para los datos
+//= Mejoras en client side para los datos de la interfaz
 //===== Version ==============================================
-//= 1.0
+//= 1.0 - rev.(02/16)
 //===== Description ==========================================
 //= Es el javascript que usa la interfaz para gestionar los datos.
 //===== Changelog ============================================
-//= 1.0 sin comentarios. [David]
-
-
-
+//= 1.0 Para manejar la interfaz [David]
+//= (02/16) Añadir ligeras restricciones. [David]
 
 class Persona {
    constructor(nombre, altura) {
@@ -18,13 +16,10 @@ class Persona {
 }
 const personas = [];
 var i = 1;
-var raiz;
 window.onload = () => {
 
 
-
-
-    document.getElementById("enviar").onclick = () => {
+   document.getElementById("enviar").onclick = () => {
       personas.length = 0; // No reinicia exactamente el array, pero hace que empiece desde el 0.
       const personas_aux = document.getElementsByTagName("article");
       for (const dom of personas_aux) {
@@ -35,16 +30,22 @@ window.onload = () => {
       console.log(personas);
    };
 
+
    document.getElementById("mas").onclick = () => {
-      const base = document.getElementById("base");
-      const base_copy = base.cloneNode(true);
-      base_copy.id += (i++);
-      document.getElementById("formulario").appendChild(base_copy);
+      if (i === 30) { // Podemos ampliarlo a más, pero la vista está demasiado sobrecargado.
+         const base = document.getElementById("base");
+         const base_copy = base.cloneNode(true);
+         base_copy.id += (i++);
+         document.getElementById("formulario").appendChild(base_copy);
+      }
    };
 
+
    document.getElementById("menos").onclick = () => {
-      const formulario = document.getElementById("formulario");
-      formulario.removeChild(formulario.lastChild);
-      i--;
+      if (i === 1) { // Para dejar al menos 1 formulario
+         const formulario = document.getElementById("formulario");
+         formulario.removeChild(formulario.lastChild);
+         i--;
+      }
    };
 }
