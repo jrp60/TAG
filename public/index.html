@@ -4,21 +4,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Title of the document</title>
+    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
+    <title>TAG 2018/2019 - David y Javier</title>
     <link rel="stylesheet" href="style.css" type="text/css" media="screen">
-    <script src="./main.js"></script>
-    <script src="./js/gl-matrix-min.js"></script>
-    <script>
-        const mat4 = glMatrix.mat4;
-        const vec3 = glMatrix.vec3;
-        if (mat4) console.log("IT WORKS");
-    </script>
-    <script async="" src="webgl.js" type="module"></script>
-    <script src="./js/three.js"></script>
-    <script src="./js/Detector.js"></script>
-    <script src="./js/OrbitControls.js"></script>
-    <script src="./js/OBJLoader.js"></script>
-    <script src="./js/MTLLoader.js"></script>
+
+    <!-- Código JS para los controles básicos de la página web -->
+    <script src="main.js" async></script>
+    <!-- WebGL para el proyecto -->
+    <script src="js/gl-matrix-min.js"></script>
+    <script src="webgl.js" type="module"></script>
+
+    <!-- WebGL de referencia -->
+    <script src="js/test/three.js"></script>
+    <script src="js/test/Detector.js"></script>
+    <script src="js/test/OrbitControls.js"></script>
+    <script src="js/test/OBJLoader.js"></script>
+    <script src="js/test/MTLLoader.js"></script>
 </head>
 
 <body>

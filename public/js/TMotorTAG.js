@@ -2,13 +2,13 @@
 //=  - 0.4 Init. S4.7 [David]
 //============================================================
 
-import { TNodo } from "./TNodo";
-import { TGestorRecursos } from "./TGestorRecursos";
-import { TEntidad } from "./TEntidad";
-import { TMalla } from "./TMalla";
-import { TTransform } from "./TTransform";
-import { TCamara } from "./TCamara";
-import { TLuz } from "./TLuz";
+import { TNodo } from "./TNodo.js";
+import { TGestorRecursos } from "./TGestorRecursos.js";
+import { TEntidad } from "./TEntidad.js";
+import { TMalla } from "./TMalla.js";
+import { TTransform } from "./TTransform.js";
+import { TCamara } from "./TCamara.js";
+import { TLuz } from "./TLuz.js";
 
 /**
  * @summary Separa el motor de la aplicación el motor puede
