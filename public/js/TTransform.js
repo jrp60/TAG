@@ -6,6 +6,11 @@
 
 import { TEntidad } from './TEntidad.js';
 
+/** @type {mat4} glMatrix.ARRAY_TYPE(16)*/
+const mat4 = glMatrix.mat4;
+/** @type {vec3} glMatrix.ARRAY_TYPE(3)*/
+const vec3 = glMatrix.vec3;
+
 /**
  * @summary Gestiona la matriz, para operaciones de transformacion.
  * @see {@link http://localhost:3000/pdf/S2.pdf#page=16 | S2.16}
@@ -125,7 +130,7 @@ export class TTransform extends TEntidad {
      * Multiplicar la matriz de la transformación a la matriz actual
      * @see {@link http://localhost:3000/pdf/S2.pdf#page=16 | S2.16}
      * @author David
-     * @version 0.2 - rev.(02/12)
+     * @version 0.2 - rev.(02/14)
      */
     beginDraw() {
         let aux = new mat4.create();
