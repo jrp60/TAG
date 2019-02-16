@@ -26,6 +26,45 @@ export class TNodo{
     _hijos;
     /** @type {TNodo} */
     _padre;
+    /** @type {string} */
+    _nombre;
+
+
+    /**
+     * @summary Constructor para inicializar el array hijos.
+     * @param
+     * @returns
+     * @see {@link http://localhost:3000/pdf/S2.pdf#page=14 | S2.14}
+     * @author Javi
+     * @version 0.1
+     */
+    constructor(){
+      this._hijos=[];
+    }
+
+    /**
+     * @summary Añade el padre a _padre.
+     * @param {TNodo} padre El nodo que quieres asignar de padre.
+     * @returns
+     * @see {@link http://localhost:3000/pdf/S2.pdf#page=14 | S2.14}
+     * @author Javi
+     * @version 0.1
+     */
+    addPadre(padre) {
+        this._padre=padre;
+    }
+    /**
+     * @summary Añade nombre.
+     * @param {String} nombre El nombre que quieres asignar.
+     * @returns
+     * @see {@link http://localhost:3000/pdf/S2.pdf#page=14 | S2.14}
+     * @author Javi
+     * @version 0.1
+     */
+    addPadre(nombre) {
+        this._nombre=nombre;
+    }
+
 
     /**
      * @summary Añade un hijo al array hijos.
@@ -80,6 +119,29 @@ export class TNodo{
      */
     getEntidad() {
         return this._entidad;
+    }
+    /**
+     * @summary Getter de hijos.
+     * @returns {TNodo[]} Array de Hijos
+     * @see {@link http://localhost:3000/pdf/S2.pdf#page=14 | S2.14}
+     * @author Javi
+     * @version 0.1
+     */
+    getHijos() {
+        return this._hijos;
+    }
+    /**
+     * @summary Getter de  1 hijo.
+     * @returns {TNodo} TNodo
+     * @see {@link http://localhost:3000/pdf/S2.pdf#page=14 | S2.14}
+     * @author Javi
+     * @version 0.1
+     */
+    getHijo(num) {
+      if (this._hijos[num]!=null) {
+        return this._hijos[num];
+      }
+        console.log("no existe ese hijo");
     }
 
     /**

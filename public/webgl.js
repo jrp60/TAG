@@ -32,7 +32,8 @@ import { TTransform } from './js/TTransform.js';
 //===== Tutorial =============================================
 
 var gl; // Un variable global para el contexto WebGL
-console.log("hola mundo");
+var raiz;
+console.log(raiz);
 const canvas = document.getElementById("glcanvas");
 
 gl = initWebGL(canvas);      // Inicializar el contexto GL
@@ -48,31 +49,83 @@ if (gl) {
 console.log("hola mundo");
 
 document.getElementById("arbol").onclick = () => {
-  console.log("hola mundo 2");
-    raiz=new TNode();
+  if (raiz==null) {
+    console.log("hola mundo 2");
+      raiz=new TNodo();
+      console.log(raiz);
+  }
+  else {
+    console.log("raiz ya creada");
     console.log(raiz);
-  };
+  }
 
-  document.getElementById("hijo").onclick = (tipoEntidad) => {
+};
+
+  document.getElementById("hijo").onclick = () => {
     console.log("hola hijo");
-    auxHijo=new TNode();
+    let tipoEntidad = document.getElementsByName("tipo")[0].value;
+    let auxHijo=new TNodo();
+    let auxEntidad=null;
+
+    console.log(tipoEntidad);
+
     if (tipoEntidad==0) {
-          auxEntidad=new TTransform();
+      console.log("transform");
+      auxEntidad=new TTransform();
     }
     else if (tipoEntidad==1) {
-          auxEntidad=new TLuz();
+      console.log("luz");
+      auxEntidad=new TLuz();
+      console.log(auxEntidad);
     }
     else if (tipoEntidad==2) {
-          auxEntidad=new TCamara();
+      console.log("camara");
+      auxEntidad=new TCamara();
     }
     else if (tipoEntidad==3) {
-          auxEntidad=new TMalla();
+      console.log("malla");
+      auxEntidad=new TMalla();
     }
-    auxHijo.setEntidad(auxEntidad);
-      raiz.addHijo(auxHijo);
 
-      console.log(raiz);
+    auxHijo.setEntidad(auxEntidad);
+    console.log(auxHijo);
+    console.log(raiz);
+    console.log("antes de petar");
+    raiz.addHijo(auxHijo);
+
+    console.log(raiz);
+    // var elHijo = document.createElement("div");
+    // document.getElementById('nodos').innerHTML = raiz;
     };
+
+    document.getElementById("elimina").onclick = () => {
+      if (raiz==null) {
+        console.log("no hay ningun nodo");;
+      }
+      else {
+        let auxHijos=raiz.getHijos();
+        for (var i = 0; i < auxHijos.length; i++) {
+          raiz.remHijo(auxHijos[i]);
+        }
+      }
+
+    };
+
+    // document.getElementById("desplazaElimina").onclick = () => {
+    //   let generacion = document.getElementsByName("generacion")[0].value;
+    //   let numeroHijo = document.getElementsByName("numeroHijo")[0].value;
+    //   console.log(generacion);
+    //   console.log(numeroHijo);
+    //   if (raiz!=null) {
+    //     let hijosActual= raiz.getHijos();
+    //     for (var i = 0; i < generacion; i++) {
+    //       hijosActual=
+    //     }
+    //   }
+    //
+    //
+    // };
+
 
 
 function initWebGL(canvas) {
