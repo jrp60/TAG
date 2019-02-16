@@ -9,6 +9,7 @@ import { TMalla } from "./TMalla.js";
 import { TTransform } from "./TTransform.js";
 import { TCamara } from "./TCamara.js";
 import { TLuz } from "./TLuz.js";
+import { Datos } from "./Datos.js";
 
 /**
  * @summary Separa el motor de la aplicación el motor puede
@@ -130,5 +131,10 @@ export class TMotorTag {
          cargar la matriz auxiliar en la matriz MODELVIEW de la librer�a gr�fica  
     
         */
+    }
+
+
+    pruebaDatos(){
+        console.log(Datos.popPila());
     }
 }
