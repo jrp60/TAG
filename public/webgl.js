@@ -22,7 +22,6 @@ import { TTransform } from './js/TTransform.js';
 var gl = null; // Un variable global para el contexto WebGL
 var raiz; // Variable global de Javi
 
-<<<<<<< HEAD
 //===== David Liqiu Hu =======================================
 //= Tutorial WebGL
 //===== Version ==============================================
@@ -45,8 +44,6 @@ var raiz; // Variable global de Javi
 var gl; // Un variable global para el contexto WebGL
 var raiz;
 console.log(raiz);
-=======
->>>>>>> ed0f0e985bdcc3cdfa789a4f3137cf8c2aafb74a
 const canvas = document.getElementById("glcanvas");
 
 try {
@@ -81,7 +78,6 @@ if (gl) {
 console.log("hola mundo");
 
 document.getElementById("arbol").onclick = () => {
-<<<<<<< HEAD
   if (raiz==null) {
     console.log("hola mundo 2");
       raiz=new TNodo();
@@ -164,36 +160,6 @@ document.getElementById("arbol").onclick = () => {
 function initWebGL(canvas) {
   console.log("hola mundo");
    gl = null;
-=======
-   console.log("hola mundo 2");
-   raiz = new TNode();
-   console.log(raiz);
-};
-
-
-
-// Nota de David: Javi, en el html no hay ningun hijo...
-
-// document.getElementById("hijo").onclick = (tipoEntidad) => {
-//    console.log("hola hijo");
-//    auxHijo = new TNode();
-//    if (tipoEntidad == 0) {
-//       auxEntidad = new TTransform();
-//    }
-//    else if (tipoEntidad == 1) {
-//       auxEntidad = new TLuz();
-//    }
-//    else if (tipoEntidad == 2) {
-//       auxEntidad = new TCamara();
-//    }
-//    else if (tipoEntidad == 3) {
-//       auxEntidad = new TMalla();
-//    }
-//    auxHijo.setEntidad(auxEntidad);
-//    raiz.addHijo(auxHijo);
-//    console.log(raiz);
-// };
->>>>>>> ed0f0e985bdcc3cdfa789a4f3137cf8c2aafb74a
 
 
 
