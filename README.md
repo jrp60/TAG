@@ -2,7 +2,6 @@
 
 En este repositorio se guarda el proyecto de TAG de David y Javier de 4º curso de ingeniería multimedia. 
 ## Estructura del producto
-You can render UML diagrams using [Mermaid](https://mermaidjs.github.io/). For example, this will produce a sequence diagram:
 ### Funcionamiento
 
 [![Funcionamiento](./git/funcionamiento.svg)](https://mermaidjs.github.io/mermaid-live-editor/#/edit/eyJjb2RlIjoic2VxdWVuY2VEaWFncmFtXG5pbmRleC5odG1sIC0tPj4gbWFpbi5qczogQ2FyZ2EgbG9zIGNvbnRyb2xlcyBiw6FzaWNvc1xuTm90ZSByaWdodCBvZiBtYWluLmpzOiBNYWluLmpzIGVzIGFzaW5jcm9uYS5cbmluZGV4Lmh0bWwgLT4-IGluZGV4Lmh0bWw6IMK_VGVybWluYWRvIGRlIGNhcmdhcj9cbmluZGV4Lmh0bWwgLT4-IHdlYmdsLmpzOiBDYXJnYSBsbyByZWxhY2lvbmFkbyBhbCBtb3RvciBncsOhZmljb1xud2ViZ2wuanMgLS0-PiBUTW90b3JUYWcuanM6IENhcmdhIGxvIGLDoXNpY29cbndlYmdsLmpzIC0-PiBpbmRleC5odG1sOiBIYWJpbGl0YXIgYm90w7NuIGVudmlhciIsIm1lcm1haWQiOnsidGhlbWUiOiJkZWZhdWx0In19)
