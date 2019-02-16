@@ -7,7 +7,7 @@ import { TEntidad } from './TEntidad.js';
 /**
  * @summary Gestiona los atributos de la camara.
  * @see {@link http://localhost:3000/pdf/S2.pdf#page=17 | S2.17}
- * @author David
+ * @author David - Javi
  * @version 0.2 - rev.(02/12)
  */
 export class TCamara extends TEntidad {
