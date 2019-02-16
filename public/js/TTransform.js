@@ -22,9 +22,6 @@ const vec3 = glMatrix.vec3;
 export class TTransform extends TEntidad {
     /** @type {mat4} glMatrix.ARRAY_TYPE(16) Matriz de transformación */
     _matriz;
-    /** @type {mat4} glMatrix.ARRAY_TYPE(16) Matriz actual*/
-    _matrizActual;
-
 
     /**
      * @summary Devuelve la matriz identidad de tamaño 4 de glMatrix.
@@ -38,7 +35,7 @@ export class TTransform extends TEntidad {
     }
 
     /**
-     * @summary Copia la matriz dada, en la matriz actual
+     * @summary Copia la matriz dada, 
      * para que TTransform lo transforme.
      * @param {mat4} matrix La matriz en glMatrix.
      * @see {@link http://localhost:3000/pdf/S2.pdf#page=16 | S2.16}
@@ -46,7 +43,7 @@ export class TTransform extends TEntidad {
      * @version 0.2 - rev.(02/14)
      */
     cargar(matrix) {
-        this._matrizActual = mat4.clone(matrix);
+        this._matriz = mat4.clone(matrix);
     }
 
     /**
@@ -73,8 +70,22 @@ export class TTransform extends TEntidad {
         return mat4.invert(this._matriz, this._matriz);
     }
 
+    // /**
+    //  * @summary Multiplica una matriz por un vector, 
+    //  * una de las matrices es la de transformación,
+    //  * también devuelve una copia por si la necesitas.
+    //  * @param {mat4} matrix La matriz a múltiplicar.
+    //  * @returns {mat4} Una copia de la matriz resultante.
+    //  * @see {@link http://localhost:3000/pdf/S2.pdf#page=16 | S2.16}
+    //  * @author David
+    //  * @version 0.2 - rev.(02/14)
+    //  */
+    // multiplicarVector() {
+    //     return mat4.multiply(this._matriz, this._matriz, matrix);
+    // }
+
     /**
-     * @summary Multiplica una matriz por un vector, 
+     * @summary Multiplica dos matrices, 
      * una de las matrices es la de transformación,
      * también devuelve una copia por si la necesitas.
      * @param {mat4} matrix La matriz a múltiplicar.
@@ -83,21 +94,8 @@ export class TTransform extends TEntidad {
      * @author David
      * @version 0.2 - rev.(02/14)
      */
-    multiplicarVector() {
-        return mat4.multiply(this._matriz, this._matriz, matrix);
-    }
-
-    /**
-     * @summary Multiplica dos matrices, 
-     * una de las matrices es la de transformación,
-     * también devuelve una copia por si la necesitas.
-     * @returns {mat4} Una copia de la matriz resultante.
-     * @see {@link http://localhost:3000/pdf/S2.pdf#page=16 | S2.16}
-     * @author David
-     * @version 0.2 - rev.(02/14)
-     */
-    multiplicarMatriz() {
-        return mat4.multiply(this._matriz, this._matriz, this._matrizActual);
+    multiplicarMatriz(matrix) {
+        return mat4.multiply(matrix, this._matriz, matrix);
     }
 
 
@@ -131,7 +129,7 @@ export class TTransform extends TEntidad {
      */
     rotar(x, y, z, t) {
         const rads = t * Math.PI / 180;
-        return mat4.rotate(this._matrix, this._matrix, rads, vec3.fromValues(x, y, z));
+        return mat4.rotate(this._matriz, this._matriz, rads, vec3.fromValues(x, y, z));
     }
 
     /**
@@ -145,7 +143,7 @@ export class TTransform extends TEntidad {
      * @version 0.2 - rev.(02/14)
      */
     escalar(x, y, z) {
-        return mat4.scale(this._matrix, this._matrix, vec3.fromValues(x, y, z));
+        return mat4.scale(this._matriz, this._matriz, vec3.fromValues(x, y, z));
     }
 
     /**
@@ -155,21 +153,13 @@ export class TTransform extends TEntidad {
      * @see {@link http://localhost:3000/pdf/S2.pdf#page=24 | S2.24}
      * @author David
      * @version 0.2 - rev.(02/16)
-     * @todo Un momento, si la matriz actual se apila,
-     *  y despues se transforma, 
-     * entonces cuando desapilemos, 
-     * estará sin transformar. ¿Es correcto?
-     * No conozco el flujo.
+     * @todo No sale en las diapositivas el tema de la matriz estática,
+     * sería necesario preguntar.
      */
-    beginDraw(matriz) {
-        cargar(matriz); // Carga la matriz pasada como matriz actual.
-
-        Datos.pushPila(matriz); // Apilamos matriz actual.
-
+    beginDraw() {         // TransformedVector = TranslationMatrix * RotationMatrix * ScaleMatrix * OriginalVector;
+        Datos.pushPila(Datos.matriz); // Apilamos matriz actual.
         // Multiplicamos matriz actual x matriz de transformacion
-        multiplicarMatriz();
-
-        // TransformedVector = TranslationMatrix * RotationMatrix * ScaleMatrix * OriginalVector;
+        multiplicarMatriz(Datos.matriz);
     }
 
     /**
@@ -177,13 +167,10 @@ export class TTransform extends TEntidad {
      * @see {@link http://localhost:3000/pdf/S2.pdf#page=24 | S2.24}
      * @author David
      * @version 0.2 - rev.(02/16)
-     * @todo Un momento, si la matriz actual se apila,
-     *  y despues se transforma, 
-     * entonces cuando desapilemos, 
-     * estará sin transformar. ¿Es correcto?
-     * No conozco el flujo.
+     * @todo No sale en las diapositivas el tema de la matriz estática,
+     * sería necesario preguntar.
      */
     endDraw() {
-        this._matrizActual = Datos.popPila();
+        Datos.matriz = Datos.popPila();
     }
 }

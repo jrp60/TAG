@@ -1,3 +1,7 @@
+//===== Changelog ============================================
+//=  - 0.2 - 02/16 - Creación de los datos estáticos [David]
+//============================================================
+
 /**
   * @summary Clase principalmente para guardar datos estáticos.
   * @author David
@@ -10,8 +14,10 @@
     static CAMARA = 2;
     /** @type {int} Fase Dibujo */
     static DIBUJO = 3;
-    /** @type {any} Pila*/
+    /** @type {any} Pila */
     static _pila = [];
+    /** @type {mat4} Matriz Modelo */
+    static _matrizModelo;
  
     /**
       * @summary Introduce un nuevo elemento en la pila.
@@ -56,4 +62,23 @@
       return this._pila;
    }
  
+       /**
+      * @summary Establece una matriz modelo.
+      * @param {mat4} matrix La matriz modelo.
+      * @author David
+      * @version ¿¿?? - rev.(02/16)
+      */
+     static set matriz(matrix) {
+      this._matrizModelo = matrix;
+   }
+
+   /**
+     * @summary Coge la matriz modelo.
+     * @returns {mat4} La matriz modelo.
+     * @author David
+     * @version ¿¿?? - rev.(02/16)
+     */
+   static get matriz() {
+      return this._matrizModelo;
+   }
  }
