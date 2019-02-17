@@ -100,6 +100,8 @@ document.getElementById("arbol").onclick = () => {
     if (tipoEntidad==0) {
       console.log("transform");
       auxEntidad=new TTransform();
+      auxEntidad.identidad();
+      auxEntidad.trasladar(1,2,3);
     }
     else if (tipoEntidad==1) {
       console.log("luz");

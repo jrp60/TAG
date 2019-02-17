@@ -62,7 +62,7 @@ export class TNodo{
      * @author Javi
      * @version 0.1
      */
-    addPadre(nombre) {
+    addNombre(nombre) {
         this._nombre=nombre;
     }
 

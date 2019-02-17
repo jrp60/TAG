@@ -24,18 +24,19 @@ export class TTransform extends TEntidad {
     _matriz;
 
     /**
-     * @summary Devuelve la matriz identidad de tamaño 4 de glMatrix.
-     * @returns {mat4} La matriz identidad.
+     * @summary Carga la matriz identidad
+     * @returns {}
      * @see {@link http://localhost:3000/pdf/S2.pdf#page=16 | S2.16}
-     * @author David
-     * @version 0.2 - rev.(02/14)
+     * @author David - Javi
+     * @version 0.2 - rev.(02/14) - rev(02/17)
      */
     identidad() {
-        return mat4.identity(mat4.create());
+      this._matriz=mat4.identity(mat4.create());
+        //return mat4.identity(mat4.create());
     }
 
     /**
-     * @summary Copia la matriz dada, 
+     * @summary Copia la matriz dada,
      * para que TTransform lo transforme.
      * @param {mat4} matrix La matriz en glMatrix.
      * @see {@link http://localhost:3000/pdf/S2.pdf#page=16 | S2.16}
@@ -47,7 +48,7 @@ export class TTransform extends TEntidad {
     }
 
     /**
-     * @summary Transpone la matriz de transformación, 
+     * @summary Transpone la matriz de transformación,
      * también devuelve una copia por si la necesitas.
      * @returns {mat4} Una copia de la matriz transpuesta.
      * @see {@link http://localhost:3000/pdf/S2.pdf#page=16 | S2.16}
@@ -59,7 +60,7 @@ export class TTransform extends TEntidad {
     }
 
     /**
-     * @summary Invierte la matriz de transformación, 
+     * @summary Invierte la matriz de transformación,
      * también devuelve una copia por si la necesitas.
      * @returns {mat4} Una copia de la matriz inversa.
      * @see {@link http://localhost:3000/pdf/S2.pdf#page=16 | S2.16}
@@ -71,7 +72,7 @@ export class TTransform extends TEntidad {
     }
 
     // /**
-    //  * @summary Multiplica una matriz por un vector, 
+    //  * @summary Multiplica una matriz por un vector,
     //  * una de las matrices es la de transformación,
     //  * también devuelve una copia por si la necesitas.
     //  * @param {mat4} matrix La matriz a múltiplicar.
@@ -85,7 +86,7 @@ export class TTransform extends TEntidad {
     // }
 
     /**
-     * @summary Multiplica dos matrices, 
+     * @summary Multiplica dos matrices,
      * una de las matrices es la de transformación,
      * también devuelve una copia por si la necesitas.
      * @param {mat4} matrix La matriz a múltiplicar.
@@ -100,8 +101,8 @@ export class TTransform extends TEntidad {
 
 
     /**
-     * @summary Translada la matriz de transformación 
-     * según el vector que se le da, 
+     * @summary Translada la matriz de transformación
+     * según el vector que se le da,
      * también devuelve una copia por si la necesitas.
      * @param {float} x Axis X
      * @param {float} y Axis Y
@@ -111,13 +112,13 @@ export class TTransform extends TEntidad {
      * @author David
      * @version 0.2 - rev.(02/14)
      */
-    transladar(x, y, z) {
+    trasladar(x, y, z) {
         return mat4.translate(this._matriz, this._matriz, vec3.fromValues(x, y, z));
     }
 
     /**
-     * @summary Rota la matriz de transformación, 
-     * respecto a los grados y a la posición, 
+     * @summary Rota la matriz de transformación,
+     * respecto a los grados y a la posición,
      * también devuelve una copia por si la necesitas.
      * @param {float} x Axis X
      * @param {float} y Axis Y
@@ -133,7 +134,7 @@ export class TTransform extends TEntidad {
     }
 
     /**
-     * @summary Escala la matriz de transformación, 
+     * @summary Escala la matriz de transformación,
      * también devuelve una copia por si la necesitas.
      * @param {float} x Axis X
      * @param {float} y Axis Y
@@ -152,14 +153,17 @@ export class TTransform extends TEntidad {
      * @param {mat4} matriz Matriz actual
      * @see {@link http://localhost:3000/pdf/S2.pdf#page=24 | S2.24}
      * @author David
-     * @version 0.2 - rev.(02/16)
+     * @version 0.2 - rev.(02/16) - rev(02/17 Javi)
      * @todo No sale en las diapositivas el tema de la matriz estática,
      * sería necesario preguntar.
      */
     beginDraw() {         // TransformedVector = TranslationMatrix * RotationMatrix * ScaleMatrix * OriginalVector;
+
+        let aux= mat4.identity(mat4.create());
+        Datos.setmatriz(aux);
         Datos.pushPila(Datos.matriz); // Apilamos matriz actual.
         // Multiplicamos matriz actual x matriz de transformacion
-        multiplicarMatriz(Datos.matriz);
+        this.multiplicarMatriz(Datos.matriz);
     }
 
     /**
@@ -171,6 +175,7 @@ export class TTransform extends TEntidad {
      * sería necesario preguntar.
      */
     endDraw() {
-        Datos.matriz = Datos.popPila();
+        //Datos.matriz = Datos.popPila(); setter de antes
+        Datos.setmatriz(Datos.popPila());
     }
 }

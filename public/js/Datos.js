@@ -18,7 +18,10 @@
     static _pila = [];
     /** @type {mat4} Matriz Modelo */
     static _matrizModelo;
- 
+
+
+
+
     /**
       * @summary Introduce un nuevo elemento en la pila.
       * @param {any} element Cualquier elemento.
@@ -30,7 +33,7 @@
     static pushPila(element) {
        return this._pila.push(element);
     }
- 
+
     /**
       * @summary Coge el elemento más nuevo de la pila.
       * @returns {any} El último elemento de la pila.
@@ -61,14 +64,14 @@
    static get pila() {
       return this._pila;
    }
- 
+
        /**
       * @summary Establece una matriz modelo.
       * @param {mat4} matrix La matriz modelo.
       * @author David
       * @version ¿¿?? - rev.(02/16)
       */
-     static set matriz(matrix) {
+     static setmatriz(matrix) {
       this._matrizModelo = matrix;
    }
 
