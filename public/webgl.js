@@ -41,8 +41,7 @@ var raiz; // Variable global de Javi
 //= Phase 2: Primer motor stable.
 //===== Tutorial =============================================
 
-var gl; // Un variable global para el contexto WebGL
-var raiz;
+
 console.log(raiz);
 const canvas = document.getElementById("glcanvas");
 
@@ -116,10 +115,9 @@ document.getElementById("arbol").onclick = () => {
       auxEntidad=new TMalla();
     }
 
-    auxHijo.setEntidad(auxEntidad);
+    //auxHijo.entidad(auxEntidad);
+    auxHijo.entidad=auxEntidad;
     console.log(auxHijo);
-    console.log(raiz);
-    console.log("antes de petar");
     raiz.addHijo(auxHijo);
 
     console.log(raiz);
@@ -133,12 +131,24 @@ document.getElementById("arbol").onclick = () => {
       }
       else {
         let auxHijos=raiz.getHijos();
-        for (var i = 0; i < auxHijos.length; i++) {
-          raiz.remHijo(auxHijos[i]);
+        var i = 0
+        for (i ; i < auxHijos.length-1; i++) {
         }
+        raiz.remHijo(auxHijos[i]);
+      }
+    };
+
+    document.getElementById("draw").onclick = () => {
+      if (raiz==null) {
+        console.log("no hay ningun nodo");;
+      }
+      else {
+        raiz.draw();
       }
 
     };
+
+
 
     // document.getElementById("desplazaElimina").onclick = () => {
     //   let generacion = document.getElementsByName("generacion")[0].value;
@@ -161,7 +171,7 @@ function initWebGL(canvas) {
   console.log("hola mundo");
    gl = null;
 
-
+}
 
 
 

@@ -19,7 +19,7 @@ import { TEntidad } from './TEntidad.js';
  * @author David
  * @version 0.2
  */
-export class TNodo extends TEntidad {
+export class TNodo{
 
     /** @type {TEntidad} */
     _entidad;
@@ -167,12 +167,16 @@ export class TNodo extends TEntidad {
      * @todo Cambiar numero de beginDraw
      */
     draw() {
-        if (this.entidad != null) {
-            this.entidad.beginDraw(1);
-            for (const hijo of this._hijos) {
-                hijo.draw();
-            }
-            this.entidad.endDraw();
+
+        if (this._entidad != null) {
+          console.log("draw"+this._entidad);
+          this._entidad.beginDraw(1);
+        }
+        for (const hijo of this._hijos) {
+            hijo.draw();
+        }
+        if (this._entidad != null) {
+          this._entidad.endDraw();
         }
     }
 
