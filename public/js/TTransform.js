@@ -162,6 +162,8 @@ export class TTransform extends TEntidad {
         let aux= mat4.identity(mat4.create());
         Datos.setmatriz(aux);
         Datos.pushPila(Datos.matriz); // Apilamos matriz actual.
+        //console.log(Datos.pila);
+        console.log(JSON.stringify(Datos.pila));
         // Multiplicamos matriz actual x matriz de transformacion
         this.multiplicarMatriz(Datos.matriz);
     }
