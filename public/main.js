@@ -8,6 +8,7 @@
 //= 1.0 Para manejar la interfaz [David]
 //= (02/16) Añadir ligeras restricciones. [David]
 
+
 class Persona {
    constructor(nombre, altura) {
       this.nombre = nombre;

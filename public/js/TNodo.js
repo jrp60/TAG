@@ -169,7 +169,7 @@ export class TNodo{
     draw() {
 
         if (this._entidad != null) {
-          console.log("draw"+this._entidad);
+          console.log("haciendo draw de 1 nodo");
           this._entidad.beginDraw(1);
         }
         for (const hijo of this._hijos) {
