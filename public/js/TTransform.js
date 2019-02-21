@@ -179,5 +179,6 @@ export class TTransform extends TEntidad {
     endDraw() {
         //Datos.matriz = Datos.popPila(); setter de antes
         Datos.setmatriz(Datos.popPila());
+        console.log("Pasando por endDraw :D ");
     }
 }

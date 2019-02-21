@@ -39,8 +39,9 @@ export class TNodo{
      * @author Javi
      * @version 0.1
      */
-    constructor(){
+    constructor(name){
       this._hijos=[];
+      this._nombre=name
     }
 
     /**
@@ -169,7 +170,7 @@ export class TNodo{
     draw() {
 
         if (this._entidad != null) {
-          console.log("haciendo draw de 1 nodo");
+          console.log("Hola, soy el nodo: "+this._nombre);
           this._entidad.beginDraw(1);
         }
         for (const hijo of this._hijos) {
