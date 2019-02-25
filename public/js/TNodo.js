@@ -8,6 +8,7 @@
 //=		- Transformaciones
 //===== Changelog ============================================
 //=  - 0.2 Init. S2.14 [David]
+//=  - 02/14 - Termina de transcribir lo que tenía de C++ a JS [David]
 //=  - 02/16 Añadiendo metodos para el funcionamiento del arbol[Javi]
 //============================================================
 import { TEntidad } from './TEntidad.js';

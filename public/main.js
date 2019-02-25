@@ -1,12 +1,13 @@
 //===== David Liqiu Hu =======================================
 //= Mejoras en client side para los datos de la interfaz
 //===== Version ==============================================
-//= 1.0 - rev.(02/16)
+//= 1.0 - rev.(02/24)
 //===== Description ==========================================
 //= Es el javascript que usa la interfaz para gestionar los datos.
 //===== Changelog ============================================
 //= 1.0 Para manejar la interfaz [David]
 //= (02/16) Añadir ligeras restricciones. [David]
+//= (02/24) Cambiar condiciones. [David]
 
 
 class Persona {
@@ -33,7 +34,7 @@ window.onload = () => {
 
 
    document.getElementById("mas").onclick = () => {
-      if (i === 30) { // Podemos ampliarlo a más, pero la vista está demasiado sobrecargado.
+      if (i <= 30) { // Podemos ampliarlo a más, pero la vista está demasiado sobrecargado.
          const base = document.getElementById("base");
          const base_copy = base.cloneNode(true);
          base_copy.id += (i++);
@@ -43,7 +44,7 @@ window.onload = () => {
 
 
    document.getElementById("menos").onclick = () => {
-      if (i === 1) { // Para dejar al menos 1 formulario
+      if (i > 1) { // Para dejar al menos 1 formulario
          const formulario = document.getElementById("formulario");
          formulario.removeChild(formulario.lastChild);
          i--;
