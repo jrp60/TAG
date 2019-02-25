@@ -172,7 +172,7 @@ export class TNodo{
 
         if (this._entidad != null) {
           console.log("Hola, soy el nodo: "+this._nombre);
-          this._entidad.beginDraw(1);
+          this._entidad.beginDraw(2);
         }
         for (const hijo of this._hijos) {
             hijo.draw();

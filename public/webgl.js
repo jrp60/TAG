@@ -52,6 +52,8 @@ var raiz; // Variable global de Javi
 //= Phase 2: Primer motor stable.
 //===== Tutorial =============================================
 
+let aux= mat4.identity(mat4.create());
+Datos.setmatriz(aux);
 
 console.log(raiz);
 if (raiz == null) {

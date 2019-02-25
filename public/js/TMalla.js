@@ -1,5 +1,6 @@
 //===== Changelog ============================================
 //=  - 0.2 Init. S2.18 [David]
+//=  - 02/25 - Metodo draw [Javi]
 //============================================================
 
 import { TEntidad } from './TEntidad.js';
@@ -29,17 +30,19 @@ export class TMalla extends TEntidad {
     }
 
     /**
-     * @summary Objeto visualizable
-     * @see {@link http://localhost:3000/pdf/S2.pdf#page=18 | S2.18}
-     * @author David
-     * @version 0.2
+     * @summary Objeto visualizable. LLama al draw del TRecursoMalla asignado si es la pasada de dibujar
+     * @see {@link http://localhost:3000/pdf/S2.pdf#page=25 | S2.25}
+     * @author  Javi
+     * @version 0.3
      */
-    beginDraw() {
-        // 	malla->draw();
+    beginDraw(pasada) {
+      if(pasada==3){
+        this._malla.draw();
+      }
     }
 
     /**
-     * @summary Objeto visualizable
+     * @summary Objeto visualizable.
      * @see {@link http://localhost:3000/pdf/S2.pdf#page=18 | S2.18}
      * @author David
      * @version 0.2

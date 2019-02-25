@@ -18,7 +18,12 @@ const vec3 = glMatrix.vec3;
  * @see {@link http://localhost:3000/pdf/S2.pdf#page=16 | S2.16}
  * @author David
  * @version 0.2 - rev.(02/16)
+
+
  */
+
+
+
 export class TTransform extends TEntidad {
     /** @type {mat4} glMatrix.ARRAY_TYPE(16) Matriz de transformación */
     _matriz;
@@ -159,8 +164,7 @@ export class TTransform extends TEntidad {
      */
     beginDraw() {         // TransformedVector = TranslationMatrix * RotationMatrix * ScaleMatrix * OriginalVector;
 
-        let aux= mat4.identity(mat4.create());
-        Datos.setmatriz(aux);
+
         Datos.pushPila(Datos.matriz); // Apilamos matriz actual.
         //console.log(Datos.pila);
         console.log(JSON.stringify(Datos.pila));
