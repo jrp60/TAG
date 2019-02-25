@@ -1,5 +1,6 @@
 //===== Changelog ============================================
 //=  - 0.2 Init. S2.17 [David]
+//=  - 02/16 Añadiendo atributos a la clase [Javi]
 //============================================================
 
 import { TEntidad } from './TEntidad.js';

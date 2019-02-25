@@ -5,9 +5,10 @@
 //=  - 0.2 Arbol de la escena [David]
 //=  - 02/16 - Reordenar para dejarlo todo mas claro y pila [David]
 //=  - 02/17 - Funciones para montar un arbol(probar nodos y entidad transform y sus metodos) [Javi]
-//=  - 02/16 - Montando nuestro arbol de la escena [Javi]
+//=  - 02/19 - Montando el arbol de la escena [Javi]
 //=  - 02/24 - Cambiado de lugar el punto de referencia con Three,
 //=  añadido un gestor de recursos con una única prueba de malla [David]
+//=  - 02/25 - Corrigiendo errores y añadiendo los nombres a los nodos [Javi]
 
 import { Datos } from './js/Datos.js';
 import { TEntidad } from './js/TEntidad.js';
@@ -54,7 +55,6 @@ var raiz; // Variable global de Javi
 
 console.log(raiz);
 if (raiz == null) {
-  console.log("hola mundo 2");
   raiz = new TNodo("raiz");
   console.log(raiz);
 }
@@ -63,109 +63,89 @@ if (raiz == null) {
 //Nodo  TTransform rotacion 1
 var r1;
 var n1;
-console.log("transform");
+
 r1 = new TTransform();
 r1.identidad();
 //auxEntidad.trasladar(1,2,3);
-n1 = new TNodo("n1");
+n1 = new TNodo("n1-TTransofrm");
 n1.entidad = r1;
 n1.addPadre(raiz);
 raiz.addHijo(n1);
-console.log("caracola");
-console.log(raiz);
 //Nodo  TTransform traslacion 1
 var t1;
 var n2;
-console.log("transform");
 t1 = new TTransform();
 t1.identidad();
 //auxEntidad.trasladar(1,2,3);
-n2 = new TNodo("n2");
+n2 = new TNodo("n2-TTransofrm");
 n2.entidad = t1;
 n2.addPadre(n1);
 n1.addHijo(n2);
-console.log("caracola 2");
-console.log(raiz);
 //Nodo  TTransform escalado 1
 var e1;
 var n3;
-console.log("transform");
+
 e1 = new TTransform();
 e1.identidad();
 //auxEntidad.trasladar(1,2,3);
-n3 = new TNodo("n3");
+n3 = new TNodo("n3-TTransofrm");
 n3.entidad = e1;
 n3.addPadre(n2);
 n2.addHijo(n3);
-console.log("caracola 2");
-console.log(raiz);
 //Nodo  TMalla  1
 var m1;
 var n4;
-console.log("malla");
 m1 = new TMalla();
 //m1.identidad();
 //auxEntidad.trasladar(1,2,3);
-n4 = new TNodo("n4");
+n4 = new TNodo("n4-TMalla");
 n4.entidad = m1;
 n4.addPadre(n3);
 n3.addHijo(n4);
-console.log("caracola 2");
-console.log(raiz);
 
 //PERSONA 2
 //Nodo  TTransform rotacion 2
 var r2;
 var n5;
-console.log("transform");
+
 r2 = new TTransform();
 r2.identidad();
 //auxEntidad.trasladar(1,2,3);
-n5 = new TNodo("n5");
+n5 = new TNodo("n5-TTransofrm");
 n5.entidad = r2;
 n5.addPadre(raiz);
 raiz.addHijo(n5);
-console.log("caracola");
-console.log(raiz);
 //Nodo  TTransform traslacion 2
 var t2;
 var n6;
-console.log("transform");
+
 t2 = new TTransform();
 t2.identidad();
 //auxEntidad.trasladar(1,2,3);
-n6 = new TNodo("n6");
+n6 = new TNodo("n6-TTransofrm");
 n6.entidad = t2;
 n6.addPadre(n5);
 n5.addHijo(n6);
-console.log("caracola 2");
-console.log(raiz);
 //Nodo  TTransform escalado 2
 var e2;
 var n7;
-console.log("transform");
 e2 = new TTransform();
 e2.identidad();
 //auxEntidad.trasladar(1,2,3);
-n7 = new TNodo("n7");
+n7 = new TNodo("n7-TTransofrm");
 n7.entidad = e2;
 n7.addPadre(n6);
 n6.addHijo(n7);
-console.log("caracola 2");
-console.log(raiz);
 //Nodo  TMalla  1
 var m2;
 var n8;
-console.log("malla");
 m2 = new TMalla();
 //m1.identidad();
 //auxEntidad.trasladar(1,2,3);
-n8 = new TNodo("n8");
+n8 = new TNodo("n8-TMalla");
 n8.entidad = m2;
 n8.addPadre(n7);
 n7.addHijo(n8);
-console.log("caracola 2");
-console.log(raiz);
 //PERSONA 3
 //PERSONA 4
 //PERSONA 5
@@ -174,108 +154,85 @@ console.log(raiz);
 //Nodo  TTransform rotacion 6
 var r6;
 var n21;
-console.log("transform");
 r6 = new TTransform();
 r6.identidad();
 //auxEntidad.trasladar(1,2,3);
-n21 = new TNodo("n21");
+n21 = new TNodo("n21-TTransofrm");
 n21.entidad = r6;
 n21.addPadre(raiz);
 raiz.addHijo(n21);
-console.log("caracola");
-console.log(raiz);
 //Nodo  TTransform traslacion 2
 var t6;
 var n22;
-console.log("transform");
 t6 = new TTransform();
 t6.identidad();
 //auxEntidad.trasladar(1,2,3);
-n22 = new TNodo("n22");
+n22 = new TNodo("n22-TTransofrm");
 n22.entidad = t6;
 n22.addPadre(n21);
 n21.addHijo(n22);
-console.log("caracola 2");
-console.log(raiz);
 //Nodo  TTransform escalado 2
 var e6;
 var n23;
-console.log("transform");
 e6 = new TTransform();
 e6.identidad();
 //auxEntidad.trasladar(1,2,3);
-n23 = new TNodo("n23");
+n23 = new TNodo("n23-TTransofrm");
 n23.entidad = e6;
 n23.addPadre(n22);
 n22.addHijo(n23);
-console.log("caracola 2");
-console.log(raiz);
 //Nodo  TMalla  1
 var m6;
 var n24;
-console.log("malla");
-m6 = new TMalla();
+m6 = new TLuz();
 //m1.identidad();
 //auxEntidad.trasladar(1,2,3);
-n24 = new TNodo("n24");
+n24 = new TNodo("n24-TLuz");
 n24.entidad = m6;
 n24.addPadre(n23);
 n23.addHijo(n24);
-console.log("caracola 2");
-console.log(raiz);
 
 //CAMARA 1
 //Nodo  TTransform rotacion 7
 var r7;
 var n25;
-console.log("transform");
 r7 = new TTransform();
 r7.identidad();
 //auxEntidad.trasladar(1,2,3);
-n25 = new TNodo("n25");
+n25 = new TNodo("n25-TTransofrm");
 n25.entidad = r7;
 n25.addPadre(raiz);
 raiz.addHijo(n25);
-console.log("caracola");
-console.log(raiz);
 //Nodo  TTransform traslacion 2
 var t7;
 var n26;
-console.log("transform");
 t7 = new TTransform();
 t7.identidad();
 //auxEntidad.trasladar(1,2,3);
-n26 = new TNodo("n26");
+n26 = new TNodo("n26-TTransofrm");
 n26.entidad = t7;
 n26.addPadre(n25);
 n25.addHijo(n26);
-console.log("caracola 2");
-console.log(raiz);
 //Nodo  TTransform escalado 2
 var e7;
 var n27;
-console.log("transform");
 e7 = new TTransform();
 e7.identidad();
 //auxEntidad.trasladar(1,2,3);
-n27 = new TNodo("n27");
+n27 = new TNodo("n27-TTransofrm");
 n27.entidad = e7;
 n27.addPadre(n26);
 n26.addHijo(n27);
-console.log("caracola 2");
-console.log(raiz);
 //Nodo  TMalla  1
 var m8;
 var n28;
-console.log("malla");
-m8 = new TMalla();
+m8 = new TCamara();
 //m1.identidad();
 //auxEntidad.trasladar(1,2,3);
-n28 = new TNodo("n28");
+n28 = new TNodo("n28-TCamara");
 n28.entidad = m8;
 n28.addPadre(n27);
 n27.addHijo(n28);
-console.log("caracola 2");
 console.log(raiz);
 
 
@@ -312,7 +269,7 @@ if (gl) {
 
 
 //===== NOTA =============================================
-//=  - El siguiente código es para que Javi vea como 
+//=  - El siguiente código es para que Javi vea como
 //=  funciona el gestor de recursos
 //===== NOTA =============================================
 
@@ -484,7 +441,7 @@ grecursos.getRecurso('female-croupier-2013-03-26').then(object => {
 //     console.log(tipoEntidad);
 //
 //     if (tipoEntidad==0) {
-//       console.log("transform");
+//
 //       auxEntidad=new TTransform();
 //       auxEntidad.identidad();
 //       auxEntidad.trasladar(1,2,3);
