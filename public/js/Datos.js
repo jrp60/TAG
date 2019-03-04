@@ -1,5 +1,7 @@
 //===== Changelog ============================================
 //=  - 0.2 - 02/16 - Creación de los datos estáticos [David]
+//=  - 03/04 - Se ve que es necesario que gl
+//=  sea una variable global [David]
 //============================================================
 
 /**
@@ -18,6 +20,8 @@
     static _pila = [];
     /** @type {mat4} Matriz Modelo */
     static _matrizModelo;
+
+    static gl;
 
 
 

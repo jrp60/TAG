@@ -1,6 +1,8 @@
 //===== Changelog ============================================
 //=  - 0.3 Init. S3.20 [David]
-//=  - (02/24) Gestion de recursos malla. [David]
+//=  - 02/24 - Gestion de recursos malla. [David]
+//=  - 03/04 - Integración de comandos OpenGL, pero no
+//= se puede debido a problemas de estructura. [David]
 //============================================================
 
 import { TFichero } from './TFichero.js';
@@ -33,8 +35,11 @@ export class TRecursoMalla extends TRecurso {
     /** @type {int} */
     _nTriangulos;
 
+    // Auxiliar
     _mostrar;
 
+    // Auxiliar de prueba    
+    scene;
     constructor(nombre) {
         super(nombre);
         this._vertices = [];
@@ -166,6 +171,7 @@ export class TRecursoMalla extends TRecurso {
         });
 
     }
+    
     /**
      * @summary Vuelca los buffers de datos en OpenGL.
      * Consejo: utilizar buffers de datos adaptados a los que maneja OpenGL:
@@ -176,6 +182,60 @@ export class TRecursoMalla extends TRecurso {
      * @version 0.3
      */
     draw() {
+        program.positionAttribute = gl.getAttribLocation(program, 'pos');
+        gl.enableVertexAttribArray(program.positionAttribute);
+        program.normalAttribute = gl.getAttribLocation(program, 'normal');
+        gl.enableVertexAttribArray(program.normalAttribute);
+
+        var vertexBuffer = gl.createBuffer();
+
+        gl.bindBuffer(gl.ARRAY_BUFFER, vertexBuffer);
+        gl.bufferData(gl.ARRAY_BUFFER, this._mostrar.vertices, gl.STATIC_DRAW);
+        gl.vertexAttribPointer(
+            program.positionAttribute, 3, gl.FLOAT, gl.FALSE,
+            Float32Array.BYTES_PER_ELEMENT * 6, 0);
+        gl.vertexAttribPointer(
+            program.normalAttribute, 3, gl.FLOAT, gl.FALSE,
+            Float32Array.BYTES_PER_ELEMENT * 6,
+            Float32Array.BYTES_PER_ELEMENT * 3);
+
+        var projectionMatrix = mat4.create();
+        mat4.perspective(
+            projectionMatrix, 0.75, canvas.width / canvas.height,
+            0.1, 100);
+        program.projectionMatrixUniform = gl.getUniformLocation(
+            program, 'projectionMatrix');
+        gl.uniformMatrix4fv(
+            program.projectionMatrixUniform, gl.FALSE,
+            projectionMatrix);
+
+        var viewMatrix = mat4.create();
+        program.viewMatrixUniform = gl.getUniformLocation(
+            program, 'viewMatrix');
+        gl.uniformMatrix4fv(
+            program.viewMatrixUniform, gl.FALSE, viewMatrix);
+
+        var modelMatrix = mat4.create();
+        mat4.identity(modelMatrix);
+        mat4.translate(modelMatrix, modelMatrix, [0, 0, -4]);
+        program.modelMatrixUniform = gl.getUniformLocation(
+            program, 'modelMatrix');
+        gl.uniformMatrix4fv(
+            program.modelMatrixUniform, gl.FALSE, modelMatrix);
+
+        this._mostrar.modelMatrix = modelMatrix;
+        this._mostrar.vertexBuffer = vertexBuffer;
+        gl.bindBuffer(gl.ARRAY_BUFFER, null);
+        gl.useProgram(null);
+        console.log("?");
+        this.scene = {
+            program: program,
+            object: this._mostrar,
+            start: Date.now(),
+            projectionMatrix: projectionMatrix,
+            viewMatrix: viewMatrix
+        };
+
     }
 
 

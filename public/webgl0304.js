@@ -52,7 +52,7 @@ var raiz; // Variable global de Javi
 //= Phase 2: Primer motor stable.
 //===== Tutorial =============================================
 
-let aux = mat4.identity(mat4.create());
+let aux= mat4.identity(mat4.create());
 Datos.setmatriz(aux);
 
 console.log(raiz);
@@ -98,7 +98,6 @@ n2.addHijo(n3);
 var m1;
 var n4;
 m1 = new TMalla();
-m1.cargarMalla('female-croupier-2013-03-26');
 //m1.identidad();
 //auxEntidad.trasladar(1,2,3);
 n4 = new TNodo("n4-TMalla");
@@ -187,10 +186,11 @@ n22.addHijo(n23);
 //Nodo  TMalla  1
 var m6;
 var n24;
-
+m6 = new TLuz();
 //m1.identidad();
 //auxEntidad.trasladar(1,2,3);
 n24 = new TNodo("n24-TLuz");
+n24.entidad = m6;
 n24.addPadre(n23);
 n23.addHijo(n24);
 
@@ -300,22 +300,53 @@ gl.attachShader(program, fs);
 gl.linkProgram(program);
 gl.useProgram(program);
 
-Datos.gl = gl;
+// Render
+function render(gl, scene, timestamp, previousTimestamp) {
+  gl.viewport(0, 0, canvas.width, canvas.height);
+  gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+  gl.useProgram(scene.program);
+
+  var delta = (0.125 * Math.PI) / (timestamp - previousTimestamp);
+  // console.log(scene.object);
+  gl.uniformMatrix4fv(
+    scene.program.modelMatrixUniform, gl.FALSE,
+    scene.object.modelMatrix);
+
+  var normalMatrix = mat3.create();
+  mat3.normalFromMat4(
+    normalMatrix,
+    mat4.multiply(
+      mat4.create(),
+      scene.object.modelMatrix,
+      scene.viewMatrix));
+  gl.uniformMatrix3fv(
+    scene.program.normalMatrixUniform, gl.FALSE, normalMatrix);
+  gl.bindBuffer(gl.ARRAY_BUFFER, scene.object.vertexBuffer);
+  gl.drawArrays(gl.TRIANGLES, 0, scene.object.vertexCount);
+
+  gl.bindBuffer(gl.ARRAY_BUFFER, null);
+  gl.useProgram(null);
+  requestAnimationFrame(function (time) {
+    render(gl, scene, time, timestamp);
+  });
+}
+
 
 function resizeCanvas() {
   var width = canvas.clientWidth;
   var height = canvas.clientHeight;
   if (canvas.width != width ||
-    canvas.height != height) {
+      canvas.height != height) {
     canvas.width = width;
     canvas.height = height;
   }
 }
 
-
 window.addEventListener('resize', resizeCanvas);
 // Gestor de recursos
 
+console.error('// Cómo funciona el gestor de recursos');
+const grecursos = new TGestorRecursos();
 // grecursos.getRecurso('female-croupier-2013-03-26').then(res => {
 //   console.log(res);
 // });
@@ -325,7 +356,70 @@ window.addEventListener('resize', resizeCanvas);
 // grecursos.getRecurso('female-croupier-2013-03-26').then(res => {
 //   console.log(res);
 // });
+grecursos.getRecurso('female-croupier-2013-03-26').then(object => {
 
+  console.log(object._mostrar);
+
+  console.log(grecursos);
+
+  program.positionAttribute = gl.getAttribLocation(program, 'pos');
+  gl.enableVertexAttribArray(program.positionAttribute);
+  program.normalAttribute = gl.getAttribLocation(program, 'normal');
+  gl.enableVertexAttribArray(program.normalAttribute);
+
+  var vertexBuffer = gl.createBuffer();
+
+  gl.bindBuffer(gl.ARRAY_BUFFER, vertexBuffer);
+  gl.bufferData(gl.ARRAY_BUFFER, object._mostrar.vertices, gl.STATIC_DRAW);
+  gl.vertexAttribPointer(
+    program.positionAttribute, 3, gl.FLOAT, gl.FALSE,
+    Float32Array.BYTES_PER_ELEMENT * 6, 0);
+  gl.vertexAttribPointer(
+    program.normalAttribute, 3, gl.FLOAT, gl.FALSE,
+    Float32Array.BYTES_PER_ELEMENT * 6,
+    Float32Array.BYTES_PER_ELEMENT * 3);
+
+  var projectionMatrix = mat4.create();
+  mat4.perspective(
+    projectionMatrix, 0.75, canvas.width / canvas.height,
+    0.1, 100);
+  program.projectionMatrixUniform = gl.getUniformLocation(
+    program, 'projectionMatrix');
+  gl.uniformMatrix4fv(
+    program.projectionMatrixUniform, gl.FALSE,
+    projectionMatrix);
+
+  var viewMatrix = mat4.create();
+  program.viewMatrixUniform = gl.getUniformLocation(
+    program, 'viewMatrix');
+  gl.uniformMatrix4fv(
+    program.viewMatrixUniform, gl.FALSE, viewMatrix);
+
+  var modelMatrix = mat4.create();
+  mat4.identity(modelMatrix);
+  mat4.translate(modelMatrix, modelMatrix, [0, 0, -4]);
+  program.modelMatrixUniform = gl.getUniformLocation(
+    program, 'modelMatrix');
+  gl.uniformMatrix4fv(
+    program.modelMatrixUniform, gl.FALSE, modelMatrix);
+
+  object._mostrar.modelMatrix = modelMatrix;
+  object._mostrar.vertexBuffer = vertexBuffer;
+  gl.bindBuffer(gl.ARRAY_BUFFER, null);
+  gl.useProgram(null);
+  var scene = {
+    program: program,
+    object: object._mostrar,
+    start: Date.now(),
+    projectionMatrix: projectionMatrix,
+    viewMatrix: viewMatrix
+  };
+
+  requestAnimationFrame(function (timestamp) {
+    render(gl, scene, timestamp, 0);
+  });
+
+});
 //
 // document.getElementById("arbol").onclick = () => {
 //   if (raiz==null) {
@@ -401,7 +495,6 @@ document.getElementById("draw").onclick = () => {
   else {
     raiz.draw();
   }
-
 };
 //     document.getElementById("niu").onclick = () => {
 //       if (raiz==null || raiz.getHijos().length==0) {
@@ -441,7 +534,7 @@ document.getElementById("draw").onclick = () => {
 
 function initWebGL(canvas) {
   console.log("hola mundo");
-  gl = null;
+   gl = null;
 
 }
 
