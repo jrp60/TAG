@@ -53,8 +53,9 @@ export class TNodo{
      * @author Javi
      * @version 0.1
      */
-    addPadre(padre) {
+    set padre(padre) {
         this._padre=padre;
+        return true;
     }
     /**
      * @summary Añade nombre.
@@ -64,8 +65,9 @@ export class TNodo{
      * @author Javi
      * @version 0.1
      */
-    addNombre(nombre) {
+    set nombre(nombre) {
         this._nombre=nombre;
+        return true;
     }
 
 

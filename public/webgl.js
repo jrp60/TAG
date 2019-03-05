@@ -9,6 +9,7 @@
 //=  - 02/24 - Cambiado de lugar el punto de referencia con Three,
 //=  añadido un gestor de recursos con una única prueba de malla [David]
 //=  - 02/25 - Corrigiendo errores y añadiendo los nombres a los nodos [Javi]
+//=  - 03/04 - Usando TMotorTAG como escena y añadiendo los nodos en esa variable [Javi]
 
 import { Datos } from './js/Datos.js';
 import { TEntidad } from './js/TEntidad.js';
@@ -18,7 +19,7 @@ import { TFichero } from './js/TFichero.js';
 import { TGestorRecursos } from './js/TGestorRecursos.js';
 import { TLuz } from './js/TLuz.js';
 import { TMalla } from './js/TMalla.js';
-import { TMotorTag } from './js/TMotorTAG.js';
+import { TMotorTAG } from './js/TMotorTAG.js';
 import { TNodo } from './js/TNodo.js';
 import { TRecurso } from './js/TRecurso.js';
 import { TRecursoMalla } from './js/TRecursoMalla.js';
@@ -30,8 +31,10 @@ const mat4 = glMatrix.mat4;
 const mat3 = glMatrix.mat3;
 /** @type {vec3} glMatrix.ARRAY_TYPE(3)*/
 const vec3 = glMatrix.vec3;
+
 var gl = null; // Un variable global para el contexto WebGL
-var raiz; // Variable global de Javi
+var raiz = new TMotorTAG; // Variable global de Javi
+console.log(raiz);
 
 //===== David Liqiu Hu =======================================
 //= Tutorial WebGL
@@ -55,187 +58,230 @@ var raiz; // Variable global de Javi
 let aux = mat4.identity(mat4.create());
 Datos.setmatriz(aux);
 
-console.log(raiz);
-if (raiz == null) {
-  raiz = new TNodo("raiz");
-  console.log(raiz);
-}
 
-//PERSONA 1
-//Nodo  TTransform rotacion 1
-var r1;
-var n1;
 
-r1 = new TTransform();
-r1.identidad();
-//auxEntidad.trasladar(1,2,3);
-n1 = new TNodo("n1-TTransofrm");
-n1.entidad = r1;
-n1.addPadre(raiz);
-raiz.addHijo(n1);
-//Nodo  TTransform traslacion 1
-var t1;
-var n2;
-t1 = new TTransform();
-t1.identidad();
-//auxEntidad.trasladar(1,2,3);
-n2 = new TNodo("n2-TTransofrm");
-n2.entidad = t1;
-n2.addPadre(n1);
-n1.addHijo(n2);
-//Nodo  TTransform escalado 1
-var e1;
-var n3;
-
-e1 = new TTransform();
-e1.identidad();
-//auxEntidad.trasladar(1,2,3);
-n3 = new TNodo("n3-TTransofrm");
-n3.entidad = e1;
-n3.addPadre(n2);
-n2.addHijo(n3);
-//Nodo  TMalla  1
-var m1;
-var n4;
-m1 = new TMalla();
-m1.cargarMalla('female-croupier-2013-03-26');
-//m1.identidad();
-//auxEntidad.trasladar(1,2,3);
-n4 = new TNodo("n4-TMalla");
-n4.entidad = m1;
-n4.addPadre(n3);
-n3.addHijo(n4);
-
-//PERSONA 2
-//Nodo  TTransform rotacion 2
-var r2;
-var n5;
-
-r2 = new TTransform();
-r2.identidad();
-//auxEntidad.trasladar(1,2,3);
-n5 = new TNodo("n5-TTransofrm");
-n5.entidad = r2;
-n5.addPadre(raiz);
-raiz.addHijo(n5);
-//Nodo  TTransform traslacion 2
-var t2;
-var n6;
-
-t2 = new TTransform();
-t2.identidad();
-//auxEntidad.trasladar(1,2,3);
-n6 = new TNodo("n6-TTransofrm");
-n6.entidad = t2;
-n6.addPadre(n5);
-n5.addHijo(n6);
-//Nodo  TTransform escalado 2
-var e2;
-var n7;
-e2 = new TTransform();
-e2.identidad();
-//auxEntidad.trasladar(1,2,3);
-n7 = new TNodo("n7-TTransofrm");
-n7.entidad = e2;
-n7.addPadre(n6);
-n6.addHijo(n7);
-//Nodo  TMalla  1
-var m2;
-var n8;
-m2 = new TMalla();
-//m1.identidad();
-//auxEntidad.trasladar(1,2,3);
-n8 = new TNodo("n8-TMalla");
-n8.entidad = m2;
-n8.addPadre(n7);
-n7.addHijo(n8);
-//PERSONA 3
-//PERSONA 4
-//PERSONA 5
 
 //LUZ 1
-//Nodo  TTransform rotacion 6
-var r6;
-var n21;
-r6 = new TTransform();
-r6.identidad();
-//auxEntidad.trasladar(1,2,3);
-n21 = new TNodo("n21-TTransofrm");
-n21.entidad = r6;
-n21.addPadre(raiz);
-raiz.addHijo(n21);
-//Nodo  TTransform traslacion 2
-var t6;
-var n22;
-t6 = new TTransform();
-t6.identidad();
-//auxEntidad.trasladar(1,2,3);
-n22 = new TNodo("n22-TTransofrm");
-n22.entidad = t6;
-n22.addPadre(n21);
-n21.addHijo(n22);
-//Nodo  TTransform escalado 2
-var e6;
-var n23;
-e6 = new TTransform();
-e6.identidad();
-//auxEntidad.trasladar(1,2,3);
-n23 = new TNodo("n23-TTransofrm");
-n23.entidad = e6;
-n23.addPadre(n22);
-n22.addHijo(n23);
-//Nodo  TMalla  1
-var m6;
-var n24;
-
-//m1.identidad();
-//auxEntidad.trasladar(1,2,3);
-n24 = new TNodo("n24-TLuz");
-n24.addPadre(n23);
-n23.addHijo(n24);
+//rotacion-l1
+var rl1=raiz.crearTransform();
+raiz.crearNodo(raiz._escena, rl1, "rotacion-l1" )
+//traslacion-l1
+var tl1=raiz.crearTransform();
+raiz.crearNodo(raiz._escena.getHijo(0), tl1, "traslacion-l1");
+//escalado-l1
+var el1=raiz.crearTransform();
+raiz.crearNodo(raiz._escena.getHijo(0).getHijo(0), el1, "escalado-l1");
+//luz1
+var l1=raiz.crearLuz();
+raiz.crearNodo(raiz._escena.getHijo(0).getHijo(0).getHijo(0), l1, "luz-1");
 
 //CAMARA 1
-//Nodo  TTransform rotacion 7
-var r7;
-var n25;
-r7 = new TTransform();
-r7.identidad();
-//auxEntidad.trasladar(1,2,3);
-n25 = new TNodo("n25-TTransofrm");
-n25.entidad = r7;
-n25.addPadre(raiz);
-raiz.addHijo(n25);
-//Nodo  TTransform traslacion 2
-var t7;
-var n26;
-t7 = new TTransform();
-t7.identidad();
-//auxEntidad.trasladar(1,2,3);
-n26 = new TNodo("n26-TTransofrm");
-n26.entidad = t7;
-n26.addPadre(n25);
-n25.addHijo(n26);
-//Nodo  TTransform escalado 2
-var e7;
-var n27;
-e7 = new TTransform();
-e7.identidad();
-//auxEntidad.trasladar(1,2,3);
-n27 = new TNodo("n27-TTransofrm");
-n27.entidad = e7;
-n27.addPadre(n26);
-n26.addHijo(n27);
-//Nodo  TMalla  1
-var m8;
-var n28;
-m8 = new TCamara();
-//m1.identidad();
-//auxEntidad.trasladar(1,2,3);
-n28 = new TNodo("n28-TCamara");
-n28.entidad = m8;
-n28.addPadre(n27);
-n27.addHijo(n28);
-console.log(raiz);
+//rotacion-c1
+var rc1=raiz.crearTransform();
+raiz.crearNodo(raiz._escena, rc1, "rotacion-c1" )
+//traslacion-c1
+var tc1=raiz.crearTransform();
+raiz.crearNodo(raiz._escena.getHijo(1), tc1, "traslacion-c1");
+//escalado-c1
+var ec1=raiz.crearTransform();
+raiz.crearNodo(raiz._escena.getHijo(1).getHijo(0), ec1, "escalado-c1");
+//camara1
+var c1=raiz.crearCamara();
+raiz.crearNodo(raiz._escena.getHijo(1).getHijo(0).getHijo(0), c1, "camara-1");
+
+//PERSONA 1
+//rotacion-p1
+var rp1=raiz.crearTransform();
+raiz.crearNodo(raiz._escena, rp1, "rotacion-p1" )
+//traslacion-p1
+var tp1=raiz.crearTransform();
+raiz.crearNodo(raiz._escena.getHijo(2), tp1, "traslacion-p1");
+//escalado-p1
+var ep1=raiz.crearTransform();
+raiz.crearNodo(raiz._escena.getHijo(2).getHijo(0), ep1, "escalado-p1");
+//malla-p1
+var mp1=raiz.crearMalla('female-croupier-2013-03-26');
+raiz.crearNodo(raiz._escena.getHijo(2).getHijo(0).getHijo(0), mp1, "malla-p1");
+
+console.log(raiz._escena);
+
+
+//
+// //PERSONA 1
+// //Nodo  TTransform rotacion 1
+// var r1;
+// var n1;
+//
+// r1 = new TTransform();
+// r1.identidad();
+// //auxEntidad.trasladar(1,2,3);
+// n1 = new TNodo("n1-TTransofrm");
+// n1.entidad = r1;
+// n1.addPadre(raiz);
+// raiz.addHijo(n1);
+// //Nodo  TTransform traslacion 1
+// var t1;
+// var n2;
+// t1 = new TTransform();
+// t1.identidad();
+// //auxEntidad.trasladar(1,2,3);
+// n2 = new TNodo("n2-TTransofrm");
+// n2.entidad = t1;
+// n2.addPadre(n1);
+// n1.addHijo(n2);
+// //Nodo  TTransform escalado 1
+// var e1;
+// var n3;
+//
+// e1 = new TTransform();
+// e1.identidad();
+// //auxEntidad.trasladar(1,2,3);
+// n3 = new TNodo("n3-TTransofrm");
+// n3.entidad = e1;
+// n3.addPadre(n2);
+// n2.addHijo(n3);
+// //Nodo  TMalla  1
+// var m1;
+// var n4;
+// m1 = new TMalla();
+// m1.cargarMalla('female-croupier-2013-03-26');
+// //m1.identidad();
+// //auxEntidad.trasladar(1,2,3);
+// n4 = new TNodo("n4-TMalla");
+// n4.entidad = m1;
+// n4.addPadre(n3);
+// n3.addHijo(n4);
+//
+// //PERSONA 2
+// //Nodo  TTransform rotacion 2
+// var r2;
+// var n5;
+//
+// r2 = new TTransform();
+// r2.identidad();
+// //auxEntidad.trasladar(1,2,3);
+// n5 = new TNodo("n5-TTransofrm");
+// n5.entidad = r2;
+// n5.addPadre(raiz);
+// raiz.addHijo(n5);
+// //Nodo  TTransform traslacion 2
+// var t2;
+// var n6;
+//
+// t2 = new TTransform();
+// t2.identidad();
+// //auxEntidad.trasladar(1,2,3);
+// n6 = new TNodo("n6-TTransofrm");
+// n6.entidad = t2;
+// n6.addPadre(n5);
+// n5.addHijo(n6);
+// //Nodo  TTransform escalado 2
+// var e2;
+// var n7;
+// e2 = new TTransform();
+// e2.identidad();
+// //auxEntidad.trasladar(1,2,3);
+// n7 = new TNodo("n7-TTransofrm");
+// n7.entidad = e2;
+// n7.addPadre(n6);
+// n6.addHijo(n7);
+// //Nodo  TMalla  1
+// var m2;
+// var n8;
+// m2 = new TMalla();
+// //m1.identidad();
+// //auxEntidad.trasladar(1,2,3);
+// n8 = new TNodo("n8-TMalla");
+// n8.entidad = m2;
+// n8.addPadre(n7);
+// n7.addHijo(n8);
+// //PERSONA 3
+// //PERSONA 4
+// //PERSONA 5
+//
+// //LUZ 1
+// //Nodo  TTransform rotacion 6
+// var r6;
+// var n21;
+// r6 = new TTransform();
+// r6.identidad();
+// //auxEntidad.trasladar(1,2,3);
+// n21 = new TNodo("n21-TTransofrm");
+// n21.entidad = r6;
+// n21.addPadre(raiz);
+// raiz.addHijo(n21);
+// //Nodo  TTransform traslacion 2
+// var t6;
+// var n22;
+// t6 = new TTransform();
+// t6.identidad();
+// //auxEntidad.trasladar(1,2,3);
+// n22 = new TNodo("n22-TTransofrm");
+// n22.entidad = t6;
+// n22.addPadre(n21);
+// n21.addHijo(n22);
+// //Nodo  TTransform escalado 2
+// var e6;
+// var n23;
+// e6 = new TTransform();
+// e6.identidad();
+// //auxEntidad.trasladar(1,2,3);
+// n23 = new TNodo("n23-TTransofrm");
+// n23.entidad = e6;
+// n23.addPadre(n22);
+// n22.addHijo(n23);
+// //Nodo  TMalla  1
+// var m6;
+// var n24;
+//
+// //m1.identidad();
+// //auxEntidad.trasladar(1,2,3);
+// n24 = new TNodo("n24-TLuz");
+// n24.addPadre(n23);
+// n23.addHijo(n24);
+//
+// //CAMARA 1
+// //Nodo  TTransform rotacion 7
+// var r7;
+// var n25;
+// r7 = new TTransform();
+// r7.identidad();
+// //auxEntidad.trasladar(1,2,3);
+// n25 = new TNodo("n25-TTransofrm");
+// n25.entidad = r7;
+// n25.addPadre(raiz);
+// raiz.addHijo(n25);
+// //Nodo  TTransform traslacion 2
+// var t7;
+// var n26;
+// t7 = new TTransform();
+// t7.identidad();
+// //auxEntidad.trasladar(1,2,3);
+// n26 = new TNodo("n26-TTransofrm");
+// n26.entidad = t7;
+// n26.addPadre(n25);
+// n25.addHijo(n26);
+// //Nodo  TTransform escalado 2
+// var e7;
+// var n27;
+// e7 = new TTransform();
+// e7.identidad();
+// //auxEntidad.trasladar(1,2,3);
+// n27 = new TNodo("n27-TTransofrm");
+// n27.entidad = e7;
+// n27.addPadre(n26);
+// n26.addHijo(n27);
+// //Nodo  TMalla  1
+// var m8;
+// var n28;
+// m8 = new TCamara();
+// //m1.identidad();
+// //auxEntidad.trasladar(1,2,3);
+// n28 = new TNodo("n28-TCamara");
+// n28.entidad = m8;
+// n28.addPadre(n27);
+// n27.addHijo(n28);
+// console.log(raiz);
 
 
 const canvas = document.getElementById("glcanvas");
