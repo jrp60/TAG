@@ -1,6 +1,7 @@
 //===== Changelog ============================================
 //=  - 0.3 Init. S3.20 [David]
-//=  - (02/24) Añadido constructor por comodidad. [David]
+//=  - 02/24 - Añadido constructor por comodidad. [David]
+//=  - 03/09 - Set y get estandarizados. [David] 
 //============================================================
 
 /**
@@ -8,7 +9,7 @@
  * y capacidades con los que cuenta una computadora.
  * @see {@link http://localhost:3000/pdf/S3.pdf#page=20 | S3.20}
  * @author David
- * @version 0.3 - rev.(02/24)
+ * @version 0.3 - rev.(03/09)
  */
 export class TRecurso {
     /** @type {String} */
@@ -22,9 +23,9 @@ export class TRecurso {
      * @returns {String} nombre Nombre del recurso
      * @see {@link http://localhost:3000/pdf/S3.pdf#page=20 | S3.20}
      * @author David 
-     * @version 0.3
+     * @version 0.3 - rev.(03/09)
      */
-    getNombre() {
+    get nombre() {
         return this._nombre;
     }
 
@@ -33,9 +34,9 @@ export class TRecurso {
      * @param {TRecurso} nombre Nombre del recurso
      * @see {@link http://localhost:3000/pdf/S3.pdf#page=20 | S3.20}
      * @author David 
-     * @version 0.3
+     * @version 0.3 - rev.(03/09)
      */
-    setNombre(nombre) {
+    set nombre(nombre) {
         this._nombre = nombre;
     }
 }

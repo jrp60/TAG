@@ -3,6 +3,15 @@
 //=  - 01/28 - Rafa recomienda el uso de la libreria GLM [David]
 //=  - 02/14 - Termina de transcribir lo que tenía de C++ a JS [David]
 //=  - 02/16 - Repaso de diapositiva 2 [David]
+//=  - 0.4 A partir de esta version se puede comprender como funciona y
+//=  las razones del uso de algunos metodos.
+//=  - 03/09 - Se han eliminado varios metodos, ya que al usar
+//=  una libreria no es necesario que lo documentemos en si.
+//=  Sin embargo para un nuevo motor gráfico es recomendable
+//=  crearlos, por si no existiese otra libreria, o intentasemos
+//=  teorificar con mas dimensiones.
+//=    - Las funciones que aparentemente no sirven,
+//=    son temporalmente estaticas.
 //============================================================
 
 import { TEntidad } from './TEntidad.js';
@@ -17,38 +26,34 @@ const vec3 = glMatrix.vec3;
  * @summary Gestiona la matriz, para operaciones de transformacion.
  * @see {@link http://localhost:3000/pdf/S2.pdf#page=16 | S2.16}
  * @author David
- * @version 0.2 - rev.(02/16)
-
-
+ * @version 0.4 - rev.(03/09)
  */
-
-
-
 export class TTransform extends TEntidad {
     /** @type {mat4} glMatrix.ARRAY_TYPE(16) Matriz de transformación */
     _matriz;
 
     /**
-     * @summary Carga la matriz identidad
-     * @returns {}
-     * @see {@link http://localhost:3000/pdf/S2.pdf#page=16 | S2.16}
-     * @author David - Javi
-     * @version 0.2 - rev.(02/14) - rev(02/17)
-     */
-    identidad() {
-      this._matriz=mat4.identity(mat4.create());
-        //return mat4.identity(mat4.create());
+    * @summary Crea una entidad transformación,
+    * si no se le especifica su cometido, 
+    * se quedará en matriz identidad.
+    * @see {@link http://localhost:3000/pdf/S2.pdf#page=16 | S2.16}
+    * @author Javi - David 
+    * @version 0.4 - rev.(03/09)
+    */
+    constructor() {
+        super();
+        this._matriz = mat4.create();
     }
 
     /**
-     * @summary Copia la matriz dada,
-     * para que TTransform lo transforme.
+     * @summary Copia la matriz dada en la matriz transformacion
      * @param {mat4} matrix La matriz en glMatrix.
      * @see {@link http://localhost:3000/pdf/S2.pdf#page=16 | S2.16}
      * @author David
-     * @version 0.2 - rev.(02/14)
+     * @version 0.4 - rev.(03/09)
+     * @todo (Se borrará en un futuro, al no ser necesario).
      */
-    cargar(matrix) {
+    static cargar(matrix) {
         this._matriz = mat4.clone(matrix);
     }
 
@@ -58,9 +63,10 @@ export class TTransform extends TEntidad {
      * @returns {mat4} Una copia de la matriz transpuesta.
      * @see {@link http://localhost:3000/pdf/S2.pdf#page=16 | S2.16}
      * @author David
-     * @version 0.2 - rev.(02/14)
+     * @version 0.4 - rev.(03/09)
+     * @todo (Se borrará en un futuro, al no ser necesario).
      */
-    transponer() {
+    static transponer() {
         return mat4.transpose(this._matriz, this._matriz);
     }
 
@@ -70,43 +76,15 @@ export class TTransform extends TEntidad {
      * @returns {mat4} Una copia de la matriz inversa.
      * @see {@link http://localhost:3000/pdf/S2.pdf#page=16 | S2.16}
      * @author David
-     * @version 0.2 - rev.(02/14)
+     * @version 0.4 - rev.(03/09)
+     * @todo (Se borrará en un futuro, al no ser necesario).
      */
-    invertir() {
+    static invertir() {
         return mat4.invert(this._matriz, this._matriz);
     }
 
-    // /**
-    //  * @summary Multiplica una matriz por un vector,
-    //  * una de las matrices es la de transformación,
-    //  * también devuelve una copia por si la necesitas.
-    //  * @param {mat4} matrix La matriz a múltiplicar.
-    //  * @returns {mat4} Una copia de la matriz resultante.
-    //  * @see {@link http://localhost:3000/pdf/S2.pdf#page=16 | S2.16}
-    //  * @author David
-    //  * @version 0.2 - rev.(02/14)
-    //  */
-    // multiplicarVector() {
-    //     return mat4.multiply(this._matriz, this._matriz, matrix);
-    // }
-
     /**
-     * @summary Multiplica dos matrices,
-     * una de las matrices es la de transformación,
-     * también devuelve una copia por si la necesitas.
-     * @param {mat4} matrix La matriz a múltiplicar.
-     * @returns {mat4} Una copia de la matriz resultante.
-     * @see {@link http://localhost:3000/pdf/S2.pdf#page=16 | S2.16}
-     * @author David
-     * @version 0.2 - rev.(02/14)
-     */
-    multiplicarMatriz(matrix) {
-        return mat4.multiply(matrix, this._matriz, matrix);
-    }
-
-
-    /**
-     * @summary Translada la matriz de transformación
+     * @summary Convierte la matriz de transformación en translación
      * según el vector que se le da,
      * también devuelve una copia por si la necesitas.
      * @param {float} x Axis X
@@ -122,7 +100,7 @@ export class TTransform extends TEntidad {
     }
 
     /**
-     * @summary Rota la matriz de transformación,
+     * @summary Convierte la matriz de transformación en rotación
      * respecto a los grados y a la posición,
      * también devuelve una copia por si la necesitas.
      * @param {float} x Axis X
@@ -139,7 +117,7 @@ export class TTransform extends TEntidad {
     }
 
     /**
-     * @summary Escala la matriz de transformación,
+     * @summary Convierte la matriz de transformación en escalado
      * también devuelve una copia por si la necesitas.
      * @param {float} x Axis X
      * @param {float} y Axis Y
@@ -158,31 +136,20 @@ export class TTransform extends TEntidad {
      * @param {mat4} matriz Matriz actual
      * @see {@link http://localhost:3000/pdf/S2.pdf#page=24 | S2.24}
      * @author David
-     * @version 0.2 - rev.(02/16) - rev(02/17 Javi)
-     * @todo No sale en las diapositivas el tema de la matriz estática,
-     * sería necesario preguntar.
+     * @version 0.4 - rev.(03/09)
      */
-    beginDraw() {         // TransformedVector = TranslationMatrix * RotationMatrix * ScaleMatrix * OriginalVector;
-
-
-        Datos.pushPila(Datos.matriz); // Apilamos matriz actual.
-        //console.log(Datos.pila);
-        console.log(JSON.stringify(Datos.pila));
-        // Multiplicamos matriz actual x matriz de transformacion
-        this.multiplicarMatriz(Datos.matriz);
+    beginDraw() { // TransformedVector = TranslationMatrix * RotationMatrix * ScaleMatrix * OriginalVector;
+        GLOBAL.pushPila(GLOBAL.matriz); // Apilamos matriz actual.
+        mat4.multiply(GLOBAL.matriz, this._matriz, GLOBAL.matriz); // Multiplicar la matriz de la transformación a la matriz actual 
     }
 
     /**
      * @summary Desapilar matriz y ponerla como actual
      * @see {@link http://localhost:3000/pdf/S2.pdf#page=24 | S2.24}
      * @author David
-     * @version 0.2 - rev.(02/16)
-     * @todo No sale en las diapositivas el tema de la matriz estática,
-     * sería necesario preguntar.
+     * @version 0.4 - rev.(03/09)
      */
     endDraw() {
-        //Datos.matriz = Datos.popPila(); setter de antes
-        Datos.setmatriz(Datos.popPila());
-        console.log("Pasando por endDraw :D ");
+        GLOBAL.matriz = GLOBAL.popPila();
     }
 }

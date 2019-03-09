@@ -10,6 +10,7 @@
 //=  - 0.2 Init. S2.14 [David]
 //=  - 02/14 - Termina de transcribir lo que tenía de C++ a JS [David]
 //=  - 02/16 Añadiendo metodos para el funcionamiento del arbol[Javi]
+//=  - 03/09 - Codigo integrado para soportar las pasadas [David].
 //============================================================
 import { TEntidad } from './TEntidad.js';
 
@@ -18,9 +19,9 @@ import { TEntidad } from './TEntidad.js';
  * su proceso de dibujado
  * @see {@link http://localhost:3000/pdf/S2.pdf#page=7 | S2.7}
  * @author David
- * @version 0.2
+ * @version 0.2 - rev.(03/09)
  */
-export class TNodo{
+export class TNodo {
 
     /** @type {TEntidad} */
     _entidad;
@@ -40,9 +41,9 @@ export class TNodo{
      * @author Javi
      * @version 0.1
      */
-    constructor(name){
-      this._hijos=[];
-      this._nombre=name
+    constructor(name) {
+        this._hijos = [];
+        this._nombre = name
     }
 
     /**
@@ -54,7 +55,7 @@ export class TNodo{
      * @version 0.1
      */
     set padre(padre) {
-        this._padre=padre;
+        this._padre = padre;
         return true;
     }
     /**
@@ -66,7 +67,7 @@ export class TNodo{
      * @version 0.1
      */
     set nombre(nombre) {
-        this._nombre=nombre;
+        this._nombre = nombre;
         return true;
     }
 
@@ -143,9 +144,9 @@ export class TNodo{
      * @version 0.1
      */
     getHijo(num) {
-      if (this._hijos[num]!=null) {
-        return this._hijos[num];
-      }
+        if (this._hijos[num] != null) {
+            return this._hijos[num];
+        }
         console.log("no existe ese hijo");
     }
 
@@ -161,26 +162,24 @@ export class TNodo{
     }
 
     /**
-     * @summary Comprueba no estar en raíz.El método draw de cada nodo llama al método beginDraw
+     * @summary El método draw de cada nodo llama al método beginDraw
      *  de la entidad asociada. A continuación, el dibujado se desencadena
      *  en cascada, llamando al dibujado de los nodos hijos de cada nodo padre.
      * @returns {TNodo} El padre del nodo.
      * @see {@link http://localhost:3000/pdf/S2.pdf#page=21 | S2.21}
      * @author David - Javi
-     * @version 0.2 - rev.(02/12)
-     * @todo Cambiar numero de beginDraw
+     * @version 0.2 - rev.(03/09)
      */
-    draw() {
-
+    draw(pasada) {
         if (this._entidad != null) {
-          console.log("Hola, soy el nodo: "+this._nombre);
-          this._entidad.beginDraw(2);
+            console.log("Nodo [", this._nombre, "]");
+            this._entidad.beginDraw(pasada);
         }
         for (const hijo of this._hijos) {
-            hijo.draw();
+            hijo.draw(pasada);
         }
         if (this._entidad != null) {
-          this._entidad.endDraw();
+            this._entidad.endDraw(pasada);
         }
     }
 

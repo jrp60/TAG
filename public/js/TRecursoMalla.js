@@ -3,48 +3,49 @@
 //=  - 02/24 - Gestion de recursos malla. [David]
 //=  - 03/04 - Integración de comandos OpenGL, pero no
 //= se puede debido a problemas de estructura. [David]
+//=  - 03/09 - Código más limpio y menos rebuscado. [David]
 //============================================================
 
 import { TFichero } from './TFichero.js';
 import { TRecurso } from './TRecurso.js';
+import { GLOBAL } from './GLOBAL.js';
 
 /** @type {vec2} glMatrix.ARRAY_TYPE(2)*/
 const vec2 = glMatrix.vec2;
 /** @type {vec3} glMatrix.ARRAY_TYPE(3)*/
 const vec3 = glMatrix.vec3;
+/** @type {vec3} glMatrix.ARRAY_TYPE(4)*/
+const vec4 = glMatrix.vec4;
 
 /**
  * @summary La malla del modelo?
  * @see {@link http://localhost:3000/pdf/S3.pdf#page=20 | S3.20}
  * @author David
- * @version 0.3 - rev.(02/24)
+ * @version 0.3 - rev.(03/09)
  */
 export class TRecursoMalla extends TRecurso {
-    /** @type {vec3[]} */
+
+    // En uso
+    /** @type {vec4[]} */
     _vertices;
+    /** @type {int[]} */
+    _indices;
+
+
+    // Planificado
     /** @type {vec3[]} */
     _normales;
     /** @type {vec2[]} */
     _texturas;
-    /** @type {long[]} */
-    _vertTriangulos;
-    /** @type {long[]} */
-    _normTriangulos;
-    /** @type {long[]} */
-    _textTriangulos;
     /** @type {int} */
     _nTriangulos;
 
-    // Auxiliar
-    _mostrar;
-
-    // Auxiliar de prueba    
-    scene;
     constructor(nombre) {
         super(nombre);
         this._vertices = [];
         this._normales = [];
         this._texturas = [];
+        this._indices = [];
         this._cara = [];
     }
 
@@ -72,11 +73,12 @@ export class TRecursoMalla extends TRecurso {
                         switch (parts[0]) {
                             case 'v':
                                 this._vertices.push(
-                                    vec3.fromValues(
+                                    vec4.fromValues(
                                         parseFloat(parts[1]),
                                         parseFloat(parts[2]),
-                                        parseFloat(parts[3])
-                                    ));
+                                        parseFloat(parts[3]),
+                                        1.0)
+                                );
                                 break;
                             case 'vn':
                                 this._normales.push(
@@ -97,34 +99,21 @@ export class TRecursoMalla extends TRecurso {
                                 const f1 = parts[1].split('/');
                                 const f2 = parts[2].split('/');
                                 const f3 = parts[3].split('/');
-                                /**
-                                 * La posición es temp_vertices[ vertexIndex-1 ] 
-                                 * (aquí tenemos que poner el -1 porque en JavaScript
-                                 * el indexamiento comienza en 0 
-                                 * y para los OBJ comienza en 1.)
-                                 */
 
-                                [].push.apply(cara, this._vertices[parseInt(f1[0]) - 1]);
-                                [].push.apply(cara, this._normales[parseInt(f1[2]) - 1]);
-                                [].push.apply(cara, this._vertices[parseInt(f2[0]) - 1]);
-                                [].push.apply(cara, this._normales[parseInt(f2[2]) - 1]);
-                                [].push.apply(cara, this._vertices[parseInt(f3[0]) - 1]);
-                                [].push.apply(cara, this._normales[parseInt(f3[2]) - 1]);
+                                /**
+                                  * La posición es temp_vertices[ vertexIndex-1 ] 
+                                  * (aquí tenemos que poner el -1 porque en JavaScript
+                                  * el indexamiento comienza en 0 
+                                  * y para los OBJ comienza en 1.)
+                                  */
+                                this._indices.push(f1[0] - 1);
+                                this._indices.push(f2[0] - 1);
+                                this._indices.push(f3[0] - 1);
 
                                 break;
                         }
                     }
                 }
-                var vertexCount = cara.length / 6;
-                console.log("Loaded mesh with " + vertexCount + " vertices");
-
-                // console.log(this._vertices);
-                // console.log(this._normales);
-                // console.log(new Float32Array(cara));
-                this._mostrar = {
-                    vertices: new Float32Array(cara),
-                    vertexCount: cara.length / 6
-                };
                 resolve(true);
             });
         });
@@ -135,10 +124,9 @@ export class TRecursoMalla extends TRecurso {
      * @param {string} nombre Ruta de fichero
      * @returns {boolean} si ha existe el fichero o no
      * @author David 
-     * @version 0.3 - rev (02/24)
+     * @version 0.3 - rev (03/09)
      */
-    existeFichero(nombre) {
-        this.setNombre(nombre);
+    existeFichero() {
         return new Promise((resolve, reject) => {
             let http = false;
             if (window.XMLHttpRequest) { // Mozilla, Safari,...
@@ -166,12 +154,12 @@ export class TRecursoMalla extends TRecurso {
                     resolve(http.status === 200);
                 }
             };
-            http.open('HEAD', '/model/malla/' + nombre + '.obj', true);
+            http.open('HEAD', '/model/malla/' + this.nombre + '.obj', true);
             http.send();
         });
 
     }
-    
+
     /**
      * @summary Vuelca los buffers de datos en OpenGL.
      * Consejo: utilizar buffers de datos adaptados a los que maneja OpenGL:
@@ -179,63 +167,84 @@ export class TRecursoMalla extends TRecurso {
      * La visualización tiene máxima eficiencia (más crítica)
      * @see {@link http://localhost:3000/pdf/S3.pdf#page=20 | S3.20}
      * @author David 
-     * @version 0.3
+     * @version 0.3 - rev (03/09)
      */
     draw() {
-        program.positionAttribute = gl.getAttribLocation(program, 'pos');
-        gl.enableVertexAttribArray(program.positionAttribute);
-        program.normalAttribute = gl.getAttribLocation(program, 'normal');
-        gl.enableVertexAttribArray(program.normalAttribute);
+        const gl = GLOBAL.gl;
+        // ========================= 2. Preparar Shaders =========================
+        // Linkear vertex y fragment
+        // import { Vertex, Fragment } from './js/Shaders.js';
 
-        var vertexBuffer = gl.createBuffer();
+        // var vs = gl.createShader(gl.VERTEX_SHADER);
+        // gl.shaderSource(vs, Vertex);
+        // gl.compileShader(vs);
 
-        gl.bindBuffer(gl.ARRAY_BUFFER, vertexBuffer);
-        gl.bufferData(gl.ARRAY_BUFFER, this._mostrar.vertices, gl.STATIC_DRAW);
-        gl.vertexAttribPointer(
-            program.positionAttribute, 3, gl.FLOAT, gl.FALSE,
-            Float32Array.BYTES_PER_ELEMENT * 6, 0);
-        gl.vertexAttribPointer(
-            program.normalAttribute, 3, gl.FLOAT, gl.FALSE,
-            Float32Array.BYTES_PER_ELEMENT * 6,
-            Float32Array.BYTES_PER_ELEMENT * 3);
+        // const fs = gl.createShader(gl.FRAGMENT_SHADER);
+        // gl.shaderSource(fs, Fragment);
+        // gl.compileShader(fs);
 
-        var projectionMatrix = mat4.create();
-        mat4.perspective(
-            projectionMatrix, 0.75, canvas.width / canvas.height,
-            0.1, 100);
-        program.projectionMatrixUniform = gl.getUniformLocation(
-            program, 'projectionMatrix');
-        gl.uniformMatrix4fv(
-            program.projectionMatrixUniform, gl.FALSE,
-            projectionMatrix);
 
-        var viewMatrix = mat4.create();
-        program.viewMatrixUniform = gl.getUniformLocation(
-            program, 'viewMatrix');
-        gl.uniformMatrix4fv(
-            program.viewMatrixUniform, gl.FALSE, viewMatrix);
+        // Vertex shader source code ProjectionMatrix * ViewMatrix *ModelMatrix *
+        /**
+         * 
+            'uniform mat4 ModelMatrix; // MATRIZ DE MODELO' +
+            'uniform mat4 ViewMatrix; // MATRIZ DE VISTA (INVERSA DE LA CAMARA)' +
+            'uniform mat4 ProjectionMatrix; // MATRIZ DE PROYECCIÓN' +
 
-        var modelMatrix = mat4.create();
-        mat4.identity(modelMatrix);
-        mat4.translate(modelMatrix, modelMatrix, [0, 0, -4]);
-        program.modelMatrixUniform = gl.getUniformLocation(
-            program, 'modelMatrix');
-        gl.uniformMatrix4fv(
-            program.modelMatrixUniform, gl.FALSE, modelMatrix);
+         */
+        const vertices_transformados = [];
+        for (const coordenadas of this._vertices) {
+            vec4.transformMat4(coordenadas, coordenadas, GLOBAL.matriz);
+            for (const coordenada of coordenadas) {
+                vertices_transformados.push(coordenada);
+            }
+        }
+        var vertCode =
+            'attribute vec4 coordinates;' +
+            'void main(void) {' +
+            ' gl_Position = coordinates;' +
+            '}';
+        var vs = gl.createShader(gl.VERTEX_SHADER);// Create a vertex shader object
+        gl.shaderSource(vs, vertCode); // Attach vertex shader source code
+        gl.compileShader(vs);        // Compile the vertex shader
 
-        this._mostrar.modelMatrix = modelMatrix;
-        this._mostrar.vertexBuffer = vertexBuffer;
-        gl.bindBuffer(gl.ARRAY_BUFFER, null);
-        gl.useProgram(null);
-        console.log("?");
-        this.scene = {
-            program: program,
-            object: this._mostrar,
-            start: Date.now(),
-            projectionMatrix: projectionMatrix,
-            viewMatrix: viewMatrix
-        };
+        // Fragment shader source code
+        var fragCode =
+            'void main(void) {' +
+            ' gl_FragColor = vec4(0.0, 0.0, 0.0, 0.1);' +
+            '}';
 
+        var fs = gl.createShader(gl.FRAGMENT_SHADER);  // Create fragment shader object 
+        gl.shaderSource(fs, fragCode); // Attach fragment shader source code
+        gl.compileShader(fs); // Compile the fragmentt shader
+
+        const program = gl.createProgram(); // Crea el programa de usuario que usará la GPU.
+        gl.attachShader(program, vs);       // Adjunta el Vertex Shader al programa.
+        gl.attachShader(program, fs);       // Adjunta el Fragment Shader al programa.
+        gl.linkProgram(program);            // Enlaza el programa al API.
+        gl.useProgram(program);             // Usa el programa al API.
+
+        // ========================= 3. Asociar buffers a los Shaders =========================
+        const vertex_buffer = gl.createBuffer(); // Buffer de vertices
+        gl.bindBuffer(gl.ARRAY_BUFFER, vertex_buffer); // Enlaza el buffer de vertices a su tipo.
+        gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices_transformados), gl.STATIC_DRAW); // Mete los datos del buffer.
+
+        const index_buffer = gl.createBuffer(); // Buffer de indices
+        gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, index_buffer); // Enlaza el buffer de indices a su tipo.
+        gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, new Uint16Array(this._indices), gl.STATIC_DRAW); // Mete los datos del buffer.
+
+        // ========================= 4. Recoger atributos de los Shaders =========================
+        const coord = gl.getAttribLocation(program, "coordinates"); // Get the attribute location
+
+        // ========================= 5. Pasar información a los atributos de los Shaders =========================
+        gl.vertexAttribPointer(coord, 4, gl.FLOAT, false, 0, 0); // Point an attribute to the currently bound VBO
+
+        // ========================= 6. Habilitar atributos de los Shaders =========================
+        gl.enableVertexAttribArray(coord);
+
+        // ========================= 7. Dibujar modelo =========================
+        // Draw the triangle
+        gl.drawElements(gl.TRIANGLES, this._indices.length, gl.UNSIGNED_SHORT, 0);
     }
 
 
