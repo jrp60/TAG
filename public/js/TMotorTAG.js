@@ -92,9 +92,9 @@ export class TMotorTAG {
   }
 
   /**
-   * @summary
+   * @summary Devuelve una nueva entidad TMalla y carga el fichero.
    * @param {string} fichero La ruta del fichero.
-   * @return {TMalla}
+   * @return {TMalla} La malla creada
    * @see {@link http://localhost:3000/pdf/S4.pdf#page=7 | S4.7}
    * @author David - Javi
    * @version 0.2 - rev.(03/09)
@@ -102,8 +102,7 @@ export class TMotorTAG {
   crearMalla(fichero) {
     return new TMalla(fichero);
   }
-
-
+  
   // Métodos para el registro y manejo de las cámaras
   // Métodos para el registro y manejo de las luces
   // Métodos para el registro y manejo de los viewports
@@ -118,9 +117,6 @@ export class TMotorTAG {
     if (this._escena === null) {
       console.error('[ERROR]: No hay raiz' + this._escena);
     } else {
-      // for (let i = 0; i < GLOBAL.N_PASADAS; i++) {
-      //   this._escena.draw(i);
-      // }
       // Inicializar la librería gráfica como sea necesario
       this._escena.draw(GLOBAL.LUZ);
       // Inicializar el viewport activo con la librería gráfica

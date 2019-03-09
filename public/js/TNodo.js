@@ -35,8 +35,7 @@ export class TNodo {
 
     /**
      * @summary Constructor para inicializar el array hijos.
-     * @param
-     * @returns
+     * @param {String} name El nombre del nodo.
      * @see {@link http://localhost:3000/pdf/S2.pdf#page=14 | S2.14}
      * @author Javi
      * @version 0.1
@@ -49,26 +48,22 @@ export class TNodo {
     /**
      * @summary Añade el padre a _padre.
      * @param {TNodo} padre El nodo que quieres asignar de padre.
-     * @returns
      * @see {@link http://localhost:3000/pdf/S2.pdf#page=14 | S2.14}
      * @author Javi
      * @version 0.1
      */
     set padre(padre) {
         this._padre = padre;
-        return true;
     }
     /**
      * @summary Añade nombre.
      * @param {String} nombre El nombre que quieres asignar.
-     * @returns
      * @see {@link http://localhost:3000/pdf/S2.pdf#page=14 | S2.14}
      * @author Javi
      * @version 0.1
      */
     set nombre(nombre) {
         this._nombre = nombre;
-        return true;
     }
 
 

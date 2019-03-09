@@ -17,9 +17,16 @@
 import { TEntidad } from './TEntidad.js';
 import { GLOBAL } from './GLOBAL.js';
 
-/** @type {mat4} glMatrix.ARRAY_TYPE(16)*/
+/** 
+ * glMatrix.ARRAY_TYPE(16)
+ * @type {mat4}
+ * */
 const mat4 = glMatrix.mat4;
-/** @type {vec3} glMatrix.ARRAY_TYPE(3)*/
+
+/** 
+ * glMatrix.ARRAY_TYPE(3)
+ * @type {vec3}
+ */
 const vec3 = glMatrix.vec3;
 
 /**
@@ -29,7 +36,11 @@ const vec3 = glMatrix.vec3;
  * @version 0.4 - rev.(03/09)
  */
 export class TTransform extends TEntidad {
-    /** @type {mat4} glMatrix.ARRAY_TYPE(16) Matriz de transformación */
+
+    /** 
+     * glMatrix.ARRAY_TYPE(16) - Matriz de transformación
+     * @type {mat4}  
+     * */
     _matriz;
 
     /**

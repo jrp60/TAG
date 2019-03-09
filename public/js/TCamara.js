@@ -36,7 +36,7 @@ export class TCamara extends TEntidad {
     super();
   }
   /**
-   * @summary
+   * @summary Establece la perspectiva
    * @param {float} x
    * @param {float} y
    * @see {@link http://localhost:3000/pdf/S2.pdf#page=17 | S2.17}
@@ -48,7 +48,7 @@ export class TCamara extends TEntidad {
   }
 
   /**
-   * @summary
+   * @summary Establece la paralela
    * @param {float} x
    * @param {float} y
    * @see {@link http://localhost:3000/pdf/S2.pdf#page=17 | S2.17}

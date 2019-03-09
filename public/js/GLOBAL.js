@@ -15,27 +15,55 @@
   */
 export class GLOBAL {
 
+  /**
+   * Constante para habilitar el modo debug
+   * @const {boolean}
+   */
   static DEBUG = true;
 
-  /** @type {int} Pasada Luz */
+  /**
+   * Pasada Luz
+   * @const {Bit}
+   */
   static LUZ = 1;
-  /** @type {int} Pasada Camara */
+
+  /**
+   * Pasada Camara
+   * @const {Bit}
+   */
   static CAMARA = 2;
-  /** @type {int} Pasada Dibujar */
+
+  /**
+   * Pasada Dibujar
+   * @const {Bit}
+   */
   static DIBUJAR = 3;
 
-  /** @type {int} Cantidad Pasadas */
-  static N_PASADAS = 3;
-  /** @type {any} Pila */
+  /**
+   * Pila
+   * @type {any}
+   */
   static _pila = [];
-  /** @type {mat4} Matriz Modelo, contiene la matriz de transformacion resultante */
+
+  /**
+   * Matriz de transformación en memoria
+   * esta es manejado por la pila para guardar las diferentes
+   * transformaciones que se llevan a cabo
+   * @type {mat4} 
+   */
   static _matrizModelo;
 
+  /**
+   * Contiene el objeto de WebGL
+   * @type {WebGLObject}
+   */
   static gl;
+
+  /**
+   * Elemento DOM que corresponde al canvas donde se dibuja
+   * @type {Document}
+   */
   static canvas;
-
-
-
 
   /**
     * @summary Introduce un nuevo elemento en la pila.

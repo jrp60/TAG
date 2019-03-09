@@ -10,11 +10,22 @@ import { TFichero } from './TFichero.js';
 import { TRecurso } from './TRecurso.js';
 import { GLOBAL } from './GLOBAL.js';
 
-/** @type {vec2} glMatrix.ARRAY_TYPE(2)*/
+/** 
+ * glMatrix.ARRAY_TYPE(2)
+ * @type {vec2} 
+ * */
 const vec2 = glMatrix.vec2;
-/** @type {vec3} glMatrix.ARRAY_TYPE(3)*/
+
+/** 
+ * glMatrix.ARRAY_TYPE(3)
+ * @type {vec3}
+ */
 const vec3 = glMatrix.vec3;
-/** @type {vec3} glMatrix.ARRAY_TYPE(4)*/
+
+/**
+ * glMatrix.ARRAY_TYPE(4)
+ * @type {vec3}
+*/
 const vec4 = glMatrix.vec4;
 
 /**

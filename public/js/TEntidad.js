@@ -12,7 +12,7 @@
 export class TEntidad {
 
     /**
-     * @summary 
+     * @summary Comienzo del dibujo.
      * @param {Number} pasada Fase en la que se encuentra el motor.
      * @see {@link http://localhost:3000/pdf/S4.pdf#page=12 | S4.12}
      * @author David
@@ -21,7 +21,7 @@ export class TEntidad {
     beginDraw(pasada){}
 
     /**
-     * @summary 
+     * @summary Final del dibujo
      * @see {@link http://localhost:3000/pdf/S2.pdf#page=15 | S2.15}
      * @author David
      * @version 0.4
