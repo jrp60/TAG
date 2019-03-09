@@ -6,7 +6,7 @@
 //============================================================
 
 import { TEntidad } from './TEntidad.js';
-import { Datos } from './Datos.js';
+import { GLOBAL } from './GLOBAL.js';
 
 /** @type {mat4} glMatrix.ARRAY_TYPE(16)*/
 const mat4 = glMatrix.mat4;

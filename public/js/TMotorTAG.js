@@ -10,7 +10,7 @@ import { TMalla } from "./TMalla.js";
 import { TTransform } from "./TTransform.js";
 import { TCamara } from "./TCamara.js";
 import { TLuz } from "./TLuz.js";
-import { Datos } from "./Datos.js";
+import { GLOBAL } from "./GLOBAL.js";
 
 /**
  * @summary Separa el motor de la aplicación el motor puede
