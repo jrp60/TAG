@@ -9,17 +9,10 @@
     <link rel="stylesheet" href="style.css" type="text/css" media="screen">
 
     <!-- Código JS para los controles básicos de la página web -->
-    <script src="main.js" async></script>
+    <script src="manejar_controles_basicos.js" async></script>
     <!-- WebGL para el proyecto -->
     <script src="js/gl-matrix-min.js"></script>
-    <script src="webgl.js" type="module"></script>
-
-    <!-- WebGL de referencia -->
-    <!-- <script src="js/test/three.js"></script>
-    <script src="js/test/Detector.js"></script>
-    <script src="js/test/OrbitControls.js"></script>
-    <script src="js/test/OBJLoader.js"></script>
-    <script src="js/test/MTLLoader.js"></script> -->
+    <script src="manejar_motor_grafico.js" type="module"></script>
 </head>
 
 <body>
@@ -29,26 +22,18 @@
         </canvas>
     </main>
     <section>
-      <button id="arbol" type="button">Crear Árbol</button>
-      <select class="" name="tipo">
-         <option value="0">Nodo Transformacion</option>
-         <option value="1">Nodo Luz</option>
-         <option value="2">Nodo Camara</option>
-         <option value="3">Nodo Malla</option>
-      </select>
-      <button id="hijo" type="button">Añade hijo</button>
-      <button id="elimina" type="button">Elimina 1 hijo</button>
-      <!-- <label for="generacion">Generaxión</label>
-      <input type="text" name="generacion" >
-      <label for="numeroHijo">Hijo</label>
-      <input type="text" name="numeroHijo" >
-      <button id="desplazaElimina" type="button">Añade Hijo especificamente</button> -->
-      <button id="draw" type="button">Draw</button>
-      <button id="niu" type="button">Crea nodo con Identidad del ultimo</button>
-
-      <div class="nodos" id="nodos">
-
-      </div>
+        <button id="arbol" type="button">Crear Árbol</button>
+        <select name="tipo">
+            <option value="0">Nodo Transformacion</option>
+            <option value="1">Nodo Luz</option>
+            <option value="2">Nodo Camara</option>
+            <option value="3">Nodo Malla</option>
+        </select>
+        <button id="hijo" type="button">Añade hijo</button>
+        <button id="elimina" type="button">Elimina 1 hijo</button>
+        <button id="draw" type="button">Draw</button>
+        <button id="niu" type="button">Crea nodo con Identidad del ultimo</button>
+        <div class="nodos" id="nodos"> </div>
     </section>
     <footer>
         <aside>
@@ -63,8 +48,6 @@
             </article>
         </section>
     </footer>
-
-
 </body>
 
 </html>
