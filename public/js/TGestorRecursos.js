@@ -1,11 +1,10 @@
 //===== Changelog ============================================
 //=  - 0.3 Init. S3.19 [David]
-//=  - (02/24) Mejorado para recursos de malla. [David] (Sin Terminar)
+//=  - (02/24) Mejorado para recursos de malla. [David]
+//=  - (03/09) Ahora al ser estatico solo tiene una instancia. [David]
 //============================================================
 
-import { TEntidad } from './TEntidad.js';
 import { TRecurso } from './TRecurso.js';
-
 import { TRecursoMalla } from './TRecursoMalla.js';
 import { TRecursoTextura } from './TRecursoTextura.js';
 import { TRecursoMaterial } from './TRecursoMaterial.js';
@@ -15,20 +14,12 @@ import { TRecursoMaterial } from './TRecursoMaterial.js';
  * para almacenar el recurso
  * @see {@link http://localhost:3000/pdf/S3.pdf#page=19 | S3.19}
  * @author David
- * @version 0.3 
+ * @version 0.3 - rev.(03/09)
  */
-export class TGestorRecursos extends TEntidad {
+export class TGestorRecursos {
 
     /** @type {TRecurso[]} */
-    _recursos;
-
-    /**
-     * Constructor por defecto e inicializa el array de TRecurso
-     */
-    constructor() {
-        super();
-        this._recursos = [];
-    }
+    static _recursos = [];
 
     /**
     * @summary Coge un recurso en memoria, si no existe la busca.
@@ -36,9 +27,9 @@ export class TGestorRecursos extends TEntidad {
     * @return {TRecurso} El Recurso si existe o -1 si no existe
     * @see {@link http://localhost:3000/pdf/S3.pdf#page=19 | S3.19}
     * @author David
-    * @version 0.3
+    * @version 0.3 - rev.(03/09)
     */
-    getRecurso(nombre) {
+    static getRecurso(nombre) {
         return new Promise((resolve, reject) => {
             let flag = true;
             for (let i = this._recursos.length - 1; i >= 0; i--) { // Busca el recurso
@@ -68,25 +59,5 @@ export class TGestorRecursos extends TEntidad {
                 });
             }
         });
-    }
-
-    /**
-    * @summary
-    * @see {@link http://localhost:3000/pdf/S3.pdf#page=19 | S3.19}
-    * @author David
-    * @version 0.3
-    */
-    beginDraw() {
-
-    }
-
-    /**
-    * @summary 
-    * @see {@link http://localhost:3000/pdf/S3.pdf#page=19 | S3.19}
-    * @author David
-    * @version 0.3
-    */
-    endDraw() {
-
     }
 }
