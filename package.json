@@ -4,17 +4,20 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "start": "node ./app.js",
+    "start": "node ./bin/www",
     "doc": "jsdoc public/js/ -r -d public/doc/ -c jsdoc.json",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "David Liqiu Hu",
   "license": "GPL-3.0",
   "dependencies": {
-    "express": "^4.16.4"
-  },
-  "devDependencies": {
+    "cookie-parser": "~1.4.3",
+    "debug": "~2.6.9",
+    "express": "~4.16.0",
+    "http-errors": "~1.6.2",
     "jsdoc": "^3.5.5",
+    "morgan": "~1.9.0",
+    "pug": "2.0.0-beta11",
     "tui-jsdoc-template": "^1.2.2"
   }
 }
