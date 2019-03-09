@@ -2,16 +2,18 @@
 //=  - 0.2 Init. S2.17 [David]
 //=  - 0.4 Parametro pasada en beginDraw. S4.12 [David]
 //=  - 0.5 Atributo camara activa. Corrigiendo errores. Clase [Javi] 02/25
+//=  - 03/09 - Estandares set y get; uso de constantes y constructor.
 //============================================================
 
 import { TEntidad } from './TEntidad.js';
 import { TColor } from './TColor.js';
+import { GLOBAL } from './GLOBAL.js';
 
 /**
  * @summary Gestiona los atributos de la luz.
  * @see {@link http://localhost:3000/pdf/S2.pdf#page=17 | S2.17}
  * @author David - Javi
- * @version 0.4 rev(02/14)
+ * @version 0.5 - rev.(03/09)
  */
 export class TLuz extends TEntidad {
 
@@ -26,6 +28,12 @@ export class TLuz extends TEntidad {
     /** @type {boolean} */
     _activada;
 
+    constructor(x, y, z, activada) {
+        super();
+        this.setPosicion(x, y, z);
+        this._activada = activada;
+    }
+
     /**
      * @summary Setter de intensidad.
      * @param {TColor} color Una entidad TColor
@@ -33,7 +41,7 @@ export class TLuz extends TEntidad {
      * @author David
      * @version 0.2
      */
-    setIntensidad(color) {
+    set intensidad(color) {
         this._intensidad = color;
     }
 
@@ -44,7 +52,7 @@ export class TLuz extends TEntidad {
      * @author David
      * @version 0.2
      */
-    getIntensidad() {
+    get intensidad() {
         return this._intensidad;
     }
     /**
@@ -54,28 +62,41 @@ export class TLuz extends TEntidad {
      * @author Javi
      * @version 0.1
      */
-    setPosicion(x,y,z) {
+    setPosicion(x, y, z) {
         this._x = x;
         this._y = y;
         this._z = z;
     }
 
     /**
-     * @summary Si es pasada de luz y esta luz esta activada
+     * @summary BeginDraw de TLuz
      * @param {Number} pasada Fase en la que se encuentra el motor.
      * @see {@link http://localhost:3000/pdf/S4.pdf#page=12 | S4.12}
      * @author David - Javi
-     * @version 0.5
+     * @version 0.5 - rev.(03/09)
+     * @todo Hay que hacer la luz
      */
     beginDraw(pasada) {
-        if(pasada == 2  ) { // && this._activada == true   --- lo quito para hacer pruebas
-          console.log(" pasada 1 - luz activa");
-          auxMatriz= Datos.matriz;
-          console.log(auxMatriz);
+        if (pasada === GLOBAL.LUZ && this._activada) {
+            console.log(" pasada 1 - luz activa");
             // obtener la posici�n de la luz de la matriz activa(MODELVIEW)
             // activar la luz en la librer�a gr�fica
             // colocar la luz en la posici�n obtenida
         }
 
+    }
+
+    /**
+     * @summary EndDraw de TLuz
+     * @param {Number} pasada Fase en la que se encuentra el motor.
+     * @see {@link http://localhost:3000/pdf/S4.pdf#page=12 | S4.12}
+     * @author David
+     * @version 0.5 - rev.(03/09)
+     * @todo Hay que hacer la luz
+     */
+    beginDraw(pasada) {
+        if (pasada === GLOBAL.LUZ && this._activada) {
+
+        }
     }
 }
