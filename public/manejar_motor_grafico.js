@@ -13,32 +13,80 @@
 //=  - 03/09 - Nombre a GLOBAL para que tenga más significado, limpieza y arreglos variados [David]
 
 import { GLOBAL } from './js/GLOBAL.js';
-import { TEntidad } from './js/TEntidad.js';
-import { TCamara } from './js/TCamara.js';
-import { TColor } from './js/TColor.js';
-import { TFichero } from './js/TFichero.js';
-import { TGestorRecursos } from './js/TGestorRecursos.js';
-import { TLuz } from './js/TLuz.js';
-import { TMalla } from './js/TMalla.js';
 import { TMotorTAG } from './js/TMotorTAG.js';
 import { TNodo } from './js/TNodo.js';
-import { TRecurso } from './js/TRecurso.js';
-import { TRecursoMalla } from './js/TRecursoMalla.js';
-import { TTransform } from './js/TTransform.js';
 
-/** @type {mat4} glMatrix.ARRAY_TYPE(16)*/
-const mat4 = glMatrix.mat4;
-/** @type {mat4} glMatrix.ARRAY_TYPE(9)*/
-const mat3 = glMatrix.mat3;
-/** @type {vec3} glMatrix.ARRAY_TYPE(3)*/
-const vec3 = glMatrix.vec3;
+// ======================================================================
+// ========================= Variables globales =========================
 
-var raiz = new TMotorTAG(); // Variable global de Javi
-console.log(raiz);
+GLOBAL.matriz = glMatrix.mat4.create();
+GLOBAL.canvas = document.getElementById("glcanvas");
+try {
+  // Tratar de tomar el contexto estandar. Si falla, retornar al experimental.
+  GLOBAL.gl = GLOBAL.canvas.getContext("webgl") || GLOBAL.canvas.getContext("experimental-webgl");
+}
+catch (e) { }
+// Si no tenemos ningun contexto GL.
+if (!GLOBAL.gl) {
+  alert("Imposible inicializar WebGL. Tu navegador puede no soportarlo.");
+  GLOBAL.gl = null;
+}
 
-let aux = mat4.identity(mat4.create());
-GLOBAL.matriz = aux;
+// ======================================================================
+// =========================    HERRAMIENTAS    =========================
 
+// Solo continuar si WebGL esta disponible y trabajando
+window.addEventListener('resize', () => {
+  var width = GLOBAL.canvas.clientWidth;
+  var height = GLOBAL.canvas.clientHeight;
+  if (GLOBAL.canvas.width != width ||
+    GLOBAL.canvas.height != height) {
+    GLOBAL.canvas.width = width;
+    GLOBAL.canvas.height = height;
+  }
+});
+
+// Boton para imprimir arbol
+document.getElementById("imprimir").onclick = () => {
+  if (raiz === null) {
+    console.error("[ERROR] No existe el nodo Raiz");
+  } else {
+    raiz.imprimir(); // Con esto se puede visualizar el arbol
+  }
+};
+
+// Boton para que el motor dibuje.
+document.getElementById("draw").onclick = () => {
+  if (raiz == null) {
+    console.error("[ERROR] No existe el nodo Raiz");
+  } else {
+    raiz.draw();
+  }
+
+};
+
+
+document.getElementById("niu").onclick = () => {
+  if (raiz == null || raiz.getHijos().length == 0) {
+    console.log("no hay raiz o hijos en la raiz");;
+  } else {
+    let auxHijos = raiz.getHijos();
+    var i = 0
+    for (i; i < auxHijos.length - 1; i++) {
+    }
+    let auxEntidad = raiz.getHijo(i).entidad;
+    console.log(auxEntidad);
+    let auxHijo = new TNodo();
+    auxHijo.entidad = auxEntidad;
+    raiz.addHijo(auxHijo);
+
+    // raiz.remHijo(auxHijos[i]);
+  }
+};
+
+// ======================================================================
+// =========================    Código motor    =========================
+const raiz = new TMotorTAG(); // Variable global de Javi
 
 //LUZ 1
 //rotacion-l1
@@ -84,60 +132,3 @@ ep1.escalar(0.8, 0.8, 0.8);
 //malla-p1
 var mp1 = raiz.crearMalla('female-croupier-2013-03-26');
 raiz.crearNodo(raiz._escena.getHijo(2).getHijo(0).getHijo(0), mp1, "malla-p1");
-
-console.log(raiz._escena);
-
-GLOBAL.canvas = document.getElementById("glcanvas");
-
-try {
-  // Tratar de tomar el contexto estandar. Si falla, retornar al experimental.
-  GLOBAL.gl = GLOBAL.canvas.getContext("webgl") || GLOBAL.canvas.getContext("experimental-webgl");
-}
-catch (e) { }
-
-// Si no tenemos ningun contexto GL.
-if (!GLOBAL.gl) {
-  alert("Imposible inicializar WebGL. Tu navegador puede no soportarlo.");
-  GLOBAL.gl = null;
-}
-
-// Solo continuar si WebGL esta disponible y trabajando
-function resizeCanvas() {
-  var width = GLOBAL.canvas.clientWidth;
-  var height = GLOBAL.canvas.clientHeight;
-  if (GLOBAL.canvas.width != width ||
-    GLOBAL.canvas.height != height) {
-    GLOBAL.canvas.width = width;
-    GLOBAL.canvas.height = height;
-  }
-}
-
-
-window.addEventListener('resize', resizeCanvas);
-
-document.getElementById("draw").onclick = () => {
-  if (raiz == null) {
-    console.log("no hay ningun nodo");;
-  } else {
-    console.log(raiz);
-    raiz.draw();
-  }
-
-};
-document.getElementById("niu").onclick = () => {
-  if (raiz == null || raiz.getHijos().length == 0) {
-    console.log("no hay raiz o hijos en la raiz");;
-  } else {
-    let auxHijos = raiz.getHijos();
-    var i = 0
-    for (i; i < auxHijos.length - 1; i++) {
-    }
-    let auxEntidad = raiz.getHijo(i).entidad;
-    console.log(auxEntidad);
-    let auxHijo = new TNodo();
-    auxHijo.entidad = auxEntidad;
-    raiz.addHijo(auxHijo);
-
-    // raiz.remHijo(auxHijos[i]);
-  }
-};

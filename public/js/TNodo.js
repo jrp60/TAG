@@ -166,15 +166,45 @@ export class TNodo {
      * @version 0.2 - rev.(03/09)
      */
     draw(pasada) {
-        if (this._entidad != null) {
-            console.log("Nodo [", this._nombre, "]");
+        if (this._entidad !== null) {
             this._entidad.beginDraw(pasada);
-        }
-        for (const hijo of this._hijos) {
-            hijo.draw(pasada);
-        }
-        if (this._entidad != null) {
+            for (const hijo of this._hijos) hijo.draw(pasada);
             this._entidad.endDraw(pasada);
+        }
+    }
+
+    /**
+     * @summary El método draw de cada nodo llama al método beginDraw
+     *  de la entidad asociada. A continuación, el dibujado se desencadena
+     *  en cascada, llamando al dibujado de los nodos hijos de cada nodo padre.
+     * @returns {TNodo} El padre del nodo.
+     * @see {@link http://localhost:3000/pdf/S2.pdf#page=21 | S2.21}
+     * @author David - Javi
+     * @version 0.2 - rev.(03/09)
+     */
+    drawRaiz(pasada) {
+        for (const hijo of this._hijos) hijo.draw(pasada);
+    }
+
+    /**
+     * @summary Imprime en ASCII en consola el arbol
+     * @author David
+     * @version 0.2 - rev.(03/09)
+     */
+    imprimir(indent, ultimo) {
+        let buffer = indent;
+        if (ultimo) {
+            buffer += '\\-';
+            indent += '  ';
+        }
+        else {
+            buffer += '|-';
+            indent += '| ';
+        }
+        buffer += this._nombre;
+        console.log(buffer);
+        for (let i = 0; i < this._hijos.length; i++) {
+            this._hijos[i].imprimir(indent, i == this._hijos.length - 1);
         }
     }
 

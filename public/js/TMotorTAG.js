@@ -102,7 +102,7 @@ export class TMotorTAG {
   crearMalla(fichero) {
     return new TMalla(fichero);
   }
-  
+
   // Métodos para el registro y manejo de las cámaras
   // Métodos para el registro y manejo de las luces
   // Métodos para el registro y manejo de los viewports
@@ -118,12 +118,22 @@ export class TMotorTAG {
       console.error('[ERROR]: No hay raiz' + this._escena);
     } else {
       // Inicializar la librería gráfica como sea necesario
-      this._escena.draw(GLOBAL.LUZ);
+      this._escena.drawRaiz(GLOBAL.LUZ);
       // Inicializar el viewport activo con la librería gráfica
-      this._escena.draw(GLOBAL.CAMARA);
+      this._escena.drawRaiz(GLOBAL.CAMARA);
       // cargar en la matriz MODELVIEW la matriz de la cámara
-      this._escena.draw(GLOBAL.DIBUJAR);
+      this._escena.drawRaiz(GLOBAL.DIBUJAR);
     }
+  }
+
+
+  /**
+   * @summary Imprime en ASCII en consola el arbol
+   * @author David
+   * @version 0.2 - rev.(03/09)
+   */
+  imprimir() {
+    this._escena.imprimir('', true);
   }
 
 }
