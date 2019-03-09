@@ -74,10 +74,8 @@ export class TRecursoMalla extends TRecurso {
     cargarFichero(nombre) {
         return new Promise((resolve, reject) => {
             // Probablente habrá que añadir algo de assimp.
-            const tFichero = new TFichero('malla', nombre);
-            tFichero.cargar().then(result => {
+            this._tFichero.cargar('malla').then(result => {
                 const lines = result.split("\n");
-                const cara = [];
                 for (let i = 0; i < lines.length; i++) {
                     const parts = lines[i].trimRight().split(' ');
                     if (parts.length > 0) {
@@ -128,47 +126,6 @@ export class TRecursoMalla extends TRecurso {
                 resolve(true);
             });
         });
-    }
-
-    /**
-     * @summary Busca si existe el fichero
-     * @param {string} nombre Ruta de fichero
-     * @returns {boolean} si ha existe el fichero o no
-     * @author David 
-     * @version 0.3 - rev (03/09)
-     */
-    existeFichero() {
-        return new Promise((resolve, reject) => {
-            let http = false;
-            if (window.XMLHttpRequest) { // Mozilla, Safari,...
-                http = new XMLHttpRequest();
-                if (http.overrideMimeType) {
-                    http.overrideMimeType('text/xml');
-                    // Ver nota sobre esta linea al final
-                }
-            } else if (window.ActiveXObject) { // IE
-                try {
-                    http = new ActiveXObject("Msxml2.XMLHTTP");
-                } catch (e) {
-                    try {
-                        http = new ActiveXObject("Microsoft.XMLHTTP");
-                    } catch (e) { }
-                }
-            }
-
-            if (!http) {
-                console.error('Falla :( No es posible crear una instancia XMLHTTP');
-                return false;
-            }
-            http.onreadystatechange = () => {
-                if (http.readyState === 4) {
-                    resolve(http.status === 200);
-                }
-            };
-            http.open('HEAD', '/model/malla/' + this.nombre + '.obj', true);
-            http.send();
-        });
-
     }
 
     /**

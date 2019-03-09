@@ -41,7 +41,7 @@ export class TGestorRecursos {
             if (flag) { // Si no existe el recurso, reserva el nombre del recurso en memoria
                 const recurso = new TRecursoMalla(nombre);
                 this._recursos.push(recurso);
-                recurso.existeFichero().then(res => {
+                recurso.existeFichero('malla').then(res => {
                     if (res) { // Si existe recurso lo carga
                         recurso.cargarFichero(nombre).then(cargado => {
                             if (cargado)
