@@ -57,7 +57,7 @@ document.getElementById("imprimir").onclick = () => {
 
 let bucle = false;
 let animation; // ID de la animacion para cancelar
-const fps = 15;
+const fps = 30;
 const fpsInterval = 1000 / fps;
 
 let now, then, elapsed;
@@ -142,7 +142,7 @@ raiz.crearNodo(raiz._escena.getHijo(1).getHijo(0).getHijo(0), c1, "camara-1");
 //rotacion-p1
 var rp1 = raiz.crearTransform();
 raiz.crearNodo(raiz._escena, rp1, "rotacion-p1");
-rp1.rotar(1, 1, 1, 1);
+// rp1.rotar(1, 1, 1, 1);
 //traslacion-p1
 var tp1 = raiz.crearTransform();
 raiz.crearNodo(raiz._escena.getHijo(2), tp1, "traslacion-p1");
@@ -155,6 +155,20 @@ raiz.crearNodo(raiz._escena.getHijo(2).getHijo(0), ep1, "escalado-p1");
 var mp1 = raiz.crearMalla('female-croupier-2013-03-26');
 raiz.crearNodo(raiz._escena.getHijo(2).getHijo(0).getHijo(0), mp1, "malla-p1");
 
+//PERSONA 2
+//rotacion-p2
+var rp2 = raiz.crearTransform();
+raiz.crearNodo(raiz._escena, rp2, "rotacion-p2");
+//traslacion-p2
+var tp2 = raiz.crearTransform();
+raiz.crearNodo(raiz._escena.getHijo(3), tp2, "traslacion-p2");
+tp2.trasladar(0.1, 0, 0);
+//escalado-p2
+var ep2 = raiz.crearTransform();
+raiz.crearNodo(raiz._escena.getHijo(3).getHijo(0), ep2, "escalado-p2");
+//malla-p2
+var mp2 = raiz.crearMalla('female-croupier-2013-03-26');
+raiz.crearNodo(raiz._escena.getHijo(3).getHijo(0).getHijo(0), mp2, "malla-p2");
 
 // ======================================================================
 // =========================  Código animacion  =========================

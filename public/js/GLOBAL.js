@@ -19,7 +19,7 @@ export class GLOBAL {
    * Constante para habilitar el modo debug
    * @const {boolean}
    */
-  static DEBUG = true;
+  static DEBUG = false;
 
   /**
    * Pasada Luz

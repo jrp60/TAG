@@ -13,6 +13,7 @@
 //=  - 03/09 - Codigo integrado para soportar las pasadas [David].
 //============================================================
 import { TEntidad } from './TEntidad.js';
+import { GLOBAL } from './GLOBAL.js';
 
 /**
  * @summary Dato que define un escenario virtual y controla
@@ -183,7 +184,12 @@ export class TNodo {
      * @version 0.2 - rev.(03/09)
      */
     drawRaiz(pasada) {
-        for (const hijo of this._hijos) hijo.draw(pasada);
+        if (GLOBAL.DEBUG) console.log(pasada);
+        for (const hijo of this._hijos) {
+            if (GLOBAL.DEBUG) console.log(GLOBAL.matriz);
+            hijo.draw(pasada);
+            if (GLOBAL.DEBUG) console.log(hijo._nombre, GLOBAL.matriz);
+        }
     }
 
     /**

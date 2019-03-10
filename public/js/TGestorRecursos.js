@@ -33,9 +33,11 @@ export class TGestorRecursos {
         return new Promise((resolve, reject) => {
             let flag = true;
             for (let i = this._recursos.length - 1; i >= 0; i--) { // Busca el recurso
-                if (this._recursos[i].getNombre() === nombre) {
+                if (this._recursos[i].nombre === nombre) {
                     flag = false;
-                    resolve(this._recursos[i]);
+                    const clone = Object.assign(Object.create(this._recursos[i]), this._recursos[i]);
+                    clone.nombre = 'Clon de ' + clone.nombre;
+                    resolve(clone);
                 }
             }
             if (flag) { // Si no existe el recurso, reserva el nombre del recurso en memoria
@@ -50,7 +52,7 @@ export class TGestorRecursos {
                                 recurso_material.existeFichero('material').then(m_res => {
                                     if (m_res) {
                                         recurso_material.cargarFichero().then(m_cargado => {
-                                            
+
                                         });
                                     }
                                 });

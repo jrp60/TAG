@@ -148,7 +148,6 @@ export class TRecursoMalla extends TRecurso {
      */
     draw() {
         const gl = GLOBAL.gl;
-
         const vertices = twgl.primitives.createAugmentedTypedArray(4, this._v.length);
         for (const coordenadas of this._v) {
             const coordenadas_clonados = vec4.clone(coordenadas);
@@ -249,7 +248,6 @@ export class TRecursoMalla extends TRecurso {
         // twgl.drawBufferInfo(gl, bufferInfo, gl.LINES);
         // Mode: https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext/drawArrays
         twgl.drawBufferInfo(gl, bufferInfo, gl.TRIANGLES);
-        console.log('a');
     }
 
 
