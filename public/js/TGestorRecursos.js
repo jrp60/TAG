@@ -40,12 +40,21 @@ export class TGestorRecursos {
             }
             if (flag) { // Si no existe el recurso, reserva el nombre del recurso en memoria
                 const recurso = new TRecursoMalla(nombre);
+                const recurso_material = new TRecursoMaterial(nombre);
                 this._recursos.push(recurso);
                 recurso.existeFichero('malla').then(res => {
                     if (res) { // Si existe recurso lo carga
-                        recurso.cargarFichero(nombre).then(cargado => {
-                            if (cargado)
+                        recurso.cargarFichero().then(cargado => {
+                            if (cargado) {
                                 resolve(recurso);
+                                recurso_material.existeFichero('material').then(m_res => {
+                                    if (m_res) {
+                                        recurso_material.cargarFichero().then(m_cargado => {
+                                            
+                                        });
+                                    }
+                                });
+                            }
                         });
                     } else { // Si no lo elimina de la reserva
                         for (let i = this._recursos.length - 1; i >= 0; i--) {
@@ -56,6 +65,7 @@ export class TGestorRecursos {
                         }
                         resolve(-1);
                     }
+
                 });
             }
         });

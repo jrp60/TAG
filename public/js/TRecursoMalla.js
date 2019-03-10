@@ -38,40 +38,38 @@ export class TRecursoMalla extends TRecurso {
 
     // En uso
     /** @type {vec4[]} */
-    _vertices;
-    /** @type {int[]} */
-    _indices;
+    _v_list;
+    /** @type {vec4[]} */
+    _t_list;
 
+    _v;
+    /** @type {vec2[]} */
+    _t;
 
     // Planificado
     /** @type {vec3[]} */
-    _normales;
-    /** @type {vec2[]} */
-    _texturas;
-    /** @type {int} */
-    _nTriangulos;
+    _n_list;
+
 
     constructor(nombre) {
         super(nombre);
-        this._vertices = [];
-        this._normales = [];
-        this._texturas = [];
-        this._indices = [];
-        this._cara = [];
+        this._v_list = [];
+        this._t_list = [];
+        this._v = [];
+        this._t = [];
     }
 
     /**
      * @summary Lee el fichero con el recurso y rellena los buffers de datos 
      * (vértices, triángulos, texturas) 
      * Para la lectura del fichero podemos implementar un parser propio 
-     * o utilizar librerías de terceros 
-     * @param {string} nombre Ruta de fichero
-     * @returns {boolean} si ha cargado el fichero o no
+     * o utilizar librerías de terceros
+     * @returns {Promise<boolean>} si ha cargado el fichero o no
      * @see {@link http://localhost:3000/pdf/S3.pdf#page=20 | S3.20}
      * @author David 
      * @version 0.3 - rev.(02/24)
      */
-    cargarFichero(nombre) {
+    cargarFichero() {
         return new Promise((resolve, reject) => {
             // Probablente habrá que añadir algo de assimp.
             this._tFichero.cargar('malla').then(result => {
@@ -81,7 +79,7 @@ export class TRecursoMalla extends TRecurso {
                     if (parts.length > 0) {
                         switch (parts[0]) {
                             case 'v':
-                                this._vertices.push(
+                                this._v_list.push(
                                     vec4.fromValues(
                                         parseFloat(parts[1]),
                                         parseFloat(parts[2]),
@@ -90,19 +88,21 @@ export class TRecursoMalla extends TRecurso {
                                 );
                                 break;
                             case 'vn':
-                                this._normales.push(
-                                    vec3.fromValues(
-                                        parseFloat(parts[1]),
-                                        parseFloat(parts[2]),
-                                        parseFloat(parts[3])
-                                    ));
+                                // this._n_list.push(
+                                //     vec4.fromValues(
+                                //         parseFloat(parts[1]),
+                                //         parseFloat(parts[2]),
+                                //         parseFloat(parts[3]),
+                                //         1.0
+                                //     ));
                                 break;
                             case 'vt':
-                                this._texturas.push(
+                                this._t_list.push(
                                     vec2.fromValues(
                                         parseFloat(parts[1]),
                                         parseFloat(parts[2])
-                                    ));
+                                    )
+                                );
                                 break;
                             case 'f':
                                 const f1 = parts[1].split('/');
@@ -115,10 +115,15 @@ export class TRecursoMalla extends TRecurso {
                                   * el indexamiento comienza en 0 
                                   * y para los OBJ comienza en 1.)
                                   */
-                                this._indices.push(f1[0] - 1);
-                                this._indices.push(f2[0] - 1);
-                                this._indices.push(f3[0] - 1);
-
+                                this._v.push(this._v_list[f1[0] - 1]);
+                                // this._v.push(this._n_list[f1[2] - 1]);
+                                this._v.push(this._v_list[f2[0] - 1]);
+                                // this._v.push(this._n_list[f2[2] - 1]);
+                                this._v.push(this._v_list[f3[0] - 1]);
+                                // this._v.push(this._n_list[f3[2] - 1]);
+                                this._t.push(this._t_list[f1[1] - 1]);
+                                this._t.push(this._t_list[f2[1] - 1]);
+                                this._t.push(this._t_list[f3[1] - 1]);
                                 break;
                         }
                     }
@@ -139,80 +144,92 @@ export class TRecursoMalla extends TRecurso {
      */
     draw() {
         const gl = GLOBAL.gl;
-        // ========================= 2. Preparar Shaders =========================
-        // Linkear vertex y fragment
-        // import { Vertex, Fragment } from './js/Shaders.js';
 
-        // var vs = gl.createShader(gl.VERTEX_SHADER);
-        // gl.shaderSource(vs, Vertex);
-        // gl.compileShader(vs);
-
-        // const fs = gl.createShader(gl.FRAGMENT_SHADER);
-        // gl.shaderSource(fs, Fragment);
-        // gl.compileShader(fs);
-
-
-        // Vertex shader source code ProjectionMatrix * ViewMatrix *ModelMatrix *
-        /**
-         * 
-            'uniform mat4 ModelMatrix; // MATRIZ DE MODELO' +
-            'uniform mat4 ViewMatrix; // MATRIZ DE VISTA (INVERSA DE LA CAMARA)' +
-            'uniform mat4 ProjectionMatrix; // MATRIZ DE PROYECCIÓN' +
-
-         */
-        const vertices_transformados = [];
-        for (const coordenadas of this._vertices) {
-            vec4.transformMat4(coordenadas, coordenadas, GLOBAL.matriz);
-            for (const coordenada of coordenadas) {
+        const vertices_transformados = twgl.primitives.createAugmentedTypedArray(4, this._v.length);
+        for (const coordenadas of this._v) {
+            const coordenadas_clonados = vec4.clone(coordenadas);
+            vec4.transformMat4(coordenadas_clonados, coordenadas_clonados, GLOBAL.matriz);
+            for (const coordenada of coordenadas_clonados) {
                 vertices_transformados.push(coordenada);
             }
         }
-        var vertCode =
-            'attribute vec4 coordinates;' +
-            'void main(void) {' +
-            ' gl_Position = coordinates;' +
-            '}';
-        var vs = gl.createShader(gl.VERTEX_SHADER);// Create a vertex shader object
-        gl.shaderSource(vs, vertCode); // Attach vertex shader source code
-        gl.compileShader(vs);        // Compile the vertex shader
 
-        // Fragment shader source code
-        var fragCode =
-            'void main(void) {' +
-            ' gl_FragColor = vec4(0.0, 0.0, 0.0, 0.1);' +
-            '}';
+        const texturas = twgl.primitives.createAugmentedTypedArray(2, this._t.length);
+        for (const t_coord of this._t) {
+            const t_coord_clon = vec2.clone(t_coord);
+            // vec4.transformMat4(t_coord_clon, t_coord_clon, GLOBAL.matriz);
+            for (const t_coor of t_coord_clon) {
+                texturas.push(t_coor);
+            }
+        }
+        const programInfo = twgl.createProgramInfo(gl, ["vs", "fs"]);
+        const textures = twgl.createTextures(gl, {
+            // a power of 2 image
+            camarera2: { src: "/model/textura/female-croupier-2013-03-26.png", mag: gl.NEAREST },
+            // a non-power of 2 image
+            camarera: {
+                // src: "/model/textura/female-croupier-2013-03-26.png",
+                src: new Uint8Array([
+                    255,
+                    128,
+                    255,
+                    128,
+                    255,
+                    128,
+                    255,
+                    128,
+                ]),
+                min: gl.LINEAR,
+                format: gl.LUMINANCE,
+                width:2,
+            },
+            // A 2x2 pixel texture from a JavaScript array
+            checker: {
+                mag: gl.NEAREST,
+                min: gl.LINEAR,
+                src: [
+                    255, 255, 255, 255,
+                    192, 192, 192, 255,
+                    192, 192, 192, 255,
+                    255, 255, 255, 255,
+                ],
+            },
+            // a 1x8 pixel texture from a typed array.
+            stripe: {
+                mag: gl.NEAREST,
+                min: gl.LINEAR,
+                format: gl.LUMINANCE,
+                src: new Uint8Array([
+                    255,
+                    128,
+                    255,
+                    128,
+                    255,
+                    128,
+                    255,
+                    128,
+                ]),
+                width: 1,
+            },
+        });
+        const baseHue = Math.random() * 360;
 
-        var fs = gl.createShader(gl.FRAGMENT_SHADER);  // Create fragment shader object 
-        gl.shaderSource(fs, fragCode); // Attach fragment shader source code
-        gl.compileShader(fs); // Compile the fragmentt shader
+        const arrays = {
+            a_position: vertices_transformados,
+            a_texCoord: { data: texturas, normalize: true },
+        };
+        const bufferInfo = twgl.createBufferInfoFromArrays(gl, arrays);
+        twgl.resizeCanvasToDisplaySize(gl.canvas);
+        gl.viewport(0, 0, gl.canvas.width, gl.canvas.height);
+        const uniforms = {
+            u_sampler: textures.camarera,
+            u_diffuseMult: chroma.hsv((baseHue + Math.random() * 60) % 360, 0.4, 0.2).gl(),
+        };
 
-        const program = gl.createProgram(); // Crea el programa de usuario que usará la GPU.
-        gl.attachShader(program, vs);       // Adjunta el Vertex Shader al programa.
-        gl.attachShader(program, fs);       // Adjunta el Fragment Shader al programa.
-        gl.linkProgram(program);            // Enlaza el programa al API.
-        gl.useProgram(program);             // Usa el programa al API.
-
-        // ========================= 3. Asociar buffers a los Shaders =========================
-        const vertex_buffer = gl.createBuffer(); // Buffer de vertices
-        gl.bindBuffer(gl.ARRAY_BUFFER, vertex_buffer); // Enlaza el buffer de vertices a su tipo.
-        gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices_transformados), gl.STATIC_DRAW); // Mete los datos del buffer.
-
-        const index_buffer = gl.createBuffer(); // Buffer de indices
-        gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, index_buffer); // Enlaza el buffer de indices a su tipo.
-        gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, new Uint16Array(this._indices), gl.STATIC_DRAW); // Mete los datos del buffer.
-
-        // ========================= 4. Recoger atributos de los Shaders =========================
-        const coord = gl.getAttribLocation(program, "coordinates"); // Get the attribute location
-
-        // ========================= 5. Pasar información a los atributos de los Shaders =========================
-        gl.vertexAttribPointer(coord, 4, gl.FLOAT, false, 0, 0); // Point an attribute to the currently bound VBO
-
-        // ========================= 6. Habilitar atributos de los Shaders =========================
-        gl.enableVertexAttribArray(coord);
-
-        // ========================= 7. Dibujar modelo =========================
-        // Draw the triangle
-        gl.drawElements(gl.TRIANGLES, this._indices.length, gl.UNSIGNED_SHORT, 0);
+        gl.useProgram(programInfo.program);
+        twgl.setBuffersAndAttributes(gl, programInfo, bufferInfo);
+        twgl.setUniforms(programInfo, uniforms);
+        twgl.drawBufferInfo(gl, bufferInfo);
     }
 
 

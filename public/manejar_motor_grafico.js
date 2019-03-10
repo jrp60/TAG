@@ -15,15 +15,13 @@
 import { GLOBAL } from './js/GLOBAL.js';
 import { TMotorTAG } from './js/TMotorTAG.js';
 import { TNodo } from './js/TNodo.js';
-
 // ======================================================================
 // ========================= Variables globales =========================
 
-GLOBAL.matriz = glMatrix.mat4.create();
 GLOBAL.canvas = document.getElementById("glcanvas");
 try {
   // Tratar de tomar el contexto estandar. Si falla, retornar al experimental.
-  GLOBAL.gl = GLOBAL.canvas.getContext("webgl") || GLOBAL.canvas.getContext("experimental-webgl");
+  GLOBAL.gl = GLOBAL.canvas.getContext("webgl2") || GLOBAL.canvas.getContext("webgl") || GLOBAL.canvas.getContext("experimental-webgl");
 }
 catch (e) { }
 // Si no tenemos ningun contexto GL.
@@ -31,6 +29,8 @@ if (!GLOBAL.gl) {
   alert("Imposible inicializar WebGL. Tu navegador puede no soportarlo.");
   GLOBAL.gl = null;
 }
+GLOBAL.gl.clearColor(0.5, 0.5, 0.5, 0.9); // Cambia el fondo del canvas.
+GLOBAL.gl.clear(GLOBAL.gl.COLOR_BUFFER_BIT | GLOBAL.gl.DEPTH_BUFFER_BIT);    // Eliminar/sustituye el color del canvas anterior.
 
 // ======================================================================
 // =========================    HERRAMIENTAS    =========================
@@ -55,6 +55,30 @@ document.getElementById("imprimir").onclick = () => {
   }
 };
 
+let bucle = false;
+let animation; // ID de la animacion para cancelar
+const fps = 15;
+const fpsInterval = 1000 / fps;
+
+let now, then, elapsed;
+
+// Boton para que el motor dibuje.
+document.getElementById("animar").onclick = () => {
+  if (raiz == null) {
+    console.error("[ERROR] No existe el nodo Raiz");
+  } else {
+    bucle = !bucle;
+    if (bucle) {
+      then = Date.now();
+      animation = window.requestAnimationFrame(step);
+      console.log('Animacion encendida');
+    } else {
+      window.cancelAnimationFrame(animation);
+      console.log('Animacion parada');
+    }
+  }
+};
+
 // Boton para que el motor dibuje.
 document.getElementById("draw").onclick = () => {
   if (raiz == null) {
@@ -62,9 +86,7 @@ document.getElementById("draw").onclick = () => {
   } else {
     raiz.draw();
   }
-
 };
-
 
 document.getElementById("niu").onclick = () => {
   if (raiz == null || raiz.getHijos().length == 0) {
@@ -124,11 +146,34 @@ rp1.rotar(1, 1, 1, 1);
 //traslacion-p1
 var tp1 = raiz.crearTransform();
 raiz.crearNodo(raiz._escena.getHijo(2), tp1, "traslacion-p1");
-tp1.trasladar(0.1, 0, 0);
+// tp1.trasladar(0.1, 0, 0);
 //escalado-p1
 var ep1 = raiz.crearTransform();
 raiz.crearNodo(raiz._escena.getHijo(2).getHijo(0), ep1, "escalado-p1");
-ep1.escalar(0.8, 0.8, 0.8);
+// ep1.escalar(0.8, 0.8, 0.8);
 //malla-p1
 var mp1 = raiz.crearMalla('female-croupier-2013-03-26');
 raiz.crearNodo(raiz._escena.getHijo(2).getHijo(0).getHijo(0), mp1, "malla-p1");
+
+
+// ======================================================================
+// =========================  Código animacion  =========================
+
+function step() {
+  animation = window.requestAnimationFrame(step);
+  now = Date.now();
+  elapsed = now - then;
+  // if enough time has elapsed, draw the next frame
+  if (elapsed > fpsInterval) {
+    // Get ready for next frame by setting then=now, but also adjust for your
+    // specified fpsInterval not being a multiple of RAF's interval (16.7ms)
+    then = now - (elapsed % fpsInterval);
+    // webglUtils.resizeCanvasToDisplaySize(GLOBAL.gl.canvas);
+    // Código de animación
+    raiz.draw();
+    // Tener en cuenta que en la animación lo que se hace es añadir a 
+    // lo que habia en la matriz de transformación anterior
+    rp1.rotar(0.2, 1, 0, 2);
+  }
+}
+

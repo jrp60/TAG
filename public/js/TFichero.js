@@ -49,7 +49,13 @@ export class TFichero {
           }
         }
       };
-      http.open('GET', '/model/' + tipo + '/' + this._nombre + '.obj', true);
+      if (tipo === 'malla') {
+        http.open('GET', '/model/' + tipo + '/' + this._nombre + '.obj', true);
+      } else if (tipo === 'material') {
+        http.open('GET', '/model/' + tipo + '/' + this._nombre + '.mtl', true);
+      } else if (tipo === 'textura') {
+        http.open('GET', '/model/' + tipo + '/' + this._nombre + '.png', true);
+      }
       http.send();
     });
   }
@@ -84,6 +90,10 @@ export class TFichero {
       };
       if (tipo === 'malla') {
         http.open('HEAD', '/model/' + tipo + '/' + this._nombre + '.obj', true);
+      } else if (tipo === 'material') {
+        http.open('HEAD', '/model/' + tipo + '/' + this._nombre + '.mtl', true);
+      } else if (tipo === 'textura') {
+        http.open('HEAD', '/model/' + tipo + '/' + this._nombre + '.png', true);
       }
       http.send();
     });

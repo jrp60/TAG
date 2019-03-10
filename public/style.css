@@ -1,3 +1,8 @@
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
 body {
   margin: 0px;
   display: flex;
@@ -10,11 +15,15 @@ main {
 }
 
 #glcanvas {
+  flex-grow: 1;
   min-height: 400px;
+  height:auto;
+  width:auto;
   background: red;
 }
 
 footer {
+  flex-grow: 0;
   display: flex;
   flex-direction: row;
 }
@@ -25,6 +34,8 @@ aside {
 }
 
 section {
+
+  flex-grow: 0;
   display: flex;
   flex-direction: row;
 }
