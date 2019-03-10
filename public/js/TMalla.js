@@ -51,7 +51,7 @@ export class TMalla extends TEntidad {
       gl.enable(gl.DEPTH_TEST);          // Activa la comparación de profundidad y actualiza el buffer de profundidad. 
       gl.enable(gl.CULL_FACE);           // Activa la eliminación de los polígonos no visibles.
       gl.depthFunc(gl.LEQUAL);           // Objetos cercanos opacan objetos lejanos.
-      gl.cullFace(gl.BACK);              // Elimina los poligonos traseros.
+      gl.cullFace(gl.FRONT);             // Elimina los poligonos traseros.
       gl.clearColor(0.5, 0.5, 0.5, 0.9); // Cambia el fondo del canvas.
       // Limpiar el buffer de color asi como el de profundidad
       gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);    // Eliminar/sustituye el color del canvas anterior.

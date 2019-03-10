@@ -39,23 +39,28 @@ export class TRecursoMalla extends TRecurso {
     // En uso
     /** @type {vec4[]} */
     _v_list;
+    /** @type {vec3[]} */
+    _n_list;
     /** @type {vec4[]} */
     _t_list;
 
+    /** @type {float[]} */
     _v;
-    /** @type {vec2[]} */
+    /** @type {float[]} */
+    _n;
+    /** @type {float[]} */
     _t;
 
     // Planificado
-    /** @type {vec3[]} */
-    _n_list;
 
 
     constructor(nombre) {
         super(nombre);
         this._v_list = [];
+        this._n_list = [];
         this._t_list = [];
         this._v = [];
+        this._n = [];
         this._t = [];
     }
 
@@ -88,13 +93,12 @@ export class TRecursoMalla extends TRecurso {
                                 );
                                 break;
                             case 'vn':
-                                // this._n_list.push(
-                                //     vec4.fromValues(
-                                //         parseFloat(parts[1]),
-                                //         parseFloat(parts[2]),
-                                //         parseFloat(parts[3]),
-                                //         1.0
-                                //     ));
+                                this._n_list.push(
+                                    vec4.fromValues(
+                                        parseFloat(parts[1]),
+                                        parseFloat(parts[2]),
+                                        parseFloat(parts[3])
+                                    ));
                                 break;
                             case 'vt':
                                 this._t_list.push(
@@ -116,14 +120,14 @@ export class TRecursoMalla extends TRecurso {
                                   * y para los OBJ comienza en 1.)
                                   */
                                 this._v.push(this._v_list[f1[0] - 1]);
-                                // this._v.push(this._n_list[f1[2] - 1]);
                                 this._v.push(this._v_list[f2[0] - 1]);
-                                // this._v.push(this._n_list[f2[2] - 1]);
                                 this._v.push(this._v_list[f3[0] - 1]);
-                                // this._v.push(this._n_list[f3[2] - 1]);
                                 this._t.push(this._t_list[f1[1] - 1]);
                                 this._t.push(this._t_list[f2[1] - 1]);
                                 this._t.push(this._t_list[f3[1] - 1]);
+                                this._n.push(this._n_list[f1[2] - 1]);
+                                this._n.push(this._n_list[f2[2] - 1]);
+                                this._n.push(this._n_list[f3[2] - 1]);
                                 break;
                         }
                     }
@@ -145,12 +149,12 @@ export class TRecursoMalla extends TRecurso {
     draw() {
         const gl = GLOBAL.gl;
 
-        const vertices_transformados = twgl.primitives.createAugmentedTypedArray(4, this._v.length);
+        const vertices = twgl.primitives.createAugmentedTypedArray(4, this._v.length);
         for (const coordenadas of this._v) {
             const coordenadas_clonados = vec4.clone(coordenadas);
             vec4.transformMat4(coordenadas_clonados, coordenadas_clonados, GLOBAL.matriz);
             for (const coordenada of coordenadas_clonados) {
-                vertices_transformados.push(coordenada);
+                vertices.push(coordenada);
             }
         }
 
@@ -162,26 +166,36 @@ export class TRecursoMalla extends TRecurso {
                 texturas.push(t_coor);
             }
         }
+        // console.log(texturas);
+
+        const normales = twgl.primitives.createAugmentedTypedArray(3, this._n.length);
+        for (const n_coord of this._n) {
+            const n_coord_clon = vec3.clone(n_coord);
+            // vec4.transformMat4(n_coord_clon, n_coord_clon, GLOBAL.matriz);
+            for (const n_coor of n_coord_clon) {
+                normales.push(n_coor);
+            }
+        }
+
+
         const programInfo = twgl.createProgramInfo(gl, ["vs", "fs"]);
         const textures = twgl.createTextures(gl, {
-            // a power of 2 image
-            camarera2: { src: "/model/textura/female-croupier-2013-03-26.png", mag: gl.NEAREST },
             // a non-power of 2 image
             camarera: {
-                // src: "/model/textura/female-croupier-2013-03-26.png",
-                src: new Uint8Array([
-                    255,
-                    128,
-                    255,
-                    128,
-                    255,
-                    128,
-                    255,
-                    128,
-                ]),
-                min: gl.LINEAR,
-                format: gl.LUMINANCE,
-                width:2,
+                src: "/model/textura/female-croupier-2013-03-26.png",
+                // src: new Uint8Array([
+                //     255,
+                //     128,
+                //     255,
+                //     128,
+                //     255,
+                //     128,
+                //     255,
+                //     128,
+                // ]),
+                // min: gl.LINEAR,
+                // format: gl.LUMINANCE,
+                // width: 2,
             },
             // A 2x2 pixel texture from a JavaScript array
             checker: {
@@ -196,7 +210,6 @@ export class TRecursoMalla extends TRecurso {
             },
             // a 1x8 pixel texture from a typed array.
             stripe: {
-                mag: gl.NEAREST,
                 min: gl.LINEAR,
                 format: gl.LUMINANCE,
                 src: new Uint8Array([
@@ -209,27 +222,34 @@ export class TRecursoMalla extends TRecurso {
                     255,
                     128,
                 ]),
-                width: 1,
+                width: 2,
             },
+        }, (err, textures, sources) => {
+            // wait for the image to load because we need to know it's size
+            // startRendering(sources);
         });
         const baseHue = Math.random() * 360;
-
         const arrays = {
-            a_position: vertices_transformados,
-            a_texCoord: { data: texturas, normalize: true },
+            a_position: vertices,
+            a_texcoord: texturas,
+            a_normal: normales,
         };
-        const bufferInfo = twgl.createBufferInfoFromArrays(gl, arrays);
+        let bufferInfo = twgl.createBufferInfoFromArrays(gl, arrays);
         twgl.resizeCanvasToDisplaySize(gl.canvas);
         gl.viewport(0, 0, gl.canvas.width, gl.canvas.height);
         const uniforms = {
             u_sampler: textures.camarera,
-            u_diffuseMult: chroma.hsv((baseHue + Math.random() * 60) % 360, 0.4, 0.2).gl(),
+            u_diffuseMult: chroma.hsv((baseHue + Math.random() * 60) % 360, 0.4, 0.3).gl(),
+            u_reverseLightDirection: twgl.v3.normalize([0.4, 1, 0.7]),
+            u_color: [0.2, 1, 0.2, 1] // Green
         };
-
         gl.useProgram(programInfo.program);
         twgl.setBuffersAndAttributes(gl, programInfo, bufferInfo);
         twgl.setUniforms(programInfo, uniforms);
-        twgl.drawBufferInfo(gl, bufferInfo);
+        // twgl.drawBufferInfo(gl, bufferInfo, gl.LINES);
+        // Mode: https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext/drawArrays
+        twgl.drawBufferInfo(gl, bufferInfo, gl.TRIANGLES);
+        console.log('a');
     }
 
 
