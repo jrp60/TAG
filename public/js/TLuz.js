@@ -94,7 +94,7 @@ export class TLuz extends TEntidad {
      * @version 0.5 - rev.(03/09)
      * @todo Hay que hacer la luz
      */
-    beginDraw(pasada) {
+    endDraw(pasada) {
         if (pasada === GLOBAL.LUZ && this._activada) {
 
         }

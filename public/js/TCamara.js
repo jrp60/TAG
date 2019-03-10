@@ -2,6 +2,7 @@
 //=  - 0.2 Init. S2.17 [David]
 //=  - 02/16 Añadiendo atributos a la clase [Javi]
 //=  - 03/09 - Constructor y uso de las constantes. [David]
+//=  - 02/16 Setperspectiva y setParalela [Javi]
 //============================================================
 
 import { TEntidad } from './TEntidad.js';
@@ -32,6 +33,10 @@ export class TCamara extends TEntidad {
   /** @type {boolean} */
   _activa;
 
+  // Hay alguna matriz en camara?
+  // /**  @type {mat4} */
+  // _matrizView;
+
   constructor() {
     super();
   }
@@ -40,11 +45,17 @@ export class TCamara extends TEntidad {
    * @param {float} x
    * @param {float} y
    * @see {@link http://localhost:3000/pdf/S2.pdf#page=17 | S2.17}
-   * @author David
+   * @author Javi
    * @version 0.2
    */
-  setPerspectiva(x, y) {
-
+  setPerspectiva(cerca, lejos, sup, inf, izq, dere) {
+    this._esPerspectiva = true;
+    this._cercano = cerca;
+    this._lejano = lejos;
+    this._superior = sup;
+    this._inferior = inf;
+    this._izquierda = izq;
+    this._derecha = dere;
   }
 
   /**
@@ -52,11 +63,17 @@ export class TCamara extends TEntidad {
    * @param {float} x
    * @param {float} y
    * @see {@link http://localhost:3000/pdf/S2.pdf#page=17 | S2.17}
-   * @author David
+   * @author Javi
    * @version 0.2
    */
-  setParalela(x, y) {
-
+  setParalela(cerca, lejos, sup, inf, izq, dere) {
+    this._esPerspectiva = false;
+    this._cercano = cerca;
+    this._lejano = lejos;
+    this._superior = sup;
+    this._inferior = inf;
+    this._izquierda = izq;
+    this._derecha = dere;
   }
 
   /**
