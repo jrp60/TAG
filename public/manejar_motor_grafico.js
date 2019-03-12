@@ -185,9 +185,8 @@ function step() {
     // webglUtils.resizeCanvasToDisplaySize(GLOBAL.gl.canvas);
     // Código de animación
     raiz.draw();
-    // Tener en cuenta que en la animación lo que se hace es añadir a 
+    // Tener en cuenta que en la animación lo que se hace es añadir a
     // lo que habia en la matriz de transformación anterior
     rp1.rotar(0.2, 1, 0, 2);
   }
 }
-
