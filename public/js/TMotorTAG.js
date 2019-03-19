@@ -71,12 +71,12 @@ export class TMotorTAG {
    * @summary Crea una camara con posiciones y se indica si esta activa o no
    * @return {TCamara}
    * @see {@link http://localhost:3000/pdf/S4.pdf#page=7 | S4.7}
-   * @author Javi - David 
+   * @author Javi - David
    * @version 0.4 - rev.(03/09)
    * @todo Crear cámara y devolverla
    */
-  crearCamara(x, y, z, activa) {
-    return new TCamara(x, y, z, activa);
+  crearCamara() {
+    return new TCamara();
   }
 
   /**

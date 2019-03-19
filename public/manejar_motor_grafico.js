@@ -127,7 +127,7 @@ raiz.crearNodo(raiz._escena.getHijo(0).getHijo(0).getHijo(0), l1, "luz-1");
 //CAMARA 1
 //rotacion-c1
 var rc1 = raiz.crearTransform();
-raiz.crearNodo(raiz._escena, rc1, "rotacion-c1")
+raiz.crearNodo(raiz._escena, rc1, "rotacion-c1");
 //traslacion-c1
 var tc1 = raiz.crearTransform();
 raiz.crearNodo(raiz._escena.getHijo(1), tc1, "traslacion-c1");
@@ -136,7 +136,12 @@ var ec1 = raiz.crearTransform();
 raiz.crearNodo(raiz._escena.getHijo(1).getHijo(0), ec1, "escalado-c1");
 //camara1
 var c1 = raiz.crearCamara();
-raiz.crearNodo(raiz._escena.getHijo(1).getHijo(0).getHijo(0), c1, "camara-1");
+var camara1 = raiz.crearNodo(raiz._escena.getHijo(1).getHijo(0).getHijo(0), c1, "camara-1");
+// console.log(camara.entidad);
+ console.log(c1);
+ console.log(camara1);
+c1.setCercano(22);
+c1.setParalela();
 
 //PERSONA 1
 //rotacion-p1
@@ -169,6 +174,10 @@ raiz.crearNodo(raiz._escena.getHijo(3).getHijo(0), ep2, "escalado-p2");
 //malla-p2
 var mp2 = raiz.crearMalla('female-croupier-2013-03-26');
 raiz.crearNodo(raiz._escena.getHijo(3).getHijo(0).getHijo(0), mp2, "malla-p2");
+
+console.log("Antes de begindraw");
+raiz._escena.draw(2);
+console.log("Despues de begindraw");
 
 // ======================================================================
 // =========================  Código animacion  =========================

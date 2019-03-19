@@ -11,6 +11,7 @@
 //=  - 02/14 - Termina de transcribir lo que tenía de C++ a JS [David]
 //=  - 02/16 Añadiendo metodos para el funcionamiento del arbol[Javi]
 //=  - 03/09 - Codigo integrado para soportar las pasadas [David].
+//=  - 03/19 Begindraw: if para saltar la raiz sin entidad [Javi]
 //============================================================
 import { TEntidad } from './TEntidad.js';
 import { GLOBAL } from './GLOBAL.js';
@@ -167,10 +168,13 @@ export class TNodo {
      * @version 0.2 - rev.(03/09)
      */
     draw(pasada) {
-        if (this._entidad !== null) {
+        if (this._entidad != null) {
             this._entidad.beginDraw(pasada);
             for (const hijo of this._hijos) hijo.draw(pasada);
             this._entidad.endDraw(pasada);
+        }
+        else {
+          this._hijos[0].entidad.beginDraw(pasada);
         }
     }
 
