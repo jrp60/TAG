@@ -80,6 +80,18 @@ export class TMotorTAG {
   }
 
   /**
+   * @summary Crea una camara con posiciones y se indica si esta activa o no
+   * @return {TCamara}
+   * @see {@link http://localhost:3000/pdf/S4.pdf#page=7 | S4.7}
+   * @author Javi - David
+   * @version 0.4 - rev.(03/09)
+   * @todo Crear cámara y devolverla
+   */
+  setCamaraActiva(cam) {
+    cam.setActiva();
+  }
+
+  /**
    * @summary falta por poner la intesidad, posicion y si es activa
    * @return {TLuz}
    * @see {@link http://localhost:3000/pdf/S4.pdf#page=7 | S4.7}
@@ -112,12 +124,16 @@ export class TMotorTAG {
    * @see {@link http://localhost:3000/pdf/S4.pdf#page=7 | S4.7}
    * @author David
    * @version 0.4 - rev.(03/09)
-   */
+*/
+
+
   draw() {
+
     GLOBAL.matriz = glMatrix.mat4.create();
     if (this._escena === null) {
       console.error('[ERROR]: No hay raiz' + this._escena);
     } else {
+
       // Inicializar la librería gráfica como sea necesario
       this._escena.drawRaiz(GLOBAL.LUZ);
       // Inicializar el viewport activo con la librería gráfica

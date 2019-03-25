@@ -17,13 +17,13 @@
 import { TEntidad } from './TEntidad.js';
 import { GLOBAL } from './GLOBAL.js';
 
-/** 
+/**
  * glMatrix.ARRAY_TYPE(16)
  * @type {mat4}
  * */
 const mat4 = glMatrix.mat4;
 
-/** 
+/**
  * glMatrix.ARRAY_TYPE(3)
  * @type {vec3}
  */
@@ -37,18 +37,18 @@ const vec3 = glMatrix.vec3;
  */
 export class TTransform extends TEntidad {
 
-    /** 
+    /**
      * glMatrix.ARRAY_TYPE(16) - Matriz de transformación
-     * @type {mat4}  
+     * @type {mat4}
      * */
     _matriz;
 
     /**
     * @summary Crea una entidad transformación,
-    * si no se le especifica su cometido, 
+    * si no se le especifica su cometido,
     * se quedará en matriz identidad.
     * @see {@link http://localhost:3000/pdf/S2.pdf#page=16 | S2.16}
-    * @author Javi - David 
+    * @author Javi - David
     * @version 0.4 - rev.(03/09)
     */
     constructor() {
@@ -151,9 +151,10 @@ export class TTransform extends TEntidad {
      */
     beginDraw() { // TransformedVector = TranslationMatrix * RotationMatrix * ScaleMatrix * OriginalVector;
         GLOBAL.pushPila(GLOBAL.matriz); // Apilamos matriz actual.
+        //console.log(GLOBAL.matriz);
         const clon = mat4.clone(GLOBAL.matriz);
-        // console.log(this._matriz);  
-        mat4.multiply(GLOBAL.matriz, this._matriz, clon); // Multiplicar la matriz de la transformación a la matriz actual 
+        // console.log(this._matriz);
+        mat4.multiply(GLOBAL.matriz, this._matriz, clon); // Multiplicar la matriz de la transformación a la matriz actual
     }
 
     /**
@@ -163,6 +164,6 @@ export class TTransform extends TEntidad {
      * @version 0.4 - rev.(03/09)
      */
     endDraw() {
-        GLOBAL.matriz = GLOBAL.popPila();
+        GLOBAL.popPila();
     }
 }

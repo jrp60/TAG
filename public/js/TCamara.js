@@ -6,6 +6,7 @@
 //=  - 03/12 Constructor, arreglando setPerspectiva y setParalela, y otros setters [Javi]
 //=  - 03/18 Corrigiendo errores [Javi]
 //=  - 03/19 begindraw: primera version muy de prueba [Javi]
+//=  - 03/25 begindraw: falta 'enviar para utilizar en el dibujado' [Javi]
 //============================================================
 
 import { TEntidad } from './TEntidad.js';
@@ -55,7 +56,7 @@ export class TCamara extends TEntidad{
   /** @type {vec3} */
   _camaraUp;
   /** @type {vec3} */
-  _cameraTarget;
+  _camaraTarget;
 
 
   // Hay alguna matriz en camara?
@@ -65,14 +66,13 @@ export class TCamara extends TEntidad{
   constructor() {
     super();
     this._perspectiva = false;
-    this._activa = true;
     this._cercano = 0.1;
     this._lejano = 100;
     this._inferior = 600;
     this._superior = 0;
     this._derecha = 800;
     this._izquierda = 0;
-    this._cameraTarget = vec3.fromValues(0, 0, 0);
+    this._camaraTarget = vec3.fromValues(0, 0, 0);
     this._camaraUp = vec3.fromValues(0, 1, 0);
     this._projection = mat4.create();
     console.log("constructor TCamara");
@@ -123,18 +123,26 @@ export class TCamara extends TEntidad{
    */
   beginDraw(pasada) {
     if (pasada === GLOBAL.CAMARA && this._activa === true) {
+
+      var invert = mat4.create();
+      mat4.invert(invert,GLOBAL.matriz);
+      console.log(invert);
+      //console.log(GLOBAL.matriz);
+
+
       // obtener la matriz de posici�n de la c�mara (MODELVIEW)
       // invertir esa matriz y devolverla para utilizarla en el dibujado
-      //delcarar mat4 view = lookat( vec3:posicion, vec3:_cameraTarget, vec3:_camaraUp)
-      var view = mat4.create();
-      var posicionAux = vec3.create();
-      var aux2 = mat4.create();
-      aux2 = GLOBAL.matriz;
-      vec3.set(posicionAux, aux2[3][0], aux2[3][1], aux2[3][2]);
-      mat4.lookAt(view, posicionAux, this._cameraTarget, this._camaraUp);
-      console.log("drawCamara");
-      console.log(posicionAux);
-      console.log(view);
+      //delcarar mat4 view = lookat( vec3:posicion, vec3:_camaraTarget, vec3:_camaraUp)
+      // var view = mat4.create();
+      // var posicionAux = vec3.create();
+      // var aux2 = mat4.create();
+      // aux2 = GLOBAL.matriz;
+      // //console.log(aux2);
+      //
+      // vec3.set(posicionAux, aux2[3][0], aux2[3][1], aux2[3][2]);
+      // mat4.lookAt(view, posicionAux, this._camaraTarget, this._camaraUp);
+      //console.log(posicionAux);
+      //console.log(view);
     }
 
   }
@@ -151,6 +159,16 @@ export class TCamara extends TEntidad{
     }
   }
 
+  /**
+   * @summary
+   * @param {float} x Axis X
+   * @see {@link http://localhost:3000/pdf/S2.pdf#page=17 | S2.17}
+   * @author Javi
+   * @version 0.2
+   */
+  setActiva(){
+    this._activa = true;
+  }
 
 
   /**
@@ -176,7 +194,7 @@ export class TCamara extends TEntidad{
    * @version 0.2
    */
   setTarget(x,y,z){
-    vec3.set(this._cameraTarget,x,y,z);
+    vec3.set(this._camaraTarget,x,y,z);
   }
   /**
    * @summary Establece el cerca de la camara

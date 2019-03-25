@@ -49,7 +49,7 @@ export class GLOBAL {
    * Matriz de transformación en memoria
    * esta es manejado por la pila para guardar las diferentes
    * transformaciones que se llevan a cabo
-   * @type {mat4} 
+   * @type {mat4}
    */
   static _matrizModelo;
 
@@ -75,6 +75,7 @@ export class GLOBAL {
     */
   static pushPila(element) {
     return this._pila.push(element);
+
   }
 
   /**

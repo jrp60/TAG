@@ -168,14 +168,11 @@ export class TNodo {
      * @version 0.2 - rev.(03/09)
      */
     draw(pasada) {
-        if (this._entidad != null) {
+      // console.log(this._nombre);
+      // console.log(GLOBAL.matriz);
             this._entidad.beginDraw(pasada);
             for (const hijo of this._hijos) hijo.draw(pasada);
             this._entidad.endDraw(pasada);
-        }
-        else {
-          this._hijos[0].entidad.beginDraw(pasada);
-        }
     }
 
     /**

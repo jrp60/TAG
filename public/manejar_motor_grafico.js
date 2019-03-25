@@ -166,8 +166,9 @@ var rp2 = raiz.crearTransform();
 raiz.crearNodo(raiz._escena, rp2, "rotacion-p2");
 //traslacion-p2
 var tp2 = raiz.crearTransform();
-raiz.crearNodo(raiz._escena.getHijo(3), tp2, "traslacion-p2");
 tp2.trasladar(0.1, 0, 0);
+raiz.crearNodo(raiz._escena.getHijo(3), tp2, "traslacion-p2");
+
 //escalado-p2
 var ep2 = raiz.crearTransform();
 raiz.crearNodo(raiz._escena.getHijo(3).getHijo(0), ep2, "escalado-p2");
@@ -175,8 +176,10 @@ raiz.crearNodo(raiz._escena.getHijo(3).getHijo(0), ep2, "escalado-p2");
 var mp2 = raiz.crearMalla('female-croupier-2013-03-26');
 raiz.crearNodo(raiz._escena.getHijo(3).getHijo(0).getHijo(0), mp2, "malla-p2");
 
+raiz.setCamaraActiva(c1); //establecemos la camara activa
+
 console.log("Antes de begindraw");
-raiz._escena.draw(2);
+//raiz.draw();
 console.log("Despues de begindraw");
 
 // ======================================================================

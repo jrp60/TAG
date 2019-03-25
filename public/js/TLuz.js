@@ -79,6 +79,7 @@ export class TLuz extends TEntidad {
     beginDraw(pasada) {
         if (pasada === GLOBAL.LUZ && this._activada) {
             console.log(" pasada 1 - luz activa");
+            var invert = mat4.clone(GLOBAL.matriz);
             // obtener la posici�n de la luz de la matriz activa(MODELVIEW)
             // activar la luz en la librer�a gr�fica
             // colocar la luz en la posici�n obtenida
