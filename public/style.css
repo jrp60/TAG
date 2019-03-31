@@ -14,11 +14,16 @@ main {
   flex-direction: column;
 }
 
+#contenedor {
+  display: flex;
+  flex-direction: row;
+}
+
 #glcanvas {
   flex-grow: 1;
   min-height: 400px;
-  height:auto;
-  width:auto;
+  height: auto;
+  width: auto;
   background: red;
 }
 
@@ -34,7 +39,6 @@ aside {
 }
 
 section {
-
   flex-grow: 0;
   display: flex;
   flex-direction: row;
@@ -43,4 +47,7 @@ section {
 article {
   display: flex;
   flex-direction: column;
+}
+th, td {
+  border: 1px solid black;
 }
