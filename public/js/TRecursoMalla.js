@@ -146,12 +146,12 @@ export class TRecursoMalla extends TRecurso {
      * @author David 
      * @version 0.3 - rev (03/09)
      */
-    draw() {
+    draw(matrix) {
         const gl = GLOBAL.gl;
         const vertices = twgl.primitives.createAugmentedTypedArray(4, this._v.length);
         for (const coordenadas of this._v) {
             const coordenadas_clonados = vec4.clone(coordenadas);
-            vec4.transformMat4(coordenadas_clonados, coordenadas_clonados, GLOBAL.matriz);
+            vec4.transformMat4(coordenadas_clonados, coordenadas_clonados, matrix);
             for (const coordenada of coordenadas_clonados) {
                 vertices.push(coordenada);
             }
@@ -160,7 +160,7 @@ export class TRecursoMalla extends TRecurso {
         const texturas = twgl.primitives.createAugmentedTypedArray(2, this._t.length);
         for (const t_coord of this._t) {
             const t_coord_clon = vec2.clone(t_coord);
-            // vec4.transformMat4(t_coord_clon, t_coord_clon, GLOBAL.matriz);
+            // vec4.transformMat4(t_coord_clon, t_coord_clon, matrix);
             for (const t_coor of t_coord_clon) {
                 texturas.push(t_coor);
             }
@@ -170,12 +170,11 @@ export class TRecursoMalla extends TRecurso {
         const normales = twgl.primitives.createAugmentedTypedArray(3, this._n.length);
         for (const n_coord of this._n) {
             const n_coord_clon = vec3.clone(n_coord);
-            // vec4.transformMat4(n_coord_clon, n_coord_clon, GLOBAL.matriz);
+            // vec4.transformMat4(n_coord_clon, n_coord_clon, matrix);
             for (const n_coor of n_coord_clon) {
                 normales.push(n_coor);
             }
         }
-
 
         const programInfo = twgl.createProgramInfo(gl, ["vs", "fs"]);
         const textures = twgl.createTextures(gl, {
@@ -195,37 +194,11 @@ export class TRecursoMalla extends TRecurso {
                 // min: gl.LINEAR,
                 // format: gl.LUMINANCE,
                 // width: 2,
-            },
-            // A 2x2 pixel texture from a JavaScript array
-            checker: {
-                mag: gl.NEAREST,
-                min: gl.LINEAR,
-                src: [
-                    255, 255, 255, 255,
-                    192, 192, 192, 255,
-                    192, 192, 192, 255,
-                    255, 255, 255, 255,
-                ],
-            },
-            // a 1x8 pixel texture from a typed array.
-            stripe: {
-                min: gl.LINEAR,
-                format: gl.LUMINANCE,
-                src: new Uint8Array([
-                    255,
-                    128,
-                    255,
-                    128,
-                    255,
-                    128,
-                    255,
-                    128,
-                ]),
-                width: 2,
-            },
+            }
         }, (err, textures, sources) => {
             // wait for the image to load because we need to know it's size
             // startRendering(sources);
+            // document.getElementById('formulario').append(sources.camarera);
         });
         const baseHue = Math.random() * 360;
         const arrays = {

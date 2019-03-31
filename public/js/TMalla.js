@@ -24,6 +24,8 @@ export class TMalla extends TEntidad {
   /** @type {Promise<TRecursoMalla>} */
   _malla;
 
+  _matriz;
+
   /**
    * @summary Carga la malla de un modelo.
    * @param {TFichero} fichero El fichero a cargar.
@@ -67,8 +69,9 @@ export class TMalla extends TEntidad {
   endDraw(pasada) {
     if (pasada === GLOBAL.DIBUJAR) {
       if (this._malla !== undefined) {
+        this._matriz = GLOBAL.matriz;
         this._malla.then(recursoMalla => {
-          recursoMalla.draw();
+          recursoMalla.draw(this._matriz);
         });
       }
     }

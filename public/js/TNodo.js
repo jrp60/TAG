@@ -168,11 +168,13 @@ export class TNodo {
      * @version 0.2 - rev.(03/09)
      */
     draw(pasada) {
-      // console.log(this._nombre);
-      // console.log(GLOBAL.matriz);
-            this._entidad.beginDraw(pasada);
-            for (const hijo of this._hijos) hijo.draw(pasada);
-            this._entidad.endDraw(pasada);
+        this._entidad.beginDraw(pasada);
+        for (const hijo of this._hijos) {
+            if (GLOBAL.DEBUG && pasada === 3) console.log(hijo._nombre, 'A', GLOBAL.matriz);
+            hijo.draw(pasada);
+            if (GLOBAL.DEBUG && pasada === 3) console.log(hijo._nombre, 'D', GLOBAL.matriz);
+        }
+        this._entidad.endDraw(pasada);
     }
 
     /**
@@ -187,9 +189,9 @@ export class TNodo {
     drawRaiz(pasada) {
         if (GLOBAL.DEBUG) console.log(pasada);
         for (const hijo of this._hijos) {
-            if (GLOBAL.DEBUG) console.log(GLOBAL.matriz);
+            // if (GLOBAL.DEBUG && pasada === 1) console.log(hijo._nombre, 'A', GLOBAL.matriz);
             hijo.draw(pasada);
-            if (GLOBAL.DEBUG) console.log(hijo._nombre, GLOBAL.matriz);
+            // if (GLOBAL.DEBUG && pasada === 1) console.log(hijo._nombre, 'D', GLOBAL.matriz);
         }
     }
 

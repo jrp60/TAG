@@ -50,11 +50,9 @@ html
       // will make it a unit vector again
       vec3 normal = normalize(v_normal);
 
-
       // compute the light by taking the dot product
       // of the normal to the light's reverse direction
       float light = dot(normal, u_reverseLightDirection);
-
 
       outColor = u_color;
 
@@ -64,10 +62,6 @@ html
       // Lets multiply just the color portion (not the alpha)
       // by the light
       outColor.rgb *= light;
-      // gl_FragColor = vec4(0.0, 0.0, 0.0, 0.1);
-      //- outColor = texture(u_sampler, v_texcoord) * u_diffuseMult;
-      //- outColor = vec4(texture(u_sampler, v_texcoord).rgb, 0.5);
-      //- outColor = texture(u_sampler, v_texcoord);
     }
 
   body

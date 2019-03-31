@@ -138,8 +138,8 @@ raiz.crearNodo(raiz._escena.getHijo(1).getHijo(0), ec1, "escalado-c1");
 var c1 = raiz.crearCamara();
 var camara1 = raiz.crearNodo(raiz._escena.getHijo(1).getHijo(0).getHijo(0), c1, "camara-1");
 // console.log(camara.entidad);
- console.log(c1);
- console.log(camara1);
+console.log(c1);
+console.log(camara1);
 c1.setCercano(22);
 c1.setParalela();
 
@@ -163,14 +163,17 @@ raiz.crearNodo(raiz._escena.getHijo(2).getHijo(0).getHijo(0), mp1, "malla-p1");
 //PERSONA 2
 //rotacion-p2
 var rp2 = raiz.crearTransform();
+rp2.rotar(0, 1, 0, 180);
+// rp1.rotar(0.2, 1, 0, 2);
 raiz.crearNodo(raiz._escena, rp2, "rotacion-p2");
 //traslacion-p2
 var tp2 = raiz.crearTransform();
-tp2.trasladar(0.1, 0, 0);
+tp2.trasladar(-1, 0, 0.5);
 raiz.crearNodo(raiz._escena.getHijo(3), tp2, "traslacion-p2");
 
 //escalado-p2
 var ep2 = raiz.crearTransform();
+ep2.escalar(0.5, 0.5, 0.5);
 raiz.crearNodo(raiz._escena.getHijo(3).getHijo(0), ep2, "escalado-p2");
 //malla-p2
 var mp2 = raiz.crearMalla('female-croupier-2013-03-26');
@@ -185,6 +188,9 @@ console.log("Despues de begindraw");
 // ======================================================================
 // =========================  Código animacion  =========================
 
+let aux_transladar = true; // False Izquierda, True derecha.
+let transladar = 0.005;
+let frame = 1;
 function step() {
   animation = window.requestAnimationFrame(step);
   now = Date.now();
@@ -195,10 +201,16 @@ function step() {
     // specified fpsInterval not being a multiple of RAF's interval (16.7ms)
     then = now - (elapsed % fpsInterval);
     // webglUtils.resizeCanvasToDisplaySize(GLOBAL.gl.canvas);
-    // Código de animación
-    raiz.draw();
+
     // Tener en cuenta que en la animación lo que se hace es añadir a
     // lo que habia en la matriz de transformación anterior
     rp1.rotar(0.2, 1, 0, 2);
+    if (frame % 400 === 0) {
+      aux_transladar = !aux_transladar;
+    }
+    tp2.trasladar(aux_transladar ? transladar : -transladar, 0, 0);
+    frame++;
+    // Código de animación
+    raiz.draw();
   }
 }

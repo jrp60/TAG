@@ -150,11 +150,8 @@ export class TTransform extends TEntidad {
      * @version 0.4 - rev.(03/09)
      */
     beginDraw() { // TransformedVector = TranslationMatrix * RotationMatrix * ScaleMatrix * OriginalVector;
-        GLOBAL.pushPila(GLOBAL.matriz); // Apilamos matriz actual.
-        //console.log(GLOBAL.matriz);
-        const clon = mat4.clone(GLOBAL.matriz);
-        // console.log(this._matriz);
-        mat4.multiply(GLOBAL.matriz, this._matriz, clon); // Multiplicar la matriz de la transformación a la matriz actual
+        GLOBAL.pushPila(mat4.clone(GLOBAL.matriz)); // Apilamos matriz actual.
+        mat4.multiply(GLOBAL.matriz, this._matriz, GLOBAL.matriz); // Multiplicar la matriz de la transformación a la matriz actual
     }
 
     /**
@@ -164,6 +161,6 @@ export class TTransform extends TEntidad {
      * @version 0.4 - rev.(03/09)
      */
     endDraw() {
-        GLOBAL.popPila();
+        GLOBAL.matriz = GLOBAL.popPila();
     }
 }
