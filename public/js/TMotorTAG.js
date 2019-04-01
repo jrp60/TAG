@@ -6,6 +6,8 @@
 //=    - TMalla ha cambiado, adaptado a la nueva versión.
 //=    - TCamara ha cambiado, adaptado a la nueva versión.
 //=    - TLuz ha cambiado, adaptado a la nueva versión.
+//=  - 04/01 Creando métodos para implementar camaras [Javi]
+//=  - 04/01 Creando métodos para implementar luces [Javi]
 //============================================================
 
 import { TNodo } from "./TNodo.js";
@@ -71,7 +73,7 @@ export class TMotorTAG {
    * @summary Crea una camara con posiciones y se indica si esta activa o no
    * @return {TCamara}
    * @see {@link http://localhost:3000/pdf/S4.pdf#page=7 | S4.7}
-   * @author Javi - David
+   * @author Javi
    * @version 0.4 - rev.(03/09)
    * @todo Crear cámara y devolverla
    */
@@ -80,10 +82,40 @@ export class TMotorTAG {
   }
 
   /**
-   * @summary Crea una camara con posiciones y se indica si esta activa o no
-   * @return {TCamara}
+   * @summary Inicializa los atributos de camara
+   * @param {TCamara} camara La camara la cual se va a inicializar
+   * @param {float} cerca
+   * @param {float} lejos
+   * @param {float} inferior
+   * @param {float} superior
+   * @param {float} derecha
+   * @param {float} izquierda
    * @see {@link http://localhost:3000/pdf/S4.pdf#page=7 | S4.7}
-   * @author Javi - David
+   * @author Javi
+   * @version 0.4 - rev.(03/09)
+   * @todo Inicializa los atributos de la camara
+   */
+  iniciarCamara(camara, cerca, lejos, inferior, superior, derecha, izquierda){
+    camara.Cercano = cerca;
+    camara.Lejano = lejos;
+    camara.Inferior = inferior;
+    camara.Superior = superior;
+    camara.derecha = derecha;
+    camara.Izquierda = izquierda;
+  }
+  setPerspectiva(camara){
+    camara.setPerspectiva();
+  }
+
+  setParalela(camara){
+    camara.setParalela();
+  }
+
+  /**
+   * @summary
+   * @param {TCamara} cam La camara la cual se va a activar
+   * @see {@link http://localhost:3000/pdf/S4.pdf#page=7 | S4.7}
+   * @author Javi
    * @version 0.4 - rev.(03/09)
    * @todo Crear cámara y devolverla
    */
@@ -101,6 +133,58 @@ export class TMotorTAG {
    */
   crearLuz() {
     return new TLuz();
+  }
+
+  /**
+   * @summary
+   * @param {TLuz} luz La luz la cual se va a activar
+   * @see {@link http://localhost:3000/pdf/S4.pdf#page=7 | S4.7}
+   * @author Javi
+   * @version 0.4 - rev.(03/09)
+   * @todo Crear cámara y devolverla
+   */
+  setLuzActiva(luz) {
+    luz.activaLuz();
+  }
+
+  /**
+   * @summary
+   * @param {TLuz} luz La luz la cual se va a desactivar
+   * @see {@link http://localhost:3000/pdf/S4.pdf#page=7 | S4.7}
+   * @author Javi
+   * @version 0.4 - rev.(03/09)
+   * @todo Crear cámara y devolverla
+   */
+  setLuzDesactiva(luz) {
+    luz.desactivaLuz();
+  }
+
+  /**
+   * @summary
+   * @param {TLuz} luz La luz la cual se va a modificar su intensidad
+   * @param {vec3} intensidad intensidad nueva
+   * @see {@link http://localhost:3000/pdf/S4.pdf#page=7 | S4.7}
+   * @author Javi
+   * @version 0.4 - rev.(03/09)
+   * @todo Crear cámara y devolverla
+   */
+  setIntensidadVector(luz, intensidad) {
+    luz.intensidadVector = intensidad;
+  }
+
+  /**
+   * @summary
+   * @param {TLuz} luz La luz la cual se va a modificar su intensidad
+   * @param {float} r red
+   * @param {float} g green
+   * @param {float} b blue
+   * @see {@link http://localhost:3000/pdf/S4.pdf#page=7 | S4.7}
+   * @author Javi
+   * @version 0.4 - rev.(03/09)
+   * @todo Crear cámara y devolverla
+   */
+  setIntensidadRGB(luz, r, g, b) {
+    luz.setintensidad(r,g,b);
   }
 
   /**

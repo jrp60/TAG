@@ -3,11 +3,17 @@
 //=  - 0.4 Parametro pasada en beginDraw. S4.12 [David]
 //=  - 0.5 Atributo camara activa. Corrigiendo errores. Clase [Javi] 02/25
 //=  - 03/09 - Estandares set y get; uso de constantes y constructor.
+//=  - 04/01 Arreglando Constructor, setters, getters, empezando draw [Javi]
+//=  - 04/01 Eliminando TColor, ahora uso un vec3 en su lugar [Javi]
 //============================================================
 
 import { TEntidad } from './TEntidad.js';
-import { TColor } from './TColor.js';
 import { GLOBAL } from './GLOBAL.js';
+/**
+ * glMatrix.ARRAY_TYPE(3)
+ * @type {vec3}
+ */
+const vec3 = glMatrix.vec3;
 
 /**
  * @summary Gestiona los atributos de la luz.
@@ -17,32 +23,62 @@ import { GLOBAL } from './GLOBAL.js';
  */
 export class TLuz extends TEntidad {
 
-    /** @type {TColor} */
+    /** @type {vec3} */
     _intensidad;
-    /** @type {int} */
-    _x;
-    /** @type {int} */
-    _y;
-    /** @type {int} */
-    _z;
+    // /** @type {int} */
+    // _x;
+    // /** @type {int} */
+    // _y;
+    // /** @type {int} */
+    // _z;
     /** @type {boolean} */
     _activada;
 
-    constructor(x, y, z, activada) {
+    constructor() {
         super();
-        this.setPosicion(x, y, z);
-        this._activada = activada;
+        this._intensidad = vec3.create();
+    }
+
+    /**
+     * @summary Activa la luz
+     * @see {@link http://localhost:3000/pdf/S2.pdf#page=17 | S2.17}
+     * @author Javi
+     * @version 0.2
+     */
+    activaLuz() {
+        this._activada = true;
+    }
+    /**
+     * @summary Desactiva la luz
+     * @see {@link http://localhost:3000/pdf/S2.pdf#page=17 | S2.17}
+     * @author Javi
+     * @version 0.2
+     */
+    desactivaLuz() {
+        this._activada = false;
     }
 
     /**
      * @summary Setter de intensidad.
-     * @param {TColor} color Una entidad TColor
+     * @param {vec3} color vec3 con los valores rgb
      * @see {@link http://localhost:3000/pdf/S2.pdf#page=17 | S2.17}
-     * @author David
+     * @author Javi
      * @version 0.2
      */
-    set intensidad(color) {
+    set intensidadVector(color) {
         this._intensidad = color;
+    }
+    /**
+     * @summary Setter de intensidad.
+     * @param {float} r red
+     * @param {float} g green
+     * @param {float} b blue
+     * @see {@link http://localhost:3000/pdf/S2.pdf#page=17 | S2.17}
+     * @author Javi
+     * @version 0.2
+     */
+    setintensidad(r,g,b) {
+        this._intensidad = vec3.fromValues(r,g,b);
     }
 
     /**
@@ -55,18 +91,18 @@ export class TLuz extends TEntidad {
     get intensidad() {
         return this._intensidad;
     }
-    /**
-     * @summary Setter de posicion.
-     * @returns {}
-     * @see {@link http://localhost:3000/pdf/S2.pdf#page=17 | S2.17}
-     * @author Javi
-     * @version 0.1
-     */
-    setPosicion(x, y, z) {
-        this._x = x;
-        this._y = y;
-        this._z = z;
-    }
+    // /**
+    //  * @summary Setter de posicion.
+    //  * @returns {}
+    //  * @see {@link http://localhost:3000/pdf/S2.pdf#page=17 | S2.17}
+    //  * @author Javi
+    //  * @version 0.1
+    //  */
+    // setPosicion(x, y, z) {
+    //     this._x = x;
+    //     this._y = y;
+    //     this._z = z;
+    // }
 
     /**
      * @summary BeginDraw de TLuz
@@ -79,7 +115,8 @@ export class TLuz extends TEntidad {
     beginDraw(pasada) {
         if (pasada === GLOBAL.LUZ && this._activada) {
             console.log(" pasada 1 - luz activa");
-            var invert = mat4.clone(GLOBAL.matriz);
+            var pos = mat4.create();
+            pos = mat4.clone(GLOBAL.matriz);
             // obtener la posici�n de la luz de la matriz activa(MODELVIEW)
             // activar la luz en la librer�a gr�fica
             // colocar la luz en la posici�n obtenida
@@ -89,15 +126,11 @@ export class TLuz extends TEntidad {
 
     /**
      * @summary EndDraw de TLuz
-     * @param {Number} pasada Fase en la que se encuentra el motor.
      * @see {@link http://localhost:3000/pdf/S4.pdf#page=12 | S4.12}
      * @author David
      * @version 0.5 - rev.(03/09)
      * @todo Hay que hacer la luz
      */
-    endDraw(pasada) {
-        if (pasada === GLOBAL.LUZ && this._activada) {
-
-        }
+    endDraw() {
     }
 }

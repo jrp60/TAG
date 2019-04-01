@@ -47,38 +47,13 @@ export class TCamara extends TEntidad{
   _izquierda;
   /** @type {float} */
   _derecha;
-  // /** @type {float} */
-  // _width;
-  // /** @type {float} */
-  // _height;
-  // /** @type {mat4} */
-  // _projection
-  // /** @type {vec3} */
-  // _camaraUp;
-  // /** @type {vec3} */
-  // _camaraTarget;
+  /** @type {mat4} */
+  _projection
 
-
-  // Hay alguna matriz en camara?
-  // /**  @type {mat4} */
-  // _matrizView;
 
   constructor() {
     super();
-    this._perspectiva = false;
-    this._cercano = 0.1;
-    this._lejano = 100;
-    this._inferior = 600;
-    this._superior = 0;
-    this._derecha = 800;
-    this._izquierda = 0;
-    // this._camaraTarget = vec3.fromValues(0, 0, 0);
-    // this._camaraUp = vec3.fromValues(0, 1, 0);
     this._projection = mat4.create();
-    console.log("constructor TCamara");
-    // this._camaraUp.set(0,1,0);
-    //mat4.perspective(this._projection, 45, 1.33, 0.1, 100);
-    this.setPerspectiva();
   }
 
   /**
@@ -88,12 +63,9 @@ export class TCamara extends TEntidad{
    * @version 0.2
    */
   setPerspectiva() {
-    if (this._perspectiva == false) {
-      //mat4.identity(this._projection);
       console.log("PERSPECTIVA");
       mat4.perspective(this._projection, 45, (this._derecha-this._izquierda)/(this._inferior-this._superior), this._cercano, this._lejano);
       this._perspectiva = true;
-    }
   }
 
   /**
@@ -103,13 +75,10 @@ export class TCamara extends TEntidad{
    * @version 0.2
    */
   setParalela() {
-    if (this._perspectiva == true) {
-      //mat4.identity(this._projection);
       console.log("PARALELA");
       mat4.ortho(this._projection, this._izquierda,this._derecha,this._inferior, this._superior,this._cercano,this._lejano);
       console.log("Hola");
       this._perspectiva = false;
-    }
   }
 
 
@@ -127,24 +96,12 @@ export class TCamara extends TEntidad{
       var invert = mat4.create();
       mat4.invert(invert,GLOBAL.matriz);
       console.log(invert);
+
+      //devolverla para usarla en el dibujado
+
       //console.log(GLOBAL.matriz);
 
-
-      // obtener la matriz de posici�n de la c�mara (MODELVIEW)
-      // invertir esa matriz y devolverla para utilizarla en el dibujado
-      //delcarar mat4 view = lookat( vec3:posicion, vec3:_camaraTarget, vec3:_camaraUp)
-      // var view = mat4.create();
-      // var posicionAux = vec3.create();
-      // var aux2 = mat4.create();
-      // aux2 = GLOBAL.matriz;
-      // //console.log(aux2);
-      //
-      // vec3.set(posicionAux, aux2[3][0], aux2[3][1], aux2[3][2]);
-      // mat4.lookAt(view, posicionAux, this._camaraTarget, this._camaraUp);
-      //console.log(posicionAux);
-      //console.log(view);
     }
-
   }
 
   /**
@@ -155,7 +112,6 @@ export class TCamara extends TEntidad{
    * @todo Hay que hacer la camara
    */
   endDraw() {
-
   }
 
   /**
@@ -170,31 +126,31 @@ export class TCamara extends TEntidad{
   }
 
 
-  /**
-   * @summary Establece el vector paralelo a Y de la camara
-   * @param {float} x Axis X
-   * @param {float} y Axis Y
-   * @param {float} z Axis Z
-   * @see {@link http://localhost:3000/pdf/S2.pdf#page=17 | S2.17}
-   * @author Javi
-   * @version 0.2
-   */
-  setUp(x,y,z){
-    vec3.set(this._camaraUp,x,y,z);
-  }
-
-  /**
-   * @summary Establece el target de la camara
-   * @param {float} x Axis X
-   * @param {float} y Axis Y
-   * @param {float} z Axis Z
-   * @see {@link http://localhost:3000/pdf/S2.pdf#page=17 | S2.17}
-   * @author Javi
-   * @version 0.2
-   */
-  setTarget(x,y,z){
-    vec3.set(this._camaraTarget,x,y,z);
-  }
+  // /**
+  //  * @summary Establece el vector paralelo a Y de la camara
+  //  * @param {float} x Axis X
+  //  * @param {float} y Axis Y
+  //  * @param {float} z Axis Z
+  //  * @see {@link http://localhost:3000/pdf/S2.pdf#page=17 | S2.17}
+  //  * @author Javi
+  //  * @version 0.2
+  //  */
+  // setUp(x,y,z){
+  //   vec3.set(this._camaraUp,x,y,z);
+  // }
+  //
+  // /**
+  //  * @summary Establece el target de la camara
+  //  * @param {float} x Axis X
+  //  * @param {float} y Axis Y
+  //  * @param {float} z Axis Z
+  //  * @see {@link http://localhost:3000/pdf/S2.pdf#page=17 | S2.17}
+  //  * @author Javi
+  //  * @version 0.2
+  //  */
+  // setTarget(x,y,z){
+  //   vec3.set(this._camaraTarget,x,y,z);
+  // }
   /**
    * @summary Establece el cerca de la camara
    * @param {float} cerca cercano
@@ -202,7 +158,7 @@ export class TCamara extends TEntidad{
    * @author Javi
    * @version 0.2
    */
-  setCercano(cerca){
+  set Cercano(cerca){
     this._cercano = cerca;
   }
 
@@ -213,7 +169,7 @@ export class TCamara extends TEntidad{
    * @author Javi
    * @version 0.2
    */
-  setLejano(lejos){
+  set Lejano(lejos){
     this._lejano = lejos;
   }
 
@@ -224,7 +180,7 @@ export class TCamara extends TEntidad{
    * @author Javi
    * @version 0.2
    */
-  setSuperior(sup){
+  set Superior(sup){
     this._superior = sup;
   }
 
@@ -235,7 +191,7 @@ export class TCamara extends TEntidad{
    * @author Javi
    * @version 0.2
    */
-  setInferior(inf){
+  set Inferior(inf){
     this._inferior = inf;
   }
 
@@ -246,7 +202,7 @@ export class TCamara extends TEntidad{
    * @author Javi
    * @version 0.2
    */
-  setIzquierda(izq){
+  set Izquierda(izq){
     this._izquierda = izq;
   }
 
@@ -257,7 +213,7 @@ export class TCamara extends TEntidad{
    * @author Javi
    * @version 0.2
    */
-  setDerecha(der){
+  set Derecha(der){
     this._derecha = der;
   }
 

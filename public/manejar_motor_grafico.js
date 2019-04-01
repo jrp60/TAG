@@ -11,6 +11,7 @@
 //=  - 02/25 - Corrigiendo errores y añadiendo los nombres a los nodos [Javi]
 //=  - 03/04 - Usando TMotorTAG como escena y añadiendo los nodos en esa variable [Javi]
 //=  - 03/09 - Nombre a GLOBAL para que tenga más significado, limpieza y arreglos variados [David]
+//=  - 04/01 - Creando camara en el arbol a través de la fachada
 
 import { GLOBAL } from './js/GLOBAL.js';
 import { TMotorTAG } from './js/TMotorTAG.js';
@@ -124,6 +125,12 @@ raiz.crearNodo(raiz._escena.getHijo(0).getHijo(0), el1, "escalado-l1");
 var l1 = raiz.crearLuz();
 raiz.crearNodo(raiz._escena.getHijo(0).getHijo(0).getHijo(0), l1, "luz-1");
 
+raiz.setLuzActiva(l1);
+raiz.setIntensidadRGB(l1,20,20,15);
+console.log("VEMOS LA LUZ");
+console.log(l1);
+console.log("FIN LOG LUZ");
+
 //CAMARA 1
 //rotacion-c1
 var rc1 = raiz.crearTransform();
@@ -140,8 +147,8 @@ var camara1 = raiz.crearNodo(raiz._escena.getHijo(1).getHijo(0).getHijo(0), c1, 
 // console.log(camara.entidad);
 console.log(c1);
 console.log(camara1);
-c1.setCercano(22);
-c1.setParalela();
+raiz.iniciarCamara(c1, 0.1, 100, 600, 0, 800, 0);
+raiz.setPerspectiva(c1);
 
 //PERSONA 1
 //rotacion-p1
