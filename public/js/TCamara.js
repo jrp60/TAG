@@ -51,12 +51,12 @@ export class TCamara extends TEntidad{
   // _width;
   // /** @type {float} */
   // _height;
-  /** @type {mat4} */
-  _projection
-  /** @type {vec3} */
-  _camaraUp;
-  /** @type {vec3} */
-  _camaraTarget;
+  // /** @type {mat4} */
+  // _projection
+  // /** @type {vec3} */
+  // _camaraUp;
+  // /** @type {vec3} */
+  // _camaraTarget;
 
 
   // Hay alguna matriz en camara?
@@ -72,8 +72,8 @@ export class TCamara extends TEntidad{
     this._superior = 0;
     this._derecha = 800;
     this._izquierda = 0;
-    this._camaraTarget = vec3.fromValues(0, 0, 0);
-    this._camaraUp = vec3.fromValues(0, 1, 0);
+    // this._camaraTarget = vec3.fromValues(0, 0, 0);
+    // this._camaraUp = vec3.fromValues(0, 1, 0);
     this._projection = mat4.create();
     console.log("constructor TCamara");
     // this._camaraUp.set(0,1,0);
@@ -150,13 +150,12 @@ export class TCamara extends TEntidad{
   /**
    * @summary EndDraw de TCamara
    * @see {@link http://localhost:3000/pdf/S2.pdf#page=17 | S2.17}
-   * @author David
+   * @author Javi
    * @version 0.2 - rev.(03/09)
    * @todo Hay que hacer la camara
    */
-  endDraw(pasada) {
-    if (pasada === GLOBAL.CAMARA && this._activa === true) {
-    }
+  endDraw() {
+
   }
 
   /**
