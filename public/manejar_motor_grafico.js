@@ -16,6 +16,11 @@
 import { GLOBAL } from './js/GLOBAL.js';
 import { TMotorTAG } from './js/TMotorTAG.js';
 import { TNodo } from './js/TNodo.js';
+/**
+ * glMatrix.ARRAY_TYPE(3)
+ * @type {vec3}
+ */
+const vec3 = glMatrix.vec3;
 // ======================================================================
 // ========================= Variables globales =========================
 
@@ -127,6 +132,8 @@ raiz.crearNodo(raiz._escena.getHijo(0).getHijo(0).getHijo(0), l1, "luz-1");
 
 raiz.setLuzActiva(l1);
 raiz.setIntensidadRGB(l1,20,20,15);
+let vecAux= vec3.fromValues(40,30,66);
+raiz.setIntensidadVector(l1, vecAux);
 console.log("VEMOS LA LUZ");
 console.log(l1);
 console.log("FIN LOG LUZ");
