@@ -57,6 +57,14 @@ export class TMotorTAG {
     return nodo;
   }
 
+  // get Entidad(nodo){
+  //   return nodo.entidad;
+  // }
+
+  get escena(){
+    return this._escena;
+  }
+
   /**
    * @summary Creamos entidad transformacion y devolvemos.
    * @return {TTransform}
@@ -113,11 +121,10 @@ export class TMotorTAG {
 
   /**
    * @summary
-   * @param {TCamara} cam La camara la cual se va a activar
+   * @param {TCamara} cam Entidad de la camara que se va a activar
    * @see {@link http://localhost:3000/pdf/S4.pdf#page=7 | S4.7}
    * @author Javi
    * @version 0.4 - rev.(03/09)
-   * @todo Crear cámara y devolverla
    */
   setCamaraActiva(cam) {
     cam.setActiva();

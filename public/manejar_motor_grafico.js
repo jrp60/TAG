@@ -16,10 +16,8 @@
 import { GLOBAL } from './js/GLOBAL.js';
 import { TMotorTAG } from './js/TMotorTAG.js';
 import { TNodo } from './js/TNodo.js';
-/**
- * glMatrix.ARRAY_TYPE(3)
- * @type {vec3}
- */
+// import { Persona } from 'manejar_motor_grafico.js';
+/** * glMatrix.ARRAY_TYPE(3) * @type {vec3} **/
 const vec3 = glMatrix.vec3;
 // ======================================================================
 // ========================= Variables globales =========================
@@ -94,23 +92,23 @@ document.getElementById("draw").onclick = () => {
   }
 };
 
-document.getElementById("niu").onclick = () => {
-  if (raiz == null || raiz.getHijos().length == 0) {
-    console.log("no hay raiz o hijos en la raiz");;
-  } else {
-    let auxHijos = raiz.getHijos();
-    var i = 0
-    for (i; i < auxHijos.length - 1; i++) {
-    }
-    let auxEntidad = raiz.getHijo(i).entidad;
-    console.log(auxEntidad);
-    let auxHijo = new TNodo();
-    auxHijo.entidad = auxEntidad;
-    raiz.addHijo(auxHijo);
-
-    // raiz.remHijo(auxHijos[i]);
-  }
-};
+// document.getElementById("niu").onclick = () => {
+//   if (raiz == null || raiz.getHijos().length == 0) {
+//     console.log("no hay raiz o hijos en la raiz");;
+//   } else {
+//     let auxHijos = raiz.getHijos();
+//     var i = 0
+//     for (i; i < auxHijos.length - 1; i++) {
+//     }
+//     let auxEntidad = raiz.getHijo(i).entidad;
+//     console.log(auxEntidad);
+//     let auxHijo = new TNodo();
+//     auxHijo.entidad = auxEntidad;
+//     raiz.addHijo(auxHijo);
+//
+//     // raiz.remHijo(auxHijos[i]);
+//   }
+// };
 
 // ======================================================================
 // =========================    Código motor    =========================
@@ -119,20 +117,20 @@ const raiz = new TMotorTAG(); // Variable global de Javi
 //LUZ 1
 //rotacion-l1
 var rl1 = raiz.crearTransform();
-raiz.crearNodo(raiz._escena, rl1, "rotacion-l1")
+var rotacionL1 = raiz.crearNodo(raiz.escena, rl1, "rotacionL1")
 //traslacion-l1
 var tl1 = raiz.crearTransform();
-raiz.crearNodo(raiz._escena.getHijo(0), tl1, "traslacion-l1");
+var traslacionL1 = raiz.crearNodo(rotacionL1, tl1, "traslacionL1");
 //escalado-l1
 var el1 = raiz.crearTransform();
-raiz.crearNodo(raiz._escena.getHijo(0).getHijo(0), el1, "escalado-l1");
+var escaladoL1 = raiz.crearNodo(traslacionL1, el1, "escaladoL1");
 //luz1
 var l1 = raiz.crearLuz();
-raiz.crearNodo(raiz._escena.getHijo(0).getHijo(0).getHijo(0), l1, "luz-1");
+ var luz1 = raiz.crearNodo(escaladoL1, l1, "luz-1");
 
 raiz.setLuzActiva(l1);
 raiz.setIntensidadRGB(l1,20,20,15);
-let vecAux= vec3.fromValues(40,30,66);
+var vecAux= vec3.fromValues(40,30,66);
 raiz.setIntensidadVector(l1, vecAux);
 console.log("VEMOS LA LUZ");
 console.log(l1);
@@ -141,16 +139,16 @@ console.log("FIN LOG LUZ");
 //CAMARA 1
 //rotacion-c1
 var rc1 = raiz.crearTransform();
-raiz.crearNodo(raiz._escena, rc1, "rotacion-c1");
+var rotacionC1 = raiz.crearNodo(raiz.escena, rc1, "rotacionC1");
 //traslacion-c1
 var tc1 = raiz.crearTransform();
-raiz.crearNodo(raiz._escena.getHijo(1), tc1, "traslacion-c1");
+var traslacionC1 = raiz.crearNodo(rotacionC1, tc1, "traslacionC1");
 //escalado-c1
 var ec1 = raiz.crearTransform();
-raiz.crearNodo(raiz._escena.getHijo(1).getHijo(0), ec1, "escalado-c1");
+var escaladoC1 = raiz.crearNodo(traslacionC1, ec1, "escaladoC1");
 //camara1
 var c1 = raiz.crearCamara();
-var camara1 = raiz.crearNodo(raiz._escena.getHijo(1).getHijo(0).getHijo(0), c1, "camara-1");
+var camara1 = raiz.crearNodo(escaladoC1, c1, "camara-1");
 // console.log(camara.entidad);
 console.log(c1);
 console.log(camara1);
@@ -160,38 +158,38 @@ raiz.setPerspectiva(c1);
 //PERSONA 1
 //rotacion-p1
 var rp1 = raiz.crearTransform();
-raiz.crearNodo(raiz._escena, rp1, "rotacion-p1");
+var rotacionP1 = raiz.crearNodo(raiz.escena, rp1, "rotacionP1");
 // rp1.rotar(1, 1, 1, 1);
 //traslacion-p1
 var tp1 = raiz.crearTransform();
-raiz.crearNodo(raiz._escena.getHijo(2), tp1, "traslacion-p1");
+var traslacionP1 = raiz.crearNodo(rotacionP1, tp1, "traslacionP1");
 // tp1.trasladar(0.1, 0, 0);
 //escalado-p1
 var ep1 = raiz.crearTransform();
-raiz.crearNodo(raiz._escena.getHijo(2).getHijo(0), ep1, "escalado-p1");
+var escaladoP1 = raiz.crearNodo(traslacionP1, ep1, "escaladoP1");
 // ep1.escalar(0.8, 0.8, 0.8);
 //malla-p1
 var mp1 = raiz.crearMalla('female-croupier-2013-03-26');
-raiz.crearNodo(raiz._escena.getHijo(2).getHijo(0).getHijo(0), mp1, "malla-p1");
+var mallaP1 = raiz.crearNodo(escaladoP1, mp1, "mallaP1");
 
 //PERSONA 2
 //rotacion-p2
 var rp2 = raiz.crearTransform();
 rp2.rotar(0, 1, 0, 180);
 // rp1.rotar(0.2, 1, 0, 2);
-raiz.crearNodo(raiz._escena, rp2, "rotacion-p2");
+var rotacionP2 = raiz.crearNodo(raiz.escena, rp2, "rotacionP2");
 //traslacion-p2
 var tp2 = raiz.crearTransform();
 tp2.trasladar(-1, 0, 0.5);
-raiz.crearNodo(raiz._escena.getHijo(3), tp2, "traslacion-p2");
+var traslacionP2 = raiz.crearNodo(rotacionP2, tp2, "traslacionP2");
 
 //escalado-p2
 var ep2 = raiz.crearTransform();
 ep2.escalar(0.5, 0.5, 0.5);
-raiz.crearNodo(raiz._escena.getHijo(3).getHijo(0), ep2, "escalado-p2");
+var escaladoP2 = raiz.crearNodo(traslacionP2, ep2, "escaladoP2");
 //malla-p2
 var mp2 = raiz.crearMalla('female-croupier-2013-03-26');
-raiz.crearNodo(raiz._escena.getHijo(3).getHijo(0).getHijo(0), mp2, "malla-p2");
+var mallaP2 = raiz.crearNodo(escaladoP2, mp2, "mallaP2");
 
 raiz.setCamaraActiva(c1); //establecemos la camara activa
 

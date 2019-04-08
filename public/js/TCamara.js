@@ -11,16 +11,10 @@
 
 import { TEntidad } from './TEntidad.js';
 import { GLOBAL } from './GLOBAL.js';
-/**
- * glMatrix.ARRAY_TYPE(16)
- * @type {mat4}
- * */
+/** * glMatrix.ARRAY_TYPE(16) * @type {mat4} **/
 const mat4 = glMatrix.mat4;
 
-/**
- * glMatrix.ARRAY_TYPE(3)
- * @type {vec3}
- */
+/** * glMatrix.ARRAY_TYPE(3) * @type {vec3} **/
 const vec3 = glMatrix.vec3;
 
 /**
