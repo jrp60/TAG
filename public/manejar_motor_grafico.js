@@ -19,6 +19,9 @@ import { TNodo } from './js/TNodo.js';
 // import { Persona } from 'manejar_motor_grafico.js';
 /** * glMatrix.ARRAY_TYPE(3) * @type {vec3} **/
 const vec3 = glMatrix.vec3;
+
+/** * glMatrix.ARRAY_TYPE(16) * @type {mat4} **/
+const mat4 = glMatrix.mat4;
 // ======================================================================
 // ========================= Variables globales =========================
 
@@ -112,7 +115,12 @@ document.getElementById("draw").onclick = () => {
 
 // ======================================================================
 // =========================    Código motor    =========================
+
+//matriz view
+//var viewMatrix = mat4.identity(mat4.create());
+
 const raiz = new TMotorTAG(); // Variable global de Javi
+
 
 //LUZ 1
 //rotacion-l1
@@ -142,6 +150,7 @@ var rc1 = raiz.crearTransform();
 var rotacionC1 = raiz.crearNodo(raiz.escena, rc1, "rotacionC1");
 //traslacion-c1
 var tc1 = raiz.crearTransform();
+tc1.trasladar(5, 6, 10);
 var traslacionC1 = raiz.crearNodo(rotacionC1, tc1, "traslacionC1");
 //escalado-c1
 var ec1 = raiz.crearTransform();

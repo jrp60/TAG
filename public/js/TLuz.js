@@ -34,6 +34,12 @@ export class TLuz extends TEntidad {
     /** @type {boolean} */
     _activada;
 
+    /** @type {vec3} */
+    u_lightWorldPosition;
+
+
+  //  uniform vec3 u_lightWorldPosition;
+
     constructor() {
         super();
         this._intensidad = vec3.create();

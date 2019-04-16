@@ -221,6 +221,7 @@ export class TMotorTAG {
   draw() {
 
     GLOBAL.matriz = glMatrix.mat4.create();
+    GLOBAL.matrizView = glMatrix.mat4.create();
     if (this._escena === null) {
       console.error('[ERROR]: No hay raiz' + this._escena);
     } else {

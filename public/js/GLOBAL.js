@@ -54,6 +54,17 @@ export class GLOBAL {
   static _matrizModelo;
 
   /**
+   * Matriz view de Camara (inversa de camara)
+   * @type {mat4}
+   */
+  static _matrizView;
+  /**
+   * Matriz de la luz
+   * @type {mat4}
+   */
+  static _matrizLuz;
+
+  /**
    * Contiene el objeto de WebGL
    * @type {WebGLObject}
    */
@@ -127,5 +138,45 @@ export class GLOBAL {
     */
   static get matriz() {
     return this._matrizModelo;
+  }
+
+  /**
+ * @summary Establece una matriz view.
+ * @param {mat4} matrix La matriz view.
+ * @author Javi
+ * @version
+ */
+  static set matrizView(matrix) {
+    this._matrizView = matrix;
+  }
+
+  /**
+    * @summary Coge la matriz view.
+    * @returns {mat4} La matriz view.
+    * @author Javi
+    * @version
+    */
+  static get matrizView() {
+    return this._matrizView;
+  }
+
+  /**
+ * @summary Establece una matriz luz.
+ * @param {mat4} matrix La matriz luz.
+ * @author Javi
+ * @version
+ */
+  static set matrizLuz(matrix) {
+    this._matrizLuz = matrix;
+  }
+
+  /**
+    * @summary Coge la matriz luz.
+    * @returns {mat4} La matriz luz.
+    * @author Javi
+    * @version
+    */
+  static get matrizLuz() {
+    return this._matrizLuz;
   }
 }

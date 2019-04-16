@@ -92,8 +92,15 @@ export class TCamara extends TEntidad{
       console.log(invert);
 
       //devolverla para usarla en el dibujado
+      //mat4.set(GLOBAL.matrizView), invert); // inversa de la camaraMatrix en modelMatriz
+      var aux = mat4.create();
 
-      //console.log(GLOBAL.matriz);
+      mat4.copy(aux, invert); // inversa de la camaraMatrix en modelMatriz
+      console.log(aux);
+      console.log("VIEW");
+      console.log(GLOBAL.matrizView);
+      mat4.copy(GLOBAL.matrizView, aux);
+      console.log(GLOBAL.matrizView);
 
     }
   }
