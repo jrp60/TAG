@@ -15,6 +15,9 @@ const mat4 = glMatrix.mat4;
 /** * glMatrix.ARRAY_TYPE(3) * @type {vec3} **/
 const vec3 = glMatrix.vec3;
 
+/** * glMatrix.ARRAY_TYPE(4) * @type {vec4} **/
+const vec3 = glMatrix.vec4;
+
 /**
  * @summary Gestiona los atributos de la luz.
  * @see {@link http://localhost:3000/pdf/S2.pdf#page=17 | S2.17}
@@ -123,6 +126,9 @@ export class TLuz extends TEntidad {
             console.log(" pasada 1 - luz activa");
             var pos = mat4.create();
             pos = mat4.clone(GLOBAL.matriz);
+            var posluz = vec4.create();
+            var aux = vec4.fromValues(0,0,0,1);
+            vec4.transformMat4(posLuz, aux, pos);
             // obtener la posici�n de la luz de la matriz activa(MODELVIEW)
             // activar la luz en la librer�a gr�fica
             // colocar la luz en la posici�n obtenida
