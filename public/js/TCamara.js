@@ -102,6 +102,7 @@ export class TCamara extends TEntidad{
       mat4.copy(GLOBAL.matrizView, aux);
       console.log(GLOBAL.matrizView);
 
+
     }
   }
 

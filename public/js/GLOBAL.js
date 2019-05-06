@@ -59,10 +59,10 @@ export class GLOBAL {
    */
   static _matrizView;
   /**
-   * Matriz de la luz
-   * @type {mat4}
+   * Vector de la luz
+   * @type {vec4}
    */
-  static _matrizLuz;
+  static _vectorLuz;
 
   /**
    * Contiene el objeto de WebGL
@@ -162,21 +162,21 @@ export class GLOBAL {
 
   /**
  * @summary Establece una matriz luz.
- * @param {mat4} matrix La matriz luz.
+ * @param {vec4} vec El vector luz.
  * @author Javi
  * @version
  */
-  static set matrizLuz(matrix) {
-    this._matrizLuz = matrix;
+  static set vecLuz(vec) {
+    this._vectorLuz = vec;
   }
 
   /**
     * @summary Coge la matriz luz.
-    * @returns {mat4} La matriz luz.
+    * @returns {vec4} El vector luz.
     * @author Javi
     * @version
     */
-  static get matrizLuz() {
-    return this._matrizLuz;
+  static get vecLuz() {
+    return this._vectorLuz;
   }
 }
