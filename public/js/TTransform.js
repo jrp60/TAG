@@ -152,6 +152,8 @@ export class TTransform extends TEntidad {
     beginDraw() { // TransformedVector = TranslationMatrix * RotationMatrix * ScaleMatrix * OriginalVector;
         GLOBAL.pushPila(mat4.clone(GLOBAL.matriz)); // Apilamos matriz actual.
         mat4.multiply(GLOBAL.matriz, this._matriz, GLOBAL.matriz); // Multiplicar la matriz de la transformación a la matriz actual
+        var invert = mat4.create();
+        mat4.transpose(GLOBAL.normal, invert ); //
     }
 
     /**

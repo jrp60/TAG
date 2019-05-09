@@ -129,6 +129,26 @@ export class TLuz extends TEntidad {
             var posLuz = vec4.create();
             var aux = vec4.fromValues(0,0,0,1);
             vec4.transformMat4(posLuz, aux, pos);
+
+            vec3.copy(GLOBAL.posicionLuz, posLuz);
+            vec3.copy(GLOBAL.intensidad, this._intensidad);
+
+            // var aux2 = vec3.fromValues(posLuz[0],posLuz[1],posLuz[2]);
+            // this.u_lightWorldPosition = aux2; //guardamos en la clase luz su posicion
+            // console.log(GLOBAL.posicionLuz);
+            // console.log("+´+´+´+´+´+´+´+´+´+´+");
+            // vec3.copy(GLOBAL.posicionLuz, aux2);  //guardamos en GLOBAL la posicion de la luz
+            // console.log(GLOBAL.posicionLuz);
+
+
+            // console.log(posLuz[0]);
+            // console.log(posLuz[1]);
+            // console.log(posLuz[2]);
+            // console.log(posLuz[3]);
+
+            //almacenar en el vec3 de la luz la posicion obtenida, para luego desde TRecursoMalla acceder a esa posicion y pasarselo al vertex Shader?
+
+
             // obtener la posici�n de la luz de la matriz activa(MODELVIEW)
             // activar la luz en la librer�a gr�fica
             // colocar la luz en la posici�n obtenida

@@ -13,67 +13,52 @@
   * @author David
   * @version 0.2 - rev.(02/16)
   */
+
+  /** * glMatrix.ARRAY_TYPE(3) * @type {vec3} **/
+  const vec3 = glMatrix.vec3;
+
+  /** * glMatrix.ARRAY_TYPE(16) * @type {mat4} **/
+  const mat4 = glMatrix.mat4;
+
 export class GLOBAL {
 
-  /**
-   * Constante para habilitar el modo debug
-   * @const {boolean}
-   */
+  /*** Constante para habilitar el modo debug* @const {boolean}*/
   static DEBUG = false;
 
-  /**
-   * Pasada Luz
-   * @const {Bit}
-   */
+  /*** Pasada Luz* @const {Bit}*/
   static LUZ = 1;
 
-  /**
-   * Pasada Camara
-   * @const {Bit}
-   */
+  /*** Pasada Camara * @const {Bit}*/
   static CAMARA = 2;
 
-  /**
-   * Pasada Dibujar
-   * @const {Bit}
-   */
+  /*** Pasada Dibujar * @const {Bit}*/
   static DIBUJAR = 3;
 
-  /**
-   * Pila
-   * @type {any}
-   */
+  /*** Pila* @type {any}*/
   static _pila = [];
 
-  /**
-   * Matriz de transformación en memoria
-   * esta es manejado por la pila para guardar las diferentes
-   * transformaciones que se llevan a cabo
-   * @type {mat4}
-   */
+  /** Matriz de transformación en memoria esta es manejado por la pila para guardar las diferentes transformaciones que se llevan a cabo * @type {mat4}*/
   static _matrizModelo;
 
-  /**
-   * Matriz view de Camara (inversa de camara)
-   * @type {mat4}
-   */
-  static _matrizView;
-  /**
-   * Vector de la luz
-   * @type {vec4}
-   */
-  static _vectorLuz;
+  /*** Matriz view (inversa de camara) * @type {mat4}*/
+  static _matrizView = mat4.create();
 
-  /**
-   * Contiene el objeto de WebGL
-   * @type {WebGLObject}
-   */
+  /*** Matriz view (inversa de camara) * @type {mat4}*/
+  static _normalMatrix = mat4.create();
+
+  /*** Matriz view (inversa de camara) * @type {mat4}*/
+  static _projectionmatrix  = mat4.create();
+
+  /** Vector de la luz* @type {vec3}*/
+  static _posicionLuz = vec3.fromValues(0,0,0);
+
+  /** Vector de la luz* @type {vec3}*/
+  static _intensidadLuz = vec3.fromValues(0,0,0);
+
+  /** * Contiene el objeto de WebGL* @type {WebGLObject}*/
   static gl;
 
-  /**
-   * Elemento DOM que corresponde al canvas donde se dibuja
-   * @type {Document}
-   */
+  /*** Elemento DOM que corresponde al canvas donde se dibuja* @type {Document} */
   static canvas;
 
   /**
@@ -162,21 +147,80 @@ export class GLOBAL {
 
   /**
  * @summary Establece una matriz luz.
- * @param {vec4} vec El vector luz.
+ * @param {vec3} vec El vector luz.
  * @author Javi
  * @version
  */
-  static set vecLuz(vec) {
-    this._vectorLuz = vec;
+  static set posicionLuz(vec) {
+    this._posicionLuz = vec;
   }
 
   /**
     * @summary Coge la matriz luz.
-    * @returns {vec4} El vector luz.
+    * @returns {vec3} El vector luz.
     * @author Javi
     * @version
     */
-  static get vecLuz() {
-    return this._vectorLuz;
+  static get posicionLuz() {
+    return this._posicionLuz;
+  }
+  /**
+ * @summary Establece una matriz luz.
+ * @param {vec3} vec El vector luz.
+ * @author Javi
+ * @version
+ */
+  static set intensidad(vec) {
+    this._intensidadLuz = vec;
+  }
+
+  /**
+    * @summary Coge la matriz luz.
+    * @returns {vec3} El vector luz.
+    * @author Javi
+    * @version
+    */
+  static get intensidad() {
+    return this._intensidadLuz;
+  }
+
+  /**
+ * @summary Establece una matriz luz.
+ * @param {vec3} vec El vector luz.
+ * @author Javi
+ * @version
+ */
+  static set normal(mat) {
+    this._normalMatrix = mat;
+  }
+
+  /**
+    * @summary Coge la matriz luz.
+    * @returns {vec3} El vector luz.
+    * @author Javi
+    * @version
+    */
+  static get normal() {
+    return this._normalMatrix;
+  }
+
+  /**
+ * @summary Establece una matriz luz.
+ * @param {vec3} vec El vector luz.
+ * @author Javi
+ * @version
+ */
+  static set projection(mat) {
+    this._projectionmatrix = mat;
+  }
+
+  /**
+    * @summary Coge la matriz luz.
+    * @returns {vec3} El vector luz.
+    * @author Javi
+    * @version
+    */
+  static get projection() {
+    return this._projectionmatrix;
   }
 }

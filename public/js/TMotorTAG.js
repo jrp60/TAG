@@ -108,7 +108,7 @@ export class TMotorTAG {
     camara.Lejano = lejos;
     camara.Inferior = inferior;
     camara.Superior = superior;
-    camara.derecha = derecha;
+    camara.Derecha = derecha;
     camara.Izquierda = izquierda;
   }
   setPerspectiva(camara){

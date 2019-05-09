@@ -10,13 +10,13 @@ import { TFichero } from './TFichero.js';
 import { TRecurso } from './TRecurso.js';
 import { GLOBAL } from './GLOBAL.js';
 
-/** 
+/**
  * glMatrix.ARRAY_TYPE(2)
- * @type {vec2} 
+ * @type {vec2}
  * */
 const vec2 = glMatrix.vec2;
 
-/** 
+/**
  * glMatrix.ARRAY_TYPE(3)
  * @type {vec3}
  */
@@ -65,13 +65,13 @@ export class TRecursoMalla extends TRecurso {
     }
 
     /**
-     * @summary Lee el fichero con el recurso y rellena los buffers de datos 
-     * (vértices, triángulos, texturas) 
-     * Para la lectura del fichero podemos implementar un parser propio 
+     * @summary Lee el fichero con el recurso y rellena los buffers de datos
+     * (vértices, triángulos, texturas)
+     * Para la lectura del fichero podemos implementar un parser propio
      * o utilizar librerías de terceros
      * @returns {Promise<boolean>} si ha cargado el fichero o no
      * @see {@link http://localhost:3000/pdf/S3.pdf#page=20 | S3.20}
-     * @author David 
+     * @author David
      * @version 0.3 - rev.(02/24)
      */
     cargarFichero() {
@@ -114,9 +114,9 @@ export class TRecursoMalla extends TRecurso {
                                 const f3 = parts[3].split('/');
 
                                 /**
-                                  * La posición es temp_vertices[ vertexIndex-1 ] 
+                                  * La posición es temp_vertices[ vertexIndex-1 ]
                                   * (aquí tenemos que poner el -1 porque en JavaScript
-                                  * el indexamiento comienza en 0 
+                                  * el indexamiento comienza en 0
                                   * y para los OBJ comienza en 1.)
                                   */
                                 this._v.push(this._v_list[f1[0] - 1]);
@@ -143,7 +143,7 @@ export class TRecursoMalla extends TRecurso {
      * La carga puede ser menos eficiente (pero se ejecuta en tiempo de carga)
      * La visualización tiene máxima eficiencia (más crítica)
      * @see {@link http://localhost:3000/pdf/S3.pdf#page=20 | S3.20}
-     * @author David 
+     * @author David
      * @version 0.3 - rev (03/09)
      */
     draw(matrix) {
@@ -200,8 +200,10 @@ export class TRecursoMalla extends TRecurso {
             // startRendering(sources);
             // document.getElementById('formulario').append(sources.camarera);
         });
+
+
         const baseHue = Math.random() * 360;
-        const arrays = {
+        const arrays = {   //atributes para el shader
             a_position: vertices,
             a_texcoord: texturas,
             a_normal: normales,
@@ -209,11 +211,16 @@ export class TRecursoMalla extends TRecurso {
         let bufferInfo = twgl.createBufferInfoFromArrays(gl, arrays);
         twgl.resizeCanvasToDisplaySize(gl.canvas);
         gl.viewport(0, 0, gl.canvas.width, gl.canvas.height);
-        const uniforms = {
+        const uniforms = {  //uniforms para el shader
+            lightposition: GLOBAL.posicionLuz,
+            modelmatrix: GLOBAL.matriz,
+            viewmatrix: GLOBAL.matrizView,
+            normalmatrix: GLOBAL.normal,
+            projecionmatrix: GLOBAL.projection,
             u_sampler: textures.camarera,
             u_diffuseMult: chroma.hsv((baseHue + Math.random() * 60) % 360, 0.4, 0.3).gl(),
-            u_reverseLightDirection: twgl.v3.normalize([0.4, 1, 0.7]),
-            u_color: [0.2, 1, 0.2, 1] // Green
+            //u_reverseLightDirection: twgl.v3.normalize([0.4, 1, 0.7]),   ya no se usa
+            u_color: GLOBAL.intensidad
         };
         gl.useProgram(programInfo.program);
         twgl.setBuffersAndAttributes(gl, programInfo, bufferInfo);

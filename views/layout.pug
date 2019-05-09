@@ -19,14 +19,37 @@ html
     in vec4 a_position;
     in vec3 a_normal;
     in vec2 a_texcoord;
-    out vec2 v_texcoord;
+    
+    in vec4 lightposition;
+    in mat4 modelmatrix;
+    in mat4 viewmatrix;
+    in mat4 normalmatrix;
+    in mat4 projecionmatrix;
+    
     // varying to pass the normal to the fragment shader
-    out vec3 v_normal;
+    out vec2 v_texcoord;
+    out vec3 Position;
+    out vec3 Normal;
+    
+    out vec3 surfaceToLight;
+    
     void main(void) {
-      gl_Position = a_position;
       v_texcoord = a_texcoord;
+
+
+      
+      mat4 modelviewmatrix = viewmatrix * modelmatrix;
+      mat4 mvp = projecionmatrix * viewmatrix * modelmatrix;
+      vec3 surfaceWorldPosition = (modelmatrix * a_position).xyz; 
+      
+      Position = (modelviewmatrix * a_position).xyz;
       // Pass the normal to the fragment shader
-      v_normal = a_normal;
+      Normal = mat3(normalmatrix) * a_normal;
+      
+       
+      
+      surfaceToLight = vec3(lightposition) - surfaceWorldPosition;
+      gl_Position = mvp * a_position;
     }
   script#fs(type='notjs').
     #version 300 es
@@ -35,9 +58,9 @@ html
     in vec2 v_texcoord;
 
     // Passed in and varied from the vertex shader.
-    in vec3 v_normal;
+    in vec3 Normal;
+    in vec3 surfaceToLight;
 
-    uniform vec3 u_reverseLightDirection;
     uniform vec4 u_color;
 
     uniform sampler2D u_sampler;
@@ -45,22 +68,17 @@ html
 
     out vec4 outColor;
     void main(void) {
-      // because v_normal is a varying it's interpolated
+      // because Normal is a varying it's interpolated
       // so it will not be a uint vector. Normalizing it
       // will make it a unit vector again
-      vec3 normal = normalize(v_normal);
+      vec3 normal2 = normalize(Normal);
+      vec3 surfaceToLightDirection = normalize(surfaceToLight);
 
       // compute the light by taking the dot product
       // of the normal to the light's reverse direction
-      float light = dot(normal, u_reverseLightDirection);
-
+      float light = dot(normal2, surfaceToLightDirection);
+      
       outColor = u_color;
-
-      // Asi tenemos colores aleatorios en cada cara.
-      outColor = vec4(v_texcoord, 1.0, 1.0);
- 
-      // Lets multiply just the color portion (not the alpha)
-      // by the light
       outColor.rgb *= light;
     }
 

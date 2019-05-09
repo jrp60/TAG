@@ -128,6 +128,7 @@ var rl1 = raiz.crearTransform();
 var rotacionL1 = raiz.crearNodo(raiz.escena, rl1, "rotacionL1")
 //traslacion-l1
 var tl1 = raiz.crearTransform();
+tl1.trasladar(5, -2, 15);
 var traslacionL1 = raiz.crearNodo(rotacionL1, tl1, "traslacionL1");
 //escalado-l1
 var el1 = raiz.crearTransform();
@@ -162,6 +163,8 @@ var camara1 = raiz.crearNodo(escaladoC1, c1, "camara-1");
 console.log(c1);
 console.log(camara1);
 raiz.iniciarCamara(c1, 0.1, 100, 600, 0, 800, 0);
+console.log("Camara despues de iniciar");
+console.log(c1);
 raiz.setPerspectiva(c1);
 
 //PERSONA 1

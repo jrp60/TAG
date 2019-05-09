@@ -60,6 +60,7 @@ export class TCamara extends TEntidad{
       console.log("PERSPECTIVA");
       mat4.perspective(this._projection, 45, (this._derecha-this._izquierda)/(this._inferior-this._superior), this._cercano, this._lejano);
       this._perspectiva = true;
+      mat4.copy(GLOBAL.projection, this._projection);
   }
 
   /**
@@ -73,6 +74,7 @@ export class TCamara extends TEntidad{
       mat4.ortho(this._projection, this._izquierda,this._derecha,this._inferior, this._superior,this._cercano,this._lejano);
       console.log("Hola");
       this._perspectiva = false;
+      mat4.copy(GLOBAL.projection, this._projection);
   }
 
 
@@ -91,17 +93,26 @@ export class TCamara extends TEntidad{
       mat4.invert(invert,GLOBAL.matriz);
       console.log(invert);
 
-      //devolverla para usarla en el dibujado
-      //mat4.set(GLOBAL.matrizView), invert); // inversa de la camaraMatrix en modelMatriz
-      var aux = mat4.create();
 
-      mat4.copy(aux, invert); // inversa de la camaraMatrix en modelMatriz
-      console.log(aux);
-      console.log("VIEW");
-      console.log(GLOBAL.matrizView);
-      mat4.copy(GLOBAL.matrizView, aux);
-      console.log(GLOBAL.matrizView);
+      //var aux = mat4.create();
+      //mat4.copy(aux, invert); // inversa de la camaraMatrix en modelMatriz
+      //mat4.copy(GLOBAL.matrizView, aux);
 
+      mat4.copy(GLOBAL.matrizView, invert); //antes tenia el codigo de aqui arriba comentado, pero asi es mas rapido
+
+
+      //mat4.transpose(GLOBAL.normal, invert );
+      // console.log("mvp");
+      // console.log(GLOBAL.mvp);
+      // console.log("view");
+      // console.log(GLOBAL.matrizView);
+      // console.log("projecion");
+      // console.log(this._projection);
+
+                      //mat4.multiply(GLOBAL.mvp, GLOBAL.matrizView, this._projection);
+      // console.log("MVP Y NORMAL ABAJO");
+      // console.log(GLOBAL.mvp);
+      // console.log(GLOBAL.normal);
 
     }
   }
