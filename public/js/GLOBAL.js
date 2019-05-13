@@ -43,8 +43,11 @@ export class GLOBAL {
   /*** Matriz view (inversa de camara) * @type {mat4}*/
   static _matrizView = mat4.create();
 
-  /*** Matriz view (inversa de camara) * @type {mat4}*/
+  /*** Matriz de normaes ( transpuesta de inversa de camara) * @type {mat4}*/
   static _normalMatrix = mat4.create();
+
+  /*** Matriz mvp * @type {mat4}*/
+  static _mvp = mat4.create();
 
   /*** Matriz view (inversa de camara) * @type {mat4}*/
   static _projectionmatrix  = mat4.create();
@@ -186,7 +189,7 @@ export class GLOBAL {
 
   /**
  * @summary Establece una matriz luz.
- * @param {vec3} vec El vector luz.
+ * @param {mat4} mat El vector luz.
  * @author Javi
  * @version
  */
@@ -196,7 +199,7 @@ export class GLOBAL {
 
   /**
     * @summary Coge la matriz luz.
-    * @returns {vec3} El vector luz.
+    * @returns {mat4} El vector luz.
     * @author Javi
     * @version
     */
@@ -206,7 +209,7 @@ export class GLOBAL {
 
   /**
  * @summary Establece una matriz luz.
- * @param {vec3} vec El vector luz.
+ * @param {mat4} mat El vector luz.
  * @author Javi
  * @version
  */
@@ -216,11 +219,31 @@ export class GLOBAL {
 
   /**
     * @summary Coge la matriz luz.
-    * @returns {vec3} El vector luz.
+    * @returns {mat4} El vector luz.
     * @author Javi
     * @version
     */
   static get projection() {
     return this._projectionmatrix;
+  }
+
+  /**
+ * @summary Establece una matriz luz.
+ * @param {mat4} mat El vector luz.
+ * @author Javi
+ * @version
+ */
+  static set mvp(mat) {
+    this._mvp = mat;
+  }
+
+  /**
+    * @summary Coge la matriz luz.
+    * @returns {mat4} El vector luz.
+    * @author Javi
+    * @version
+    */
+  static get mvp() {
+    return this._mvp;
   }
 }

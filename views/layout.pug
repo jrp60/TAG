@@ -20,11 +20,12 @@ html
     in vec3 a_normal;
     in vec2 a_texcoord;
     
-    in vec4 lightposition;
-    in mat4 modelmatrix;
-    in mat4 viewmatrix;
-    in mat4 normalmatrix;
-    in mat4 projecionmatrix;
+    uniform vec4 lightposition;
+    uniform mat4 modelmatrix;
+    uniform mat4 mvp;
+    //uniform mat4 viewmatrix;
+    uniform mat4 normalmatrix;
+    //uniform mat4 projecionmatrix;
     
     // varying to pass the normal to the fragment shader
     out vec2 v_texcoord;
@@ -38,11 +39,11 @@ html
 
 
       
-      mat4 modelviewmatrix = viewmatrix * modelmatrix;
-      mat4 mvp = projecionmatrix * viewmatrix * modelmatrix;
+      //mat4 modelviewmatrix = viewmatrix * modelmatrix;
+      //mat4 mvp = projecionmatrix * viewmatrix * modelmatrix;
       vec3 surfaceWorldPosition = (modelmatrix * a_position).xyz; 
       
-      Position = (modelviewmatrix * a_position).xyz;
+      //Position = (modelviewmatrix * a_position).xyz;
       // Pass the normal to the fragment shader
       Normal = mat3(normalmatrix) * a_normal;
       

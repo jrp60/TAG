@@ -75,6 +75,8 @@ export class TCamara extends TEntidad{
       console.log("Hola");
       this._perspectiva = false;
       mat4.copy(GLOBAL.projection, this._projection);
+      console.log("PROJECTION DE GLOBAL 2");
+      console.log(GLOBAL.projection);
   }
 
 

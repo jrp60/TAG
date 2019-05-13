@@ -24,9 +24,12 @@ const vec3 = glMatrix.vec3;
 
 /**
  * glMatrix.ARRAY_TYPE(4)
- * @type {vec3}
+ * @type {vec4}
 */
 const vec4 = glMatrix.vec4;
+
+/** * glMatrix.ARRAY_TYPE(16) * @type {mat4} **/
+const mat4 = glMatrix.mat4;
 
 /**
  * @summary La malla del modelo?
@@ -206,20 +209,21 @@ export class TRecursoMalla extends TRecurso {
         const arrays = {   //atributes para el shader
             a_position: vertices,
             a_texcoord: texturas,
-            a_normal: normales,
+            a_normal: normales
         };
         let bufferInfo = twgl.createBufferInfoFromArrays(gl, arrays);
         twgl.resizeCanvasToDisplaySize(gl.canvas);
         gl.viewport(0, 0, gl.canvas.width, gl.canvas.height);
+        var aux = mat4.create();
+        mat4.multiply(aux, GLOBAL.projection, GLOBAL.matrizView);
+        mat4.multiply(GLOBAL.mvp, aux, GLOBAL.matriz);
         const uniforms = {  //uniforms para el shader
             lightposition: GLOBAL.posicionLuz,
             modelmatrix: GLOBAL.matriz,
-            viewmatrix: GLOBAL.matrizView,
+            mvp: GLOBAL.mvp,
             normalmatrix: GLOBAL.normal,
-            projecionmatrix: GLOBAL.projection,
             u_sampler: textures.camarera,
             u_diffuseMult: chroma.hsv((baseHue + Math.random() * 60) % 360, 0.4, 0.3).gl(),
-            //u_reverseLightDirection: twgl.v3.normalize([0.4, 1, 0.7]),   ya no se usa
             u_color: GLOBAL.intensidad
         };
         gl.useProgram(programInfo.program);
