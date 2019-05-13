@@ -139,7 +139,8 @@ var l1 = raiz.crearLuz();
 
 raiz.setLuzActiva(l1);
 raiz.setIntensidadRGB(l1,20,20,15);
-var vecAux= vec3.fromValues(1, 185, 160);
+//var vecAux= vec3.fromValues(1, 185, 160);
+var vecAux= vec3.fromValues(0, 0, 0);
 raiz.setIntensidadVector(l1, vecAux);
 console.log("VEMOS LA LUZ");
 console.log(l1);
@@ -160,12 +161,14 @@ var escaladoC1 = raiz.crearNodo(traslacionC1, ec1, "escaladoC1");
 var c1 = raiz.crearCamara();
 var camara1 = raiz.crearNodo(escaladoC1, c1, "camara-1");
 // console.log(camara.entidad);
-console.log(c1);
-console.log(camara1);
-raiz.iniciarCamara(c1, 0.1, 100, 600, 0, 800, 0);
-console.log("Camara despues de iniciar");
-console.log(c1);
-raiz.setPerspectiva(c1);
+// console.log(c1);
+// console.log(camara1);
+ raiz.iniciarCamara(c1, 0.1, 100, 600, 0, 800, 0);
+ raiz.setPerspectiva(c1);
+ raiz.setCamaraActiva(c1); //establecemos la camara activa
+// console.log("Camara despues de iniciar");
+// console.log(c1);
+
 
 //PERSONA 1
 //rotacion-p1
@@ -203,11 +206,8 @@ var escaladoP2 = raiz.crearNodo(traslacionP2, ep2, "escaladoP2");
 var mp2 = raiz.crearMalla('female-croupier-2013-03-26');
 var mallaP2 = raiz.crearNodo(escaladoP2, mp2, "mallaP2");
 
-raiz.setCamaraActiva(c1); //establecemos la camara activa
 
-console.log("Antes de begindraw");
-//raiz.draw();
-console.log("Despues de begindraw");
+
 
 // ======================================================================
 // =========================  Código animacion  =========================

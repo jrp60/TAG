@@ -217,6 +217,8 @@ export class TRecursoMalla extends TRecurso {
         var aux = mat4.create();
         mat4.multiply(aux, GLOBAL.projection, GLOBAL.matrizView);
         mat4.multiply(GLOBAL.mvp, aux, GLOBAL.matriz);
+        console.log(GLOBAL.intensidad);
+        console.log("intensidad");
         const uniforms = {  //uniforms para el shader
             lightposition: GLOBAL.posicionLuz,
             modelmatrix: GLOBAL.matriz,
