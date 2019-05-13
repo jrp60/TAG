@@ -128,7 +128,7 @@ var rl1 = raiz.crearTransform();
 var rotacionL1 = raiz.crearNodo(raiz.escena, rl1, "rotacionL1")
 //traslacion-l1
 var tl1 = raiz.crearTransform();
-tl1.trasladar(5, -2, 15);
+tl1.trasladar(2, 2, 0);
 var traslacionL1 = raiz.crearNodo(rotacionL1, tl1, "traslacionL1");
 //escalado-l1
 var el1 = raiz.crearTransform();
@@ -139,7 +139,7 @@ var l1 = raiz.crearLuz();
 
 raiz.setLuzActiva(l1);
 raiz.setIntensidadRGB(l1,20,20,15);
-var vecAux= vec3.fromValues(40,30,66);
+var vecAux= vec3.fromValues(1, 185, 160);
 raiz.setIntensidadVector(l1, vecAux);
 console.log("VEMOS LA LUZ");
 console.log(l1);
@@ -151,7 +151,7 @@ var rc1 = raiz.crearTransform();
 var rotacionC1 = raiz.crearNodo(raiz.escena, rc1, "rotacionC1");
 //traslacion-c1
 var tc1 = raiz.crearTransform();
-tc1.trasladar(5, 6, 10);
+tc1.trasladar(1, 1, 10);
 var traslacionC1 = raiz.crearNodo(rotacionC1, tc1, "traslacionC1");
 //escalado-c1
 var ec1 = raiz.crearTransform();
