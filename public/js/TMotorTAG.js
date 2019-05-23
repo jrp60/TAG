@@ -203,7 +203,7 @@ export class TMotorTAG {
    * @see {@link http://localhost:3000/pdf/S4.pdf#page=7 | S4.7}
    * @author Javi
    * @version 0.4 - rev.(03/09)
-   * @todo Crear cámara y devolverla
+   * @todo activar luz
    */
   setLuzActiva(luz) {
     luz.activaLuz();
@@ -215,7 +215,7 @@ export class TMotorTAG {
    * @see {@link http://localhost:3000/pdf/S4.pdf#page=7 | S4.7}
    * @author Javi
    * @version 0.4 - rev.(03/09)
-   * @todo Crear cámara y devolverla
+   * @todo Desactivar luz
    */
   setLuzDesactiva(luz) {
     luz.desactivaLuz();
@@ -228,7 +228,7 @@ export class TMotorTAG {
    * @see {@link http://localhost:3000/pdf/S4.pdf#page=7 | S4.7}
    * @author Javi
    * @version 0.4 - rev.(03/09)
-   * @todo Crear cámara y devolverla
+   * @todo
    */
   setIntensidadVector(luz, intensidad) {
     luz.intensidadVector = intensidad;
@@ -243,7 +243,7 @@ export class TMotorTAG {
    * @see {@link http://localhost:3000/pdf/S4.pdf#page=7 | S4.7}
    * @author Javi
    * @version 0.4 - rev.(03/09)
-   * @todo Crear cámara y devolverla
+   * @todo 
    */
   setIntensidadRGB(luz, r, g, b) {
     luz.setintensidad(r, g, b);

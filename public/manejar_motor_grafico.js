@@ -35,7 +35,7 @@ if (!GLOBAL.gl) {
   alert("Imposible inicializar WebGL. Tu navegador puede no soportarlo.");
   GLOBAL.gl = null;
 }
-GLOBAL.gl.clearColor(0.5, 0.8, 0.8, 0.9); // Cambia el fondo del canvas.
+GLOBAL.gl.clearColor(0.2, 0.4, 0.4, 0.9); // Cambia el fondo del canvas.
 GLOBAL.gl.clear(GLOBAL.gl.COLOR_BUFFER_BIT | GLOBAL.gl.DEPTH_BUFFER_BIT);    // Eliminar/sustituye el color del canvas anterior.
 
 // ======================================================================
@@ -97,7 +97,7 @@ window.onload = () => {
       const persona = new Persona(datos[0].value, datos[1].value);
       personas.push(persona);
 
-      if (cam1hecha == false) { // Podemos ampliarlo a más, pero la vista está demasiado sobrecargado.
+      if (cam1hecha == false) {
         const base = document.getElementById("imprimir");
         const base_copy = base.cloneNode(true);
         base_copy.id = "camara1";
@@ -106,7 +106,7 @@ window.onload = () => {
         cam1hecha = true;
       }
 
-      if (cam2hecha == false) { // Podemos ampliarlo a más, pero la vista está demasiado sobrecargado.
+      if (cam2hecha == false) {
         const base = document.getElementById("imprimir");
         const base_copy = base.cloneNode(true);
         base_copy.id = "camara2";
@@ -114,6 +114,7 @@ window.onload = () => {
         document.getElementById("javi").appendChild(base_copy);
         cam2hecha = true;
       }
+
     }
 
     raiz.limpiaRaiz();
@@ -140,7 +141,7 @@ window.onload = () => {
         raiz.setLuzActiva(l1);
         raiz.setIntensidadRGB(l1, 20, 20, 15);
         //var vecAux= vec3.fromValues(1, 185, 160);
-        var vecAux = vec3.fromValues(0, 0, 0);
+        var vecAux = vec3.fromValues(30, 20, 60);
         raiz.setIntensidadVector(l1, vecAux);
         // console.log("VEMOS LA LUZ");
         // console.log(l1);
@@ -234,7 +235,7 @@ window.onload = () => {
         raiz.setLuzActiva(l1);
         raiz.setIntensidadRGB(l1, 20, 20, 15);
         //var vecAux= vec3.fromValues(1, 185, 160);
-        var vecAux = vec3.fromValues(0, 0, 0);
+        var vecAux = vec3.fromValues(30, 20, 60);
         raiz.setIntensidadVector(l1, vecAux);
         // console.log("VEMOS LA LUZ");
         // console.log(l1);
@@ -346,7 +347,7 @@ window.onload = () => {
         raiz.setLuzActiva(l1);
         raiz.setIntensidadRGB(l1, 20, 20, 15);
         //var vecAux= vec3.fromValues(1, 185, 160);
-        var vecAux = vec3.fromValues(0, 0, 0);
+        var vecAux = vec3.fromValues(30, 20, 60);
         raiz.setIntensidadVector(l1, vecAux);
 
         //CAMARA 1
@@ -470,7 +471,7 @@ window.onload = () => {
         raiz.setLuzActiva(l1);
         raiz.setIntensidadRGB(l1, 20, 20, 15);
         //var vecAux= vec3.fromValues(1, 185, 160);
-        var vecAux = vec3.fromValues(0, 0, 0);
+        var vecAux = vec3.fromValues(30, 20, 60);
         raiz.setIntensidadVector(l1, vecAux);
         // console.log("VEMOS LA LUZ");
         // console.log(l1);
@@ -603,7 +604,7 @@ window.onload = () => {
         var rotacionL1 = raiz.crearNodo(raiz.escena, rl1, "rotacionL1")
         //traslacion-l1
         var tl1 = raiz.crearTransform();
-        tl1.trasladar(2, 2, 0);
+        tl1.trasladar(3, 2, 0);
         var traslacionL1 = raiz.crearNodo(rotacionL1, tl1, "traslacionL1");
         //escalado-l1
         var el1 = raiz.crearTransform();
@@ -615,8 +616,9 @@ window.onload = () => {
         raiz.setLuzActiva(l1);
         raiz.setIntensidadRGB(l1, 20, 20, 15);
         //var vecAux= vec3.fromValues(1, 185, 160);
-        var vecAux = vec3.fromValues(0, 0, 0);
-        raiz.setIntensidadVector(l1, vecAux);
+        //var vecAux = vec3.fromValues(30, 20, 60);
+        //raiz.setIntensidadVector(l1, vecAux);
+
 
         //CAMARA 1
         //rotacion-c1
@@ -819,13 +821,13 @@ window.onload = () => {
         frame++;
         // ========================= 1. Preparar Canvas =========================
         const gl = GLOBAL.gl;
-        twgl.resizeCanvasToDisplaySize(gl.canvas); // Modifica el inline CSS del <canvas> 
+        twgl.resizeCanvasToDisplaySize(gl.canvas); // Modifica el inline CSS del <canvas>
         gl.viewport(0, 0, gl.canvas.width, gl.canvas.height); // TODO: Para arreglar el aspect ratio, necesitamos una camara.
-        gl.enable(gl.DEPTH_TEST);          // Activa la comparación de profundidad y actualiza el buffer de profundidad. 
+        gl.enable(gl.DEPTH_TEST);          // Activa la comparación de profundidad y actualiza el buffer de profundidad.
         gl.enable(gl.CULL_FACE);           // Activa la eliminación de los polígonos no visibles.
         gl.depthFunc(gl.LEQUAL);           // Objetos cercanos opacan objetos lejanos.
         gl.cullFace(gl.FRONT);             // Elimina los poligonos traseros.
-        gl.clearColor(0.5, 0.8, 0.8, 0.9); // Cambia el fondo del canvas.
+        gl.clearColor(0.2, 0.4, 0.4, 0.9); // Cambia el fondo del canvas.
         // Limpiar el buffer de color asi como el de profundidad
         gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);    // Eliminar/sustituye el color del canvas anterior.
         // Código de animación
@@ -884,7 +886,9 @@ window.onload = () => {
         console.log("Camara 2 activada");
       }
     };
-  };
+
+
+};
 
   document.getElementById("mas").onclick = () => {
     if (i <= 4) { // Podemos ampliarlo a más, pero la vista está demasiado sobrecargado.

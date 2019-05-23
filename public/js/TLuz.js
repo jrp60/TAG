@@ -64,6 +64,8 @@ export class TLuz extends TEntidad {
      * @version 0.2
      */
     desactivaLuz() {
+      console.log("desactivando");
+      console.log(GLOBAL.intesidad);
         this._activada = false;
     }
 
@@ -131,13 +133,20 @@ export class TLuz extends TEntidad {
 
             vec3.copy(GLOBAL.posicionLuz, posLuz);
             let v = this._intensidad;
+            console.log(this._intensidad);
             vec4.copy(GLOBAL.intensidad, vec4.fromValues(v[0], v[1], v[2], 0));
+            console.log("INTENSIDAD LUZ");
+            console.log(GLOBAL.intensidad);
             //almacenar en el vec3 de la luz la posicion obtenida, para luego desde TRecursoMalla acceder a esa posicion y pasarselo al vertex Shader?
 
 
             // obtener la posici�n de la luz de la matriz activa(MODELVIEW)
             // activar la luz en la librer�a gr�fica
             // colocar la luz en la posici�n obtenida
+        }
+        else if (this._activada == false) {
+          console.log("luz desactivada begindraw");
+          console.log(GLOBAL.intensidad);
         }
 
     }
