@@ -57,6 +57,20 @@ export class TMotorTAG {
     return nodo;
   }
 
+
+  /**
+   * @summary Limpia la escena y crea una nueva.
+   * @return {TTransform}
+   * @see {@link http://localhost:3000/pdf/S4.pdf#page=7 | S4.7}
+   * @author  Javi
+   * @version 0.4 - rev.(05/09)
+   * @todo Borra escena y crea una nueva
+   */
+  limpiaRaiz() {
+    this._escena = null;
+    this._escena = new TNodo("raiz");
+  }
+
   // get Entidad(nodo){
   //   return nodo.entidad;
   // }
@@ -85,8 +99,8 @@ export class TMotorTAG {
    * @version 0.4 - rev.(03/09)
    * @todo Crear cámara y devolverla
    */
-  crearCamara() {
-    return new TCamara();
+  crearCamara(name) {
+    return new TCamara(name);
   }
 
   /**
@@ -222,14 +236,20 @@ export class TMotorTAG {
 
     GLOBAL.matriz = glMatrix.mat4.create();
     GLOBAL.matrizView = glMatrix.mat4.create();
+    //el resto se inicializan en GLOBAL.js
     if (this._escena === null) {
       console.error('[ERROR]: No hay raiz' + this._escena);
     } else {
 
       // Inicializar la librería gráfica como sea necesario
+      console.log("PASADA 1");
       this._escena.drawRaiz(GLOBAL.LUZ);
+
       // Inicializar el viewport activo con la librería gráfica
+      console.log("PASADA 2");
       this._escena.drawRaiz(GLOBAL.CAMARA);
+
+      console.log("PASADA 3");
       // cargar en la matriz MODELVIEW la matriz de la cámara
       this._escena.drawRaiz(GLOBAL.DIBUJAR);
     }

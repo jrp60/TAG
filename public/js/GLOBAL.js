@@ -22,6 +22,9 @@
 
 export class GLOBAL {
 
+  /*** Matriz mvp * @type {string}*/
+  static _camActiva;
+
   /*** Constante para habilitar el modo debug* @const {boolean}*/
   static DEBUG = false;
 
@@ -225,6 +228,7 @@ export class GLOBAL {
     */
   static get projection() {
     return this._projectionmatrix;
+
   }
 
   /**
@@ -245,5 +249,28 @@ export class GLOBAL {
     */
   static get mvp() {
     return this._mvp;
+  }
+
+
+
+
+  /**
+ * @summary Establece una matriz luz.
+ * @param {mat4} mat El vector luz.
+ * @author Javi
+ * @version
+ */
+  static set cam(camara) {
+    this._camActiva = camara;
+  }
+
+  /**
+    * @summary Coge la matriz luz.
+    * @returns {mat4} El vector luz.
+    * @author Javi
+    * @version
+    */
+  static get cam() {
+    return this._camActiva;
   }
 }
