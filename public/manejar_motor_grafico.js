@@ -59,6 +59,8 @@ window.addEventListener('resize', () => {
 const raiz = new TMotorTAG(); // Variable global de Javi
 const personas = [];
 var inhabilitar = true;
+var cam1hecha = false;
+var cam2hecha = false;
 var i = 1;
 
 // Boton para imprimir arbol
@@ -83,6 +85,8 @@ document.getElementById("draw").onclick = () => {
   }
 };
 
+
+
 window.onload = () => {
 
 document.getElementById("enviar").onclick = () => {
@@ -92,6 +96,27 @@ document.getElementById("enviar").onclick = () => {
       const datos = dom.children;
       const persona = new Persona(datos[0].value, datos[1].value);
       personas.push(persona);
+
+      if ( cam1hecha == false) { // Podemos ampliarlo a más, pero la vista está demasiado sobrecargado.
+         const base = document.getElementById("imprimir");
+         const base_copy = base.cloneNode(true);
+         base_copy.id = "camara1";
+         base_copy.textContent = "Cámara 1";
+         document.getElementById("javi").appendChild(base_copy);
+         cam1hecha = true;
+      }
+
+      if ( cam2hecha == false) { // Podemos ampliarlo a más, pero la vista está demasiado sobrecargado.
+         const base = document.getElementById("imprimir");
+         const base_copy = base.cloneNode(true);
+         base_copy.id = "camara2";
+         base_copy.textContent = "Cámara 2";
+         document.getElementById("javi").appendChild(base_copy);
+         cam2hecha = true;
+      }
+
+
+
    }
 
 raiz.limpiaRaiz();
@@ -840,6 +865,32 @@ switch (personas.length) {
      }
    };
 
+   document.getElementById("camara1").onclick = () => {
+     console.log("HOLAA");
+     if (raiz == null) {
+       console.error("[ERROR] No existe el nodo Raiz");
+     }
+     else if (inhabilitar == true) {
+       console.error("[ERROR] Establece un numero de personas entre 1 y 5 y crea la escena, todavía no hay camara");
+     } else {
+        raiz.setCamaraActiva(c1);
+        console.log("Camara 1 activada");
+     }
+   };
+
+   document.getElementById("camara2").onclick = () => {
+     console.log("HOLAA2");
+     if (raiz == null) {
+       console.error("[ERROR] No existe el nodo Raiz");
+     }
+     else if (inhabilitar == true) {
+       console.error("[ERROR] Establece un numero de personas entre 1 y 5 y crea la escena, todavía no hay camara");
+     } else {
+        raiz.setCamaraActiva(c2);
+        console.log("Camara 2 activada");
+     }
+   };
+
 
 };
 
@@ -847,7 +898,7 @@ console.log("PERSONAS");
 console.log(personas);
 
 document.getElementById("mas").onclick = () => {
-   if (i <= 30) { // Podemos ampliarlo a más, pero la vista está demasiado sobrecargado.
+   if (i <= 6) { // Podemos ampliarlo a más, pero la vista está demasiado sobrecargado.
       const base = document.getElementById("base");
       const base_copy = base.cloneNode(true);
       base_copy.id += (i++);
