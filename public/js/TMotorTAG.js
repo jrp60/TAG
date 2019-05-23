@@ -56,7 +56,30 @@ export class TMotorTAG {
     padre.addHijo(nodo);
     return nodo;
   }
+  /**
+   * @summary Elimina un hijo
+   * @param {TNodo} padre El nodo padre.
+   * @param {TNodo} El nodo hijo
+   * @see {@link http://localhost:3000/pdf/S4.pdf#page=7 | S4.7}
+   * @author - Javi
+   * @version
+   */
 
+  eliminaHijo(nodoPadre, hijo) {
+    nodoPadre.remHijo(hijo);
+
+  }
+  /**
+   * @summary Añade un hijo
+   * @param {TNodo} padre El nodo padre.
+   * @param {TNodo} El nodo hijo
+   * @see {@link http://localhost:3000/pdf/S4.pdf#page=7 | S4.7}
+   * @author  Javi
+   * @version 0.2
+   */
+  addhijo(padre, hijo){
+    padre.addHijo(hijo);
+  }
 
   /**
    * @summary Limpia la escena y crea una nueva.
@@ -141,6 +164,17 @@ export class TMotorTAG {
    * @version 0.4 - rev.(03/09)
    */
   setCamaraActiva(cam) {
+    cam.setActiva();
+  }
+
+  /**
+   * @summary
+   * @param {TCamara} cam Entidad de la camara que se va a activar
+   * @see {@link http://localhost:3000/pdf/S4.pdf#page=7 | S4.7}
+   * @author Javi
+   * @version 0.4 - rev.(03/09)
+   */
+  setCamaraInActiva(cam) {
     cam.setActiva();
   }
 

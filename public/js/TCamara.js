@@ -170,17 +170,20 @@ export class TCamara extends TEntidad{
     GLOBAL.cam = this._name;
     mat4.copy(GLOBAL.projection, this._projection);
 
-    // console.log("000000000000000000000000000000000000");
-    // console.log(this);
-    // console.log(GLOBAL.cam);
-    // console.log("000000000000000000000000000000000000");
-    // if (this === GLOBAL.cam) {
-    //   console.log("1234");
-    //   console.log("1234");
-    //   console.log("1234");
-    //   console.log("1234");
-    //   console.log("1234");
-    // }
+  }
+
+  /**
+   * @summary
+   * @param {float} x Axis X
+   * @see {@link http://localhost:3000/pdf/S2.pdf#page=17 | S2.17}
+   * @author Javi
+   * @version 0.2
+   */
+  setInactiva(){
+    this._activa = false;
+    GLOBAL.cam = "";
+    //mat4.copy(GLOBAL.projection, this._projection);
+
   }
 
 
