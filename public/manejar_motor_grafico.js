@@ -761,13 +761,50 @@ raiz.limpiaRaiz();
        then = now - (elapsed % fpsInterval);
        // webglUtils.resizeCanvasToDisplaySize(GLOBAL.gl.canvas);
 
+switch (personas.length) {
+  case 1:
+    rp1.rotar(0.2, 1, 0, 2);
+  break;
+
+  case 2:
+    rp1.rotar(0.2, 1, 0, 2);
+    if (frame % 400 === 0) {
+      aux_transladar = !aux_transladar;
+    }
+    tp2.trasladar(aux_transladar ? transladar : -transladar, 0, 0);
+  break;
+
+  case 3:
+  rp1.rotar(0.2, 1, 0, 2);
+  if (frame % 400 === 0) {
+    aux_transladar = !aux_transladar;
+  }
+  tp2.trasladar(aux_transladar ? transladar : -transladar, 0, 0);
+  rp3.rotar(2, 0.7, 0.5, 2);
+  break;
+
+  case 4:
+  rp1.rotar(0, 1, 0, 2);
+  rp2.rotar(0, 1, 0, 2);
+  rp3.rotar(0, 1, 0, 2);
+  rp4.rotar(0, 1, 0, 2);
+  break;
+
+  case 5:
+  rp1.rotar(0, 1, 0, 2);
+  rp2.rotar(0, 1, 0, 2);
+  rp3.rotar(0, 1, 0, 2);
+  rp4.rotar(0, 1, 0, 2);
+  rp5.rotar(0, 1, 0, 2);
+  break;
+
+  default:
+
+}
+
        // Tener en cuenta que en la animación lo que se hace es añadir a
        // lo que habia en la matriz de transformación anterior
-       rp1.rotar(0.2, 1, 0, 2);
-       if (frame % 400 === 0) {
-         aux_transladar = !aux_transladar;
-       }
-       tp2.trasladar(aux_transladar ? transladar : -transladar, 0, 0);
+
        frame++;
        // Código de animación
        raiz.draw();
