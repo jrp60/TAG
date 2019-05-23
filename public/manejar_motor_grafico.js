@@ -37,7 +37,7 @@ if (!GLOBAL.gl) {
   alert("Imposible inicializar WebGL. Tu navegador puede no soportarlo.");
   GLOBAL.gl = null;
 }
-GLOBAL.gl.clearColor(0.5, 0.5, 0.5, 0.9); // Cambia el fondo del canvas.
+GLOBAL.gl.clearColor(0.5, 0.8, 0.8, 0.9); // Cambia el fondo del canvas.
 GLOBAL.gl.clear(GLOBAL.gl.COLOR_BUFFER_BIT | GLOBAL.gl.DEPTH_BUFFER_BIT);    // Eliminar/sustituye el color del canvas anterior.
 
 // ======================================================================
