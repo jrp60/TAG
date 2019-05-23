@@ -146,7 +146,7 @@ export class TTransform extends TEntidad {
      * Multiplicar la matriz de la transformación a la matriz actual
      * @param {mat4} matriz Matriz actual
      * @see {@link http://localhost:3000/pdf/S2.pdf#page=24 | S2.24}
-     * @author David
+     * @author David - Javi
      * @version 0.4 - rev.(03/09)
      */
     beginDraw() { // TransformedVector = TranslationMatrix * RotationMatrix * ScaleMatrix * OriginalVector;

@@ -60,13 +60,13 @@ export class TCamara extends TEntidad{
    * @version 0.2
    */
   setPerspectiva() {
-      console.log("PERSPECTIVA");
+      // console.log("PERSPECTIVA");
       mat4.perspective(this._projection, 45, (this._derecha-this._izquierda)/(this._inferior-this._superior), this._cercano, this._lejano);
       this._perspectiva = true;
-      console.log("projection de perspective");
-      console.log(this._projection);
+      // console.log("projection de perspective");
+      // console.log(this._projection);
       mat4.copy(GLOBAL.projection, this._projection);
-      console.log("PROJECTION DE PERSPECTIVA");
+      // console.log("PROJECTION DE PERSPECTIVA");
       //console.log(GLOBAL.projection);
   }
 
@@ -77,14 +77,14 @@ export class TCamara extends TEntidad{
    * @version 0.2
    */
   setParalela() {
-      console.log("PARALELA");
+      // console.log("PARALELA");
       mat4.ortho(this._projection, this._izquierda,this._derecha,this._inferior, this._superior,this._cercano,this._lejano);
-      console.log("projection de ortho");
-      console.log(this._projection);
+      // console.log("projection de ortho");
+      // console.log(this._projection);
       this._perspectiva = false;
 
       mat4.copy(GLOBAL.projection, this._projection);
-      console.log("PROJECTION DE PARALELA");
+      // console.log("PROJECTION DE PARALELA");
       //console.log(GLOBAL.projection);
   }
 
@@ -98,22 +98,10 @@ export class TCamara extends TEntidad{
    * @todo Hay que hacer la camara
    */
   beginDraw(pasada) {
-    console.log("+++++++++++++++++++++++++++++++++++++++++++++++");
     if (pasada === GLOBAL.CAMARA && this._activa === true && this._name === GLOBAL.cam) {
-      console.log("-------------------------------------");
-      console.log("-------------------------------------");
-      console.log(this._name);
-      console.log(GLOBAL.cam);
-      console.log("-------------------------------------");
-      console.log("-------------------------------------");
 
       var invert = mat4.create();
-      console.log("GLOBAL MATRIZ");
-      console.log(GLOBAL.matriz);
       mat4.invert(invert,GLOBAL.matriz);
-      console.log("INVERT- MATRIZ VIEW");
-      console.log(invert);
-
 
       //var aux = mat4.create();
       //mat4.copy(aux, invert); // inversa de la camaraMatrix en modelMatriz
@@ -136,16 +124,11 @@ export class TCamara extends TEntidad{
       // console.log(GLOBAL.normal);
 
     }
-    if (this._name === GLOBAL.cam) {
-      console.log("HOLAHOLAHOLAHOLA");
-      console.log("HOLAHOLAHOLAHOLA");
-      console.log("HOLAHOLAHOLAHOLA");
 
-    }
-    console.log("AAAAAAAAAAAAAAAAAAAAAAA");
-    console.log(this._name);
-    console.log(GLOBAL.cam);
-    console.log("AAAAAAAAAAAAAAAAAAAAAAA");
+    // console.log("AAAAAAAAAAAAAAAAAAAAAAA");
+    // console.log(this._name);
+    // console.log(GLOBAL.cam);
+    // console.log("AAAAAAAAAAAAAAAAAAAAAAA");
   }
 
   /**

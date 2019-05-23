@@ -145,9 +145,9 @@ raiz.limpiaRaiz();
         //var vecAux= vec3.fromValues(1, 185, 160);
         var vecAux= vec3.fromValues(0, 0, 0);
         raiz.setIntensidadVector(l1, vecAux);
-        console.log("VEMOS LA LUZ");
-        console.log(l1);
-        console.log("FIN LOG LUZ");
+        // console.log("VEMOS LA LUZ");
+        // console.log(l1);
+        // console.log("FIN LOG LUZ");
 
         //CAMARA 1
         //rotacion-c1
@@ -239,9 +239,9 @@ raiz.limpiaRaiz();
         //var vecAux= vec3.fromValues(1, 185, 160);
         var vecAux= vec3.fromValues(0, 0, 0);
         raiz.setIntensidadVector(l1, vecAux);
-        console.log("VEMOS LA LUZ");
-        console.log(l1);
-        console.log("FIN LOG LUZ");
+        // console.log("VEMOS LA LUZ");
+        // console.log(l1);
+        // console.log("FIN LOG LUZ");
 
         //CAMARA 1
         //rotacion-c1
@@ -351,9 +351,9 @@ raiz.limpiaRaiz();
     //var vecAux= vec3.fromValues(1, 185, 160);
     var vecAux= vec3.fromValues(0, 0, 0);
     raiz.setIntensidadVector(l1, vecAux);
-    console.log("VEMOS LA LUZ");
-    console.log(l1);
-    console.log("FIN LOG LUZ");
+    // console.log("VEMOS LA LUZ");
+    // console.log(l1);
+    // console.log("FIN LOG LUZ");
 
     //CAMARA 1
     //rotacion-c1
@@ -478,9 +478,9 @@ raiz.limpiaRaiz();
     //var vecAux= vec3.fromValues(1, 185, 160);
     var vecAux= vec3.fromValues(0, 0, 0);
     raiz.setIntensidadVector(l1, vecAux);
-    console.log("VEMOS LA LUZ");
-    console.log(l1);
-    console.log("FIN LOG LUZ");
+    // console.log("VEMOS LA LUZ");
+    // console.log(l1);
+    // console.log("FIN LOG LUZ");
 
     //CAMARA 1
     //rotacion-c1
@@ -549,16 +549,16 @@ raiz.limpiaRaiz();
     //PERSONA 2
     //rotacion-p2
     var rp2 = raiz.crearTransform();
-    rp2.rotar(0, 1, 0, 180);
+    //rp2.rotar(0, 1, 0, 180);
     // rp1.rotar(0.2, 1, 0, 2);
     var rotacionP2 = raiz.crearNodo(raiz.escena, rp2, "rotacionP2");
     //traslacion-p2
     var tp2 = raiz.crearTransform();
-    tp2.trasladar(-1, 0, 0);
+    tp2.trasladar(-0.7, 0, 0);
     var traslacionP2 = raiz.crearNodo(rotacionP2, tp2, "traslacionP2");
     //escalado-p2
     var ep2 = raiz.crearTransform();
-    ep2.escalar(0.5, 0.5, 0.5);
+    ep2.escalar(0.9, 0.75, 1);
     var escaladoP2 = raiz.crearNodo(traslacionP2, ep2, "escaladoP2");
     //malla-p2
     var mp2 = raiz.crearMalla('female-croupier-2013-03-26');
@@ -576,7 +576,7 @@ raiz.limpiaRaiz();
     //escalado-p3
     var ep3 = raiz.crearTransform();
     var escaladoP3 = raiz.crearNodo(traslacionP3, ep3, "escaladoP3");
-    // ep3.escalar(0.8, 0.8, 0.8);
+    ep3.escalar(1, 0.85, 1);
     //malla-p3
     var mp3 = raiz.crearMalla('female-croupier-2013-03-26');
     var mallaP3 = raiz.crearNodo(escaladoP3, mp3, "mallaP3");
@@ -594,7 +594,7 @@ raiz.limpiaRaiz();
     //escalado-p4
     var ep4 = raiz.crearTransform();
     var escaladoP4 = raiz.crearNodo(traslacionP4, ep4, "escaladoP4");
-    // ep4.escalar(0.8, 0.8, 0.8);
+    ep4.escalar(1, 0.8, 1);
     //malla-p4
     var mp4 = raiz.crearMalla('female-croupier-2013-03-26');
     var mallaP4 = raiz.crearNodo(escaladoP4, mp4, "mallaP4");
@@ -623,9 +623,9 @@ raiz.limpiaRaiz();
     //var vecAux= vec3.fromValues(1, 185, 160);
     var vecAux= vec3.fromValues(0, 0, 0);
     raiz.setIntensidadVector(l1, vecAux);
-    console.log("VEMOS LA LUZ");
-    console.log(l1);
-    console.log("FIN LOG LUZ");
+    // console.log("VEMOS LA LUZ");
+    // console.log(l1);
+    // console.log("FIN LOG LUZ");
 
     //CAMARA 1
     //rotacion-c1
@@ -767,10 +767,6 @@ raiz.limpiaRaiz();
     inhabilitar = true;
 
   }
-   console.log(personas);
-   console.log(personas.length);
-
-
 
    let aux_transladar = true; // False Izquierda, True derecha.
    let transladar = 0.005;
@@ -866,7 +862,6 @@ switch (personas.length) {
    };
 
    document.getElementById("camara1").onclick = () => {
-     console.log("HOLAA");
      if (raiz == null) {
        console.error("[ERROR] No existe el nodo Raiz");
      }
@@ -879,7 +874,6 @@ switch (personas.length) {
    };
 
    document.getElementById("camara2").onclick = () => {
-     console.log("HOLAA2");
      if (raiz == null) {
        console.error("[ERROR] No existe el nodo Raiz");
      }
@@ -894,11 +888,11 @@ switch (personas.length) {
 
 };
 
-console.log("PERSONAS");
-console.log(personas);
+// console.log("PERSONAS");
+// console.log(personas);
 
 document.getElementById("mas").onclick = () => {
-   if (i <= 6) { // Podemos ampliarlo a más, pero la vista está demasiado sobrecargado.
+   if (i <= 4) { // Podemos ampliarlo a más, pero la vista está demasiado sobrecargado.
       const base = document.getElementById("base");
       const base_copy = base.cloneNode(true);
       base_copy.id += (i++);
