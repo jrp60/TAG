@@ -8,3 +8,14 @@ d -halo 0.6600
 Ns 10.0000
 sharpness 60
 Ni 1.19713
+
+newmtl shinyred
+Ka  0.1986  0.0000  0.0000
+Kd  0.5922  0.0166  0.0000
+Ks  0.5974  0.2084  0.2084
+illum 2
+Ns 100.2237
+
+newmtl texture
+Ks 0 0 0
+map_Kd female-croupier-2013-03-26.png

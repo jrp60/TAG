@@ -11,12 +11,12 @@
 
 
 class Persona {
-   constructor(nombre, altura) {
+   constructor(nombre, altura, material) {
       this.nombre = nombre;
       this.altura = altura;
+      this.material = material;
    }
 }
-const personas = [];
 var i = 1;
 
 document.getElementById("mas").onclick = () => {

@@ -56,7 +56,7 @@ export class TMalla extends TEntidad {
           this.draw(obj);
         });
       } else {
-        console.log("???")
+        console.log("[ERROR] Hay un problema con el gestor de recursos")
       }
     }
   }
@@ -70,9 +70,12 @@ export class TMalla extends TEntidad {
    * o algo así parecido, porque... seguido de TMalla... no deberia haber...
    * ¿TMaterial? ¿TTextura? Y finalmente TDibujado
    */
-  draw(obj) {
+  draw(obj, i_mat = 0) {
+
     const gl = GLOBAL.gl;
     const programInfo = twgl.createProgramInfo(gl, ["vs", "fs"]);
+    // TODO: Cuando Javi tenga las luces con Phong, se puede colocar los materiales.
+    // console.log(obj.material[i_mat]);
     const arrays = {   //atributes para el shader
       a_position: obj.malla.vertices,
       a_texcoord: obj.malla.texturas,

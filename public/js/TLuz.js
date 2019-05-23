@@ -133,10 +133,7 @@ export class TLuz extends TEntidad {
 
             vec3.copy(GLOBAL.posicionLuz, posLuz);
             let v = this._intensidad;
-            console.log(this._intensidad);
             vec4.copy(GLOBAL.intensidad, vec4.fromValues(v[0], v[1], v[2], 0));
-            console.log("INTENSIDAD LUZ");
-            console.log(GLOBAL.intensidad);
             //almacenar en el vec3 de la luz la posicion obtenida, para luego desde TRecursoMalla acceder a esa posicion y pasarselo al vertex Shader?
 
 

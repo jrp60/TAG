@@ -91,7 +91,9 @@ window.onload = () => {
     const personas_aux = document.getElementsByTagName("article");
     for (const dom of personas_aux) {
       const datos = dom.children;
-      const persona = new Persona(datos[0].value, datos[1].value);
+      const options = datos[2].options;
+      const i_mat = options.selectedIndex;
+      const persona = new Persona(datos[0].value, datos[1].value, options[i_mat].value);
       personas.push(persona);
 
       if (cam1hecha == false) {
@@ -753,7 +755,6 @@ window.onload = () => {
       default:
         inhabilitar = true;
     }
-
     // ======================================================================
     // =========================  Código animacion  =========================
 
