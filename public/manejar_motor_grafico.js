@@ -19,8 +19,6 @@ import { TMotorTAG } from './js/TMotorTAG.js';
 /** * glMatrix.ARRAY_TYPE(3) * @type {vec3} **/
 const vec3 = glMatrix.vec3;
 
-/** * glMatrix.ARRAY_TYPE(16) * @type {mat4} **/
-const mat4 = glMatrix.mat4;
 // ======================================================================
 // ========================= Variables globales =========================
 
@@ -35,7 +33,7 @@ if (!GLOBAL.gl) {
   alert("Imposible inicializar WebGL. Tu navegador puede no soportarlo.");
   GLOBAL.gl = null;
 }
-GLOBAL.gl.clearColor(0.2, 0.4, 0.4, 0.9); // Cambia el fondo del canvas.
+GLOBAL.gl.clearColor(0.5, 0.8, 0.8, 0.9); // Cambia el fondo del canvas.
 GLOBAL.gl.clear(GLOBAL.gl.COLOR_BUFFER_BIT | GLOBAL.gl.DEPTH_BUFFER_BIT);    // Eliminar/sustituye el color del canvas anterior.
 
 // ======================================================================
@@ -59,7 +57,6 @@ const personas = [];
 var inhabilitar = true;
 var cam1hecha = false;
 var cam2hecha = false;
-var i = 1;
 
 // Boton para imprimir arbol
 document.getElementById("imprimir").onclick = () => {
@@ -114,7 +111,6 @@ window.onload = () => {
         document.getElementById("javi").appendChild(base_copy);
         cam2hecha = true;
       }
-
     }
 
     raiz.limpiaRaiz();
@@ -616,9 +612,8 @@ window.onload = () => {
         raiz.setLuzActiva(l1);
         raiz.setIntensidadRGB(l1, 20, 20, 15);
         //var vecAux= vec3.fromValues(1, 185, 160);
-        //var vecAux = vec3.fromValues(30, 20, 60);
-        //raiz.setIntensidadVector(l1, vecAux);
-
+        // var vecAux = vec3.fromValues(0, 0, 0);
+        // raiz.setIntensidadVector(l1, vecAux);
 
         //CAMARA 1
         //rotacion-c1
@@ -821,9 +816,9 @@ window.onload = () => {
         frame++;
         // ========================= 1. Preparar Canvas =========================
         const gl = GLOBAL.gl;
-        twgl.resizeCanvasToDisplaySize(gl.canvas); // Modifica el inline CSS del <canvas>
+        twgl.resizeCanvasToDisplaySize(gl.canvas); // Modifica el inline CSS del <canvas> 
         gl.viewport(0, 0, gl.canvas.width, gl.canvas.height); // TODO: Para arreglar el aspect ratio, necesitamos una camara.
-        gl.enable(gl.DEPTH_TEST);          // Activa la comparación de profundidad y actualiza el buffer de profundidad.
+        gl.enable(gl.DEPTH_TEST);          // Activa la comparación de profundidad y actualiza el buffer de profundidad. 
         gl.enable(gl.CULL_FACE);           // Activa la eliminación de los polígonos no visibles.
         gl.depthFunc(gl.LEQUAL);           // Objetos cercanos opacan objetos lejanos.
         gl.cullFace(gl.FRONT);             // Elimina los poligonos traseros.
@@ -886,24 +881,5 @@ window.onload = () => {
         console.log("Camara 2 activada");
       }
     };
-
-
-};
-
-  document.getElementById("mas").onclick = () => {
-    if (i <= 4) { // Podemos ampliarlo a más, pero la vista está demasiado sobrecargado.
-      const base = document.getElementById("base");
-      const base_copy = base.cloneNode(true);
-      base_copy.id += (i++);
-      document.getElementById("formulario").appendChild(base_copy);
-    }
-  };
-
-  document.getElementById("menos").onclick = () => {
-    if (i > 1) { // Para dejar al menos 1 formulario
-      const formulario = document.getElementById("formulario");
-      formulario.removeChild(formulario.lastChild);
-      i--;
-    }
   };
 }

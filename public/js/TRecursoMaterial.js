@@ -1,9 +1,8 @@
 //===== Changelog ============================================
 //=  - 0.3 Init. S3.20 [David]
 //============================================================
-//=  COPIA DIRECTA DE TRECURSOSMALLA MEJOR IGNORAR.
+//=  Parser de internet y adaptado a nuestro motor
 //============================================================
-import { TFichero } from './TFichero.js';
 import { TRecurso } from './TRecurso.js';
 
 /**

@@ -7,11 +7,10 @@ html
   title TAG 2018/2019 - David y Javier
   link(rel='stylesheet' href='style.css' type='text/css' media='screen')
   // Código JS para los controles básicos de la página web
-  script(src='manejar_controles_basicos.js' async='')
+  script(src='manejar_controles_basicos.js' defer)
   // WebGL para el proyecto
   script(src='js/gl-matrix-min.js')
   script(src='js/twgl-full.min.js')
-  script(src='http://twgljs.org/3rdparty/chroma.min.js')
   script(src='manejar_motor_grafico.js' type='module')
   script#vs(type='notjs').
     #version 300 es
@@ -49,19 +48,13 @@ html
     in vec3 Normal;
     in vec3 surfaceToLight;
 
-    uniform vec4 u_diffuseMult;
     uniform vec4 u_color;
 
     out vec4 outColor;
     void main(void) {
-      // because Normal is a varying it's interpolated
-      // so it will not be a uint vector. Normalizing it
-      // will make it a unit vector again
       vec3 normal2 = normalize(Normal);
       vec3 surfaceToLightDirection = normalize(surfaceToLight);
 
-      // compute the light by taking the dot product
-      // of the normal to the light's reverse direction
       float light = dot(normal2, surfaceToLightDirection);
       
       outColor = u_color;

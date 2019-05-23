@@ -7,7 +7,6 @@
 //============================================================
 
 import { TRecurso } from './TRecurso.js';
-import { GLOBAL } from './GLOBAL.js';
 
 /**
  * glMatrix.ARRAY_TYPE(2)
@@ -26,9 +25,6 @@ const vec3 = glMatrix.vec3;
  * @type {vec4}
 */
 const vec4 = glMatrix.vec4;
-
-/** * glMatrix.ARRAY_TYPE(16) * @type {mat4} **/
-const mat4 = glMatrix.mat4;
 
 /**
  * @summary La malla del modelo?
@@ -54,6 +50,9 @@ export class TRecursoMalla extends TRecurso {
     _t;
 
     // Planificado
+    vertices;
+    texturas;
+    coordenadas;
 
 
     constructor(nombre) {
@@ -149,63 +148,29 @@ export class TRecursoMalla extends TRecurso {
      * @version 0.3 - rev (03/09)
      */
     draw(matrix) {
-        const gl = GLOBAL.gl;
-        const vertices = twgl.primitives.createAugmentedTypedArray(4, this._v.length);
+        this.vertices = twgl.primitives.createAugmentedTypedArray(4, this._v.length);
         for (const coordenadas of this._v) {
             const coordenadas_clonados = vec4.clone(coordenadas);
             vec4.transformMat4(coordenadas_clonados, coordenadas_clonados, matrix);
             for (const coordenada of coordenadas_clonados) {
-                vertices.push(coordenada);
+                this.vertices.push(coordenada);
             }
         }
 
-        const texturas = twgl.primitives.createAugmentedTypedArray(2, this._t.length);
+        this.texturas = twgl.primitives.createAugmentedTypedArray(2, this._t.length);
         for (const t_coord of this._t) {
             const t_coord_clon = vec2.clone(t_coord);
-            // vec4.transformMat4(t_coord_clon, t_coord_clon, matrix);
             for (const t_coor of t_coord_clon) {
-                texturas.push(t_coor);
+                this.texturas.push(t_coor);
             }
         }
-        // console.log(texturas);
 
-        const normales = twgl.primitives.createAugmentedTypedArray(3, this._n.length);
+        this.normales = twgl.primitives.createAugmentedTypedArray(3, this._n.length);
         for (const n_coord of this._n) {
             const n_coord_clon = vec3.clone(n_coord);
-            // vec4.transformMat4(n_coord_clon, n_coord_clon, matrix);
             for (const n_coor of n_coord_clon) {
-                normales.push(n_coor);
+                this.normales.push(n_coor);
             }
         }
-
-        const programInfo = twgl.createProgramInfo(gl, ["vs", "fs"]);
-        const baseHue = Math.random() * 360;
-        const arrays = {   //atributes para el shader
-            a_position: vertices,
-            a_texcoord: texturas,
-            a_normal: normales
-        };
-        let bufferInfo = twgl.createBufferInfoFromArrays(gl, arrays);
-        twgl.resizeCanvasToDisplaySize(gl.canvas);
-        gl.viewport(0, 0, gl.canvas.width, gl.canvas.height);
-        var aux = mat4.create();
-        mat4.multiply(aux, GLOBAL.projection, GLOBAL.matrizView);
-        mat4.multiply(GLOBAL.mvp, aux, GLOBAL.matriz);
-        const uniforms = {  //uniforms para el shader
-            lightposition: GLOBAL.posicionLuz,
-            modelmatrix: GLOBAL.matriz,
-            mvp: GLOBAL.mvp,
-            normalmatrix: GLOBAL.normal,
-            u_diffuseMult: chroma.hsv((baseHue + Math.random() * 60) % 360, 0.4, 0.3).gl(),
-            u_color: GLOBAL.intensidad
-        };
-        gl.useProgram(programInfo.program);
-        twgl.setBuffersAndAttributes(gl, programInfo, bufferInfo);
-        twgl.setUniforms(programInfo, uniforms);
-        // twgl.drawBufferInfo(gl, bufferInfo, gl.LINES);
-        // Mode: https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext/drawArrays
-        twgl.drawBufferInfo(gl, bufferInfo, gl.TRIANGLES);
     }
-
-
 }
