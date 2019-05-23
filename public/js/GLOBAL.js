@@ -17,6 +17,9 @@
   /** * glMatrix.ARRAY_TYPE(3) * @type {vec3} **/
   const vec3 = glMatrix.vec3;
 
+ /** * glMatrix.ARRAY_TYPE(4) * @type {vec4} **/
+  const vec4 = glMatrix.vec4;
+
   /** * glMatrix.ARRAY_TYPE(16) * @type {mat4} **/
   const mat4 = glMatrix.mat4;
 
@@ -58,8 +61,8 @@ export class GLOBAL {
   /** Vector de la luz* @type {vec3}*/
   static _posicionLuz = vec3.fromValues(0,0,0);
 
-  /** Vector de la luz* @type {vec3}*/
-  static _intensidadLuz = vec3.fromValues(0,0,0);
+  /** Vector de la luz* @type {vec4}*/
+  static _intensidadLuz = vec4.fromValues(0,0,0,0);
 
   /** * Contiene el objeto de WebGL* @type {WebGLObject}*/
   static gl;

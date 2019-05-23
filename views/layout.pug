@@ -17,37 +17,25 @@ html
     #version 300 es
     precision highp float;
     in vec4 a_position;
-    in vec3 a_normal;
     in vec2 a_texcoord;
+    in vec3 a_normal;
     
-    uniform vec4 lightposition;
+    uniform vec3 lightposition;
     uniform mat4 modelmatrix;
     uniform mat4 mvp;
-    //uniform mat4 viewmatrix;
     uniform mat4 normalmatrix;
-    //uniform mat4 projecionmatrix;
     
-    // varying to pass the normal to the fragment shader
+    // Pass to fragment shader
     out vec2 v_texcoord;
-    out vec3 Position;
     out vec3 Normal;
-    
     out vec3 surfaceToLight;
     
     void main(void) {
       v_texcoord = a_texcoord;
-
-
-      
-      //mat4 modelviewmatrix = viewmatrix * modelmatrix;
-      //mat4 mvp = projecionmatrix * viewmatrix * modelmatrix;
       vec3 surfaceWorldPosition = (modelmatrix * a_position).xyz; 
       
-      //Position = (modelviewmatrix * a_position).xyz;
       // Pass the normal to the fragment shader
       Normal = mat3(normalmatrix) * a_normal;
-      
-       
       
       surfaceToLight = vec3(lightposition) - surfaceWorldPosition;
       gl_Position = mvp * a_position;
@@ -56,16 +44,13 @@ html
     #version 300 es
     precision mediump float;
 
+    // Passed in from vertex shader.
     in vec2 v_texcoord;
-
-    // Passed in and varied from the vertex shader.
     in vec3 Normal;
     in vec3 surfaceToLight;
 
-    uniform vec4 u_color;
-
-    uniform sampler2D u_sampler;
     uniform vec4 u_diffuseMult;
+    uniform vec4 u_color;
 
     out vec4 outColor;
     void main(void) {
@@ -80,6 +65,10 @@ html
       float light = dot(normal2, surfaceToLightDirection);
       
       outColor = u_color;
+      
+      // Asi tenemos colores aleatorios en cada cara.
+      outColor = vec4(v_texcoord, 1.0, 1.0);
+
       outColor.rgb *= light;
     }
 

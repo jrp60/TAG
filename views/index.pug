@@ -7,8 +7,8 @@ block content
     code &lt;canvas&gt;
     | .
   section#javi
-    button#draw(type='button') Draw 
-    button#animar(type='button') Animar escena
+    button#draw(type='button') Draw
+    button#animar(type='button') Animar
     button#imprimir(type='button') Imprime &Aacute;rbol
     #nodos.nodos
   footer
@@ -20,118 +20,166 @@ block content
       article#base
         input(type='text' name='nombre' placeholder='Nombre' size='10' value='')
         input(type='number' name='altura' placeholder='Altura' min='1.00' max='3.00' step='0.01')
-  table
-      tr
-        th Entregable
-        th Autor [%]
-      tr
-        td(title='Estructura básica del nodo (array de hijos, puntero a padre, puntero a entidad, funcionalidad básica -constructor, destructor, gets, sets, manejo de hijos….)') TAG.01 - Estructura básica del nodo
-        td Javi [100%]
-      tr
-        td(title='Recorrido-dibujado del árbol') TAG.02 - Recorrido-dibujado del árbol
-        td Javi [100%]
-      tr
-        td(title='Estructura básica de la entidad (Constructor, destructor, funciones… todas virtuales, vacías)') TAG.04 - Estructura básica de la entidad
-        td David [100%]
-      tr
-        td(title='Matrices (model, view, projection) y pila estáticas y su manejo') TAG.05 - Matrices y pila
-        td David [100%] Javi (View, projection) [100%] falta probar
-      tr
-        td(title='Estructura básica de la transformación (Constructor, destructor, matriz transformación…)') TAG.06 - Estructura básica de la transformación
-        td David [100%] Javi [100%]
-      tr
-        td(title='Operaciones de transformación (trasladar, rotar, escalar, identidad, trasponer, invertir, todas con GLM o GLMatrix)') TAG.07 - Operaciones de transformación
-        td David [95%] (Falta probar)
-      tr
-        td(title='Dibujado (begindraw, enddraw, manejo pila y matriz model)') TAG.08 - Dibujado
-        td Javi (BeginDraw,Enddraw)[100%]  , David (Pila, Model) [100%]
-      tr
-        td(title='Estructura básica de la cámara (Constructor, destructor, matriz proyección)') TAG.09 - Estructura básica de la cámara
-        td [Javi] [100%]
-      tr
+  details
+    summary Tabla de entregables
+    table
+        tr
+          th Entregable
+          th David [%]
+          th Javi [%]
+        tr
+          td(title='Estructura básica del nodo (array de hijos, puntero a padre, puntero a entidad, funcionalidad básica -constructor, destructor, gets, sets, manejo de hijos….)') TAG.01 - Estructura básica del nodo
+          td
+          td 100
+        tr
+          td(title='Recorrido-dibujado del árbol') TAG.02 - Recorrido-dibujado del árbol
+          td
+          td 100
+        tr
+          td(title='Estructura básica de la entidad (Constructor, destructor, funciones… todas virtuales, vacías)') TAG.04 - Estructura básica de la entidad
+          td 
+            progress(value=100 max=100)
+        tr
+          td(title='Matrices (model, view, projection) y pila estáticas y su manejo') TAG.05 - Matrices y pila
+          td 
+            progress(value=100 max=100)
+          td 100 (View, projection) 
+        tr
+          td(title='Estructura básica de la transformación (Constructor, destructor, matriz transformación…)') TAG.06 - Estructura básica de la transformación
+          td
+            progress(value=100 max=100)
+          td 100
+        tr
+          td(title='Operaciones de transformación (trasladar, rotar, escalar, identidad, trasponer, invertir, todas con GLM o GLMatrix)') TAG.07 - Operaciones de transformación
+          td 
+            progress(value=100 max=100)
+        tr
+          td(title='Dibujado (begindraw, enddraw, manejo pila y matriz model)') TAG.08 - Dibujado
+          td (Pila, Model) 
+            progress(value=100 max=100)
+          td 100 (BeginDraw,Enddraw)
+        tr
+          td(title='Estructura básica de la cámara (Constructor, destructor, matriz proyección)') TAG.09 - Estructura básica de la cámara
+          td
+          td [100%]
+        tr
           td(title='Rellenar matriz paralela (con GLM o GLMatrix)') TAG.10 - Rellenar matriz paralela
-          td [Javi] [100%]
-      tr
-        td(title='Rellenar matriz perspectiva (con GLM o GLMatrix)') TAG.11 - Rellenar matriz perspectiva
-        td [Javi]  [100%]
-      tr
-        td(title='Estructura básica de la luz (Constructor, destructor)') TAG.13 - Estructura básica de la luz
-        td [Javi] [100%]
-      tr
-        td(title='Datos y funciones luz puntual') TAG.14 - Datos y funciones luz puntual
-        td [Javi] [100%]
-      tr
-        td(title='Estructura básica de la malla (Constructor, destructor)') TAG.17 - Estructura básica de la malla
-        td David [100%]
-      tr
-        td(title='Datos de mallas, texturas, materiales… (llamadas al gestor de recursos)') TAG.18 - Datos de mallas, texturas, materiales… 
-        td 66% David (Falta materiales)
-      tr
-        td(title='Dibujado de mallas (begindraw, enddraw, matriz model…)') TAG.19 - Dibujado de mallas
-        td David [75%] (Falta materiales)
-      tr
-        td(title='Estructura básica del gestor de recursos (constructor, destructor, vectores de recursos)') TAG.24 - Estructura básica del gestor de recursos
-        td David [75%] (Falta materiales)
-      tr
-        td(title='Obtener recurso (gestión adecuada de memoria)') TAG.25 - Obtener recurso
-        td David [100%]
-      tr
-        td(title='Estructura básica del recurso (constructor, destructor. Es virtual, vacío)') TAG.26 - Estructura básica del recurso
-        td David [100%]
-      tr
-        td(title='Estructura básica de la malla (constructor, destructor)') TAG.27 - Estructura básica de la malla 
-        td David [100%]
-      tr
-        td(title='Lectura de disco (con assimp)') TAG.28 - Lectura de disco
-        td David (Sin Assimp) [100%]
-      tr
-        td(title='Creación de buffers de vértices, normales, índices… y relleno') TAG.29 - Creación de buffers de vértices, normales, índices… y relleno
-        td David [100%]
-      tr
-        td(title='Dibujado de las mallas (draw, con paso de los buffers a OpenGL o WebGL)') TAG.30 - Dibujado de las mallas
-        td David [100%]  Javi [100%](Falta materiales y shaders dinamicos)
-      tr
-        td(title='Estructura básica del material (constructor, destructor)') TAG.34 - Estructura básica del material
-        td David [10%] 
-      tr
-        td(title='Leer material de disco (con librería o con parser propio) y rellenar valores') TAG.35 - Leer material de disco
-        td David [10%]
-      tr
-        td(title='Dibujado de los materiales (preparar los materiales y cargarlos en OpenGL o WebGL)') TAG.36 - Dibujado de los materiales
-        td David [10%]
-      tr
-        td(title='Estructura básica del shader (constructor, destructor)') TAG.37 - Estructura básica del shader
-        td David [80%] Javi [90%] (Falta shaders dinamicos)
-      tr
-        td(title='Lectura de shaders de disco (con parser propio) y guardarlo') TAG.38 - Lectura de shaders de disco
-        td David (Los shaders no estan en disco) [10%]
-      tr
-        td(title='Estructura básica de la interfaz (constructor, destructor, inicialización motor y openGL)') TAG.39 - Estructura básica de la interfaz
-        td David [66%] Javi [50%]
-      tr
-        td(title='Funciones para crear cámaras y gestionarlas (manejo de las cámaras, registro, cálculo de la matriz view)') TAG.40 - Funciones para crear cámaras y gestionarlas
-        td [Javi] [100%]
-      tr
-        td(title='Funciones para crear luces y gestionarlas (manejo de las luces registro, cálculo de la matriz light)') TAG.41 - Funciones para crear luces y gestionarlas
-        td [Javi] [90%]
-      tr
-        td(title='Funciones para crear transformaciones (creación de varios nodos con las transformaciones, manejo de las transformaciones)') TAG.42 - Funciones para crear transformaciones
-        td David [95%]
-      tr
-        td(title='Funciones para crear mallas y animaciones') TAG.43 - Funciones para crear mallas y animaciones
-        td David [95%]
-      tr
-        td(title='Funciones para crear shaders y gestionarlos') TAG.44 - Funciones para crear shaders y gestionarlos
-        td David [10%]
-      tr
-        td(title='Shader básico (Sombreado de Phong, reflexión de Phong) con materiales') TAG.45 - Shader básico con materiales
-        td David [50%] Javi [50%]
-      tr
-        td(title='Integración con la aplicación') TAG.50 - Integración con la aplicación
-        td David [100%] Javi [50%]
-      tr
-        td(title='Realización de una fachada entre el motor y la aplicación o videojuego') TAG.52 - Realización de una fachada entre el motor y la aplicación o videojuego
-        td Javi [90%] 
-      tr
-        td(title='Librería matemática (GLM o GLMatrix)') TAG.66 - Librería matemática
-        td David - Javi [99%]
+          td
+          td [100%]
+        tr
+          td(title='Rellenar matriz perspectiva (con GLM o GLMatrix)') TAG.11 - Rellenar matriz perspectiva
+          td
+          td [100%]
+        tr
+          td(title='Estructura básica de la luz (Constructor, destructor)') TAG.13 - Estructura básica de la luz
+          td
+          td [100%]
+        tr
+          td(title='Datos y funciones luz puntual') TAG.14 - Datos y funciones luz puntual
+          td
+          td [100%]
+        tr
+          td(title='Estructura básica de la malla (Constructor, destructor)') TAG.17 - Estructura básica de la malla
+          td 
+            progress(value=100 max=100)
+        tr
+          td(title='Datos de mallas, texturas, materiales… (llamadas al gestor de recursos)') TAG.18 - Datos de mallas, texturas, materiales… 
+          td (Falta materiales) 
+            progress(value=66 max=100)
+        tr
+          td(title='Dibujado de mallas (begindraw, enddraw, matriz model…)') TAG.19 - Dibujado de mallas
+          td (Falta materiales) 
+            progress(value=75 max=100)
+        tr
+          td(title='Estructura básica del gestor de recursos (constructor, destructor, vectores de recursos)') TAG.24 - Estructura básica del gestor de recursos
+          td (Falta materiales) 
+            progress(value=75 max=100)
+        tr
+          td(title='Obtener recurso (gestión adecuada de memoria)') TAG.25 - Obtener recurso
+          td 
+            progress(value=100 max=100)
+        tr
+          td(title='Estructura básica del recurso (constructor, destructor. Es virtual, vacío)') TAG.26 - Estructura básica del recurso
+          td 
+            progress(value=100 max=100)
+        tr
+          td(title='Estructura básica de la malla (constructor, destructor)') TAG.27 - Estructura básica de la malla 
+          td 
+            progress(value=100 max=100)
+        tr
+          td(title='Lectura de disco (con assimp)') TAG.28 - Lectura de disco (Sin Assimp)
+          td 
+            progress(value=100 max=100)
+        tr
+          td(title='Creación de buffers de vértices, normales, índices… y relleno') TAG.29 - Creación de buffers de vértices, normales, índices… y relleno
+          td 
+            progress(value=100 max=100)
+        tr
+          td(title='Dibujado de las mallas (draw, con paso de los buffers a OpenGL o WebGL)') TAG.30 - Dibujado de las mallas
+          td 
+            progress(value=100 max=100)
+        tr
+          td(title='Estructura básica del material (constructor, destructor)') TAG.34 - Estructura básica del material
+          td 
+            progress(value=10 max=100)
+        tr
+          td(title='Leer material de disco (con librería o con parser propio) y rellenar valores') TAG.35 - Leer material de disco
+          td 
+            progress(value=10 max=100)
+        tr
+          td(title='Dibujado de los materiales (preparar los materiales y cargarlos en OpenGL o WebGL)') TAG.36 - Dibujado de los materiales
+          td 
+            progress(value=10 max=100)
+        tr
+          td(title='Estructura básica del shader (constructor, destructor)') TAG.37 - Estructura básica del shader
+          td
+            progress(value=80 max=100)
+          td [90%]
+        tr
+          td(title='Lectura de shaders de disco (con parser propio) y guardarlo') TAG.38 - Lectura de shaders de disco
+          td (Los shaders no estan en disco) 
+            progress(value=10 max=100)
+        tr
+          td(title='Estructura básica de la interfaz (constructor, destructor, inicialización motor y openGL)') TAG.39 - Estructura básica de la interfaz
+          td 
+            progress(value=66 max=100)
+          td [50%]
+        tr
+          td(title='Funciones para crear cámaras y gestionarlas (manejo de las cámaras, registro, cálculo de la matriz view)') TAG.40 - Funciones para crear cámaras y gestionarlas
+          td
+          td [100%]
+        tr
+          td(title='Funciones para crear luces y gestionarlas (manejo de las luces registro, cálculo de la matriz light)') TAG.41 - Funciones para crear luces y gestionarlas
+          td
+          td [90%]
+        tr
+          td(title='Funciones para crear transformaciones (creación de varios nodos con las transformaciones, manejo de las transformaciones)') TAG.42 - Funciones para crear transformaciones
+          td 
+            progress(value=95 max=100)
+        tr
+          td(title='Funciones para crear mallas y animaciones') TAG.43 - Funciones para crear mallas y animaciones
+          td 
+            progress(value=95 max=100)
+        tr
+          td(title='Funciones para crear shaders y gestionarlos') TAG.44 - Funciones para crear shaders y gestionarlos
+          td 
+            progress(value=10 max=100)
+        tr
+          td(title='Shader básico (Sombreado de Phong, reflexión de Phong) con materiales') TAG.45 - Shader básico con materiales
+          td 
+            progress(value=50 max=100)
+          td [50%]
+        tr
+          td(title='Integración con la aplicación') TAG.50 - Integración con la aplicación
+          td 
+            progress(value=100 max=100)
+          td [50%]
+        tr
+          td(title='Realización de una fachada entre el motor y la aplicación o videojuego') TAG.52 - Realización de una fachada entre el motor y la aplicación o videojuego
+          td
+          td [90%]
+        tr
+          td(title='Librería matemática (GLM o GLMatrix)') TAG.66 - Librería matemática
+          td 
+            progress(value=100 max=100)
+  

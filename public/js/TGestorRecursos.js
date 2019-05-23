@@ -48,13 +48,13 @@ export class TGestorRecursos {
                     if (res) { // Si existe recurso lo carga
                         recurso.cargarFichero().then(cargado => {
                             if (cargado) {
-                                resolve(recurso);
                                 recurso_material.existeFichero('material').then(m_res => {
                                     if (m_res) {
                                         recurso_material.cargarFichero().then(m_cargado => {
-
+                                            console.log('Material', m_cargado);
                                         });
                                     }
+                                    resolve(recurso);
                                 });
                             }
                         });

@@ -6,7 +6,6 @@
 //=  - 03/09 - Código más limpio y menos rebuscado. [David]
 //============================================================
 
-import { TFichero } from './TFichero.js';
 import { TRecurso } from './TRecurso.js';
 import { GLOBAL } from './GLOBAL.js';
 
@@ -180,31 +179,6 @@ export class TRecursoMalla extends TRecurso {
         }
 
         const programInfo = twgl.createProgramInfo(gl, ["vs", "fs"]);
-        const textures = twgl.createTextures(gl, {
-            // a non-power of 2 image
-            camarera: {
-                src: "/model/textura/female-croupier-2013-03-26.png",
-                // src: new Uint8Array([
-                //     255,
-                //     128,
-                //     255,
-                //     128,
-                //     255,
-                //     128,
-                //     255,
-                //     128,
-                // ]),
-                // min: gl.LINEAR,
-                // format: gl.LUMINANCE,
-                // width: 2,
-            }
-        }, (err, textures, sources) => {
-            // wait for the image to load because we need to know it's size
-            // startRendering(sources);
-            // document.getElementById('formulario').append(sources.camarera);
-        });
-
-
         const baseHue = Math.random() * 360;
         const arrays = {   //atributes para el shader
             a_position: vertices,
@@ -217,14 +191,11 @@ export class TRecursoMalla extends TRecurso {
         var aux = mat4.create();
         mat4.multiply(aux, GLOBAL.projection, GLOBAL.matrizView);
         mat4.multiply(GLOBAL.mvp, aux, GLOBAL.matriz);
-        // console.log(GLOBAL.intensidad);
-        // console.log("intensidad");
         const uniforms = {  //uniforms para el shader
             lightposition: GLOBAL.posicionLuz,
             modelmatrix: GLOBAL.matriz,
             mvp: GLOBAL.mvp,
             normalmatrix: GLOBAL.normal,
-            u_sampler: textures.camarera,
             u_diffuseMult: chroma.hsv((baseHue + Math.random() * 60) % 360, 0.4, 0.3).gl(),
             u_color: GLOBAL.intensidad
         };

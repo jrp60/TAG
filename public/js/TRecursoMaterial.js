@@ -26,10 +26,9 @@ export class TRecursoMaterial extends TRecurso {
             this._tFichero.cargar('material').then(result => {
                 const lines = result.split("\n");
                 for (let i = 0; i < lines.length; i++) {
-
                     const lineItems = this._stripComments(lines[i]).replace(/\s\s+/g, ' ').trim().split(' ');
                     if (lineItems.length == 0 || !lineItems[0]) {
-                        return; // Skip blank lines
+                        continue; // Skip blank lines
                     }
 
                     switch (lineItems[0].toLowerCase()) {
@@ -121,8 +120,8 @@ export class TRecursoMaterial extends TRecurso {
                             console.log(lineItems);
                             this._fileError(`Unrecognized statement: ${lineItems[0]}`);
                     }
-                    return this.materials;
                 }
+                resolve(this.materials);
             });
         });
     }

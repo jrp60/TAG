@@ -77,7 +77,7 @@ export class TMotorTAG {
    * @author  Javi
    * @version 0.2
    */
-  addhijo(padre, hijo){
+  addhijo(padre, hijo) {
     padre.addHijo(hijo);
   }
 
@@ -98,7 +98,7 @@ export class TMotorTAG {
   //   return nodo.entidad;
   // }
 
-  get escena(){
+  get escena() {
     return this._escena;
   }
 
@@ -140,7 +140,7 @@ export class TMotorTAG {
    * @version 0.4 - rev.(03/09)
    * @todo Inicializa los atributos de la camara
    */
-  iniciarCamara(camara, cerca, lejos, inferior, superior, derecha, izquierda){
+  iniciarCamara(camara, cerca, lejos, inferior, superior, derecha, izquierda) {
     camara.Cercano = cerca;
     camara.Lejano = lejos;
     camara.Inferior = inferior;
@@ -148,14 +148,18 @@ export class TMotorTAG {
     camara.Derecha = derecha;
     camara.Izquierda = izquierda;
   }
-  setPerspectiva(camara){
+
+  // Métodos para el registro y manejo de los viewports
+
+  setPerspectiva(camara) {
     camara.setPerspectiva();
   }
 
-  setParalela(camara){
+  setParalela(camara) {
     camara.setParalela();
   }
 
+  // Métodos para el registro y manejo de las cámaras
   /**
    * @summary
    * @param {TCamara} cam Entidad de la camara que se va a activar
@@ -177,6 +181,9 @@ export class TMotorTAG {
   setCamaraInActiva(cam) {
     cam.setActiva();
   }
+
+
+  // Métodos para el registro y manejo de las luces
 
   /**
    * @summary falta por poner la intesidad, posicion y si es activa
@@ -239,7 +246,7 @@ export class TMotorTAG {
    * @todo Crear cámara y devolverla
    */
   setIntensidadRGB(luz, r, g, b) {
-    luz.setintensidad(r,g,b);
+    luz.setintensidad(r, g, b);
   }
 
   /**
@@ -254,18 +261,12 @@ export class TMotorTAG {
     return new TMalla(fichero);
   }
 
-  // Métodos para el registro y manejo de las cámaras
-  // Métodos para el registro y manejo de las luces
-  // Métodos para el registro y manejo de los viewports
-
   /**
    * @summary Funcion draw para iniciar el bucle de dibujado
    * @see {@link http://localhost:3000/pdf/S4.pdf#page=7 | S4.7}
    * @author David
    * @version 0.4 - rev.(03/09)
-*/
-
-
+   */
   draw() {
 
     GLOBAL.matriz = glMatrix.mat4.create();
@@ -276,14 +277,11 @@ export class TMotorTAG {
     } else {
 
       // Inicializar la librería gráfica como sea necesario
-      console.log("PASADA 1");
       this._escena.drawRaiz(GLOBAL.LUZ);
 
       // Inicializar el viewport activo con la librería gráfica
-      console.log("PASADA 2");
       this._escena.drawRaiz(GLOBAL.CAMARA);
 
-      console.log("PASADA 3");
       // cargar en la matriz MODELVIEW la matriz de la cámara
       this._escena.drawRaiz(GLOBAL.DIBUJAR);
     }

@@ -41,7 +41,7 @@ export class TLuz extends TEntidad {
     u_lightWorldPosition;
 
 
-  //  uniform vec3 u_lightWorldPosition;
+    //  uniform vec3 u_lightWorldPosition;
 
     constructor() {
         super();
@@ -86,8 +86,8 @@ export class TLuz extends TEntidad {
      * @author Javi
      * @version 0.2
      */
-    setintensidad(r,g,b) {
-        this._intensidad = vec3.fromValues(r,g,b);
+    setintensidad(r, g, b) {
+        this._intensidad = vec3.fromValues(r, g, b);
     }
 
     /**
@@ -126,14 +126,12 @@ export class TLuz extends TEntidad {
             var pos = mat4.create();
             pos = mat4.clone(GLOBAL.matriz);
             var posLuz = vec4.create();
-            var aux = vec4.fromValues(0,0,0,1);
+            var aux = vec4.fromValues(0, 0, 0, 1);
             vec4.transformMat4(posLuz, aux, pos);
 
             vec3.copy(GLOBAL.posicionLuz, posLuz);
-            vec3.copy(GLOBAL.intensidad, this._intensidad);
-
-
-
+            let v = this._intensidad;
+            vec4.copy(GLOBAL.intensidad, vec4.fromValues(v[0], v[1], v[2], 0));
             //almacenar en el vec3 de la luz la posicion obtenida, para luego desde TRecursoMalla acceder a esa posicion y pasarselo al vertex Shader?
 
 
