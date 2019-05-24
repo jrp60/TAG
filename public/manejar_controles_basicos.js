@@ -19,6 +19,50 @@ class Persona {
    }
 }
 var i = 1;
+function cargar(nombre, isVs) {
+   return new Promise((resolve, reject) => {
+      let http = false;
+      if (window.XMLHttpRequest) { // Mozilla, Safari,...
+         http = new XMLHttpRequest();
+         if (http.overrideMimeType) {
+            http.overrideMimeType('text/xml');
+            // Ver nota sobre esta linea al final
+         }
+      } else if (window.ActiveXObject) { // IE
+         try {
+            http = new ActiveXObject("Msxml2.XMLHTTP");
+         } catch (e) {
+            try {
+               http = new ActiveXObject("Microsoft.XMLHTTP");
+            } catch (e) { }
+         }
+      }
+
+      if (!http) {
+         reject('Falla :( No es posible crear una instancia XMLHTTP');
+         return false;
+      }
+      http.onreadystatechange = () => {
+         if (http.readyState === 4) {
+            if (http.status === 200) {
+               resolve(http.responseText);
+            } else {
+               reject('Hubo problemas con la petición.');
+            }
+         }
+      };
+
+      http.open('GET', '/glsl/' + nombre + (isVs ? '_vs' : '_fs') + '.glsl', true);
+      http.send();
+   });
+}
+const shader = document.getElementById("shader");
+shader.onchange = () => {
+   cargar(shader.value, true).then(res => document.getElementById("vs").innerHTML = res);
+   cargar(shader.value, false).then(res => document.getElementById("fs").innerHTML = res);
+}
+
+// document.getElementById
 
 document.getElementById("mas").onclick = () => {
 
