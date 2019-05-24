@@ -56,6 +56,7 @@ window.addEventListener('resize', () => {
 const raiz = new TMotorTAG(); // Variable global de Javi
 const personas = [];
 var inhabilitar = true;
+var animando = true;
 var cam1hecha = false;
 var cam2hecha = false;
 
@@ -274,7 +275,7 @@ window.onload = () => {
         break;
 
       case 3:
-        tl1.trasladar(2, 2, 0);
+        tl1.trasladar(1.2, 6, 0);
         rp2.rotar(0, 1, 0, 180);
         tp2.trasladar(-1, 0, 0.5);
         ep2.escalar(0.5, 0.5, 0.5);
@@ -282,13 +283,13 @@ window.onload = () => {
         break;
 
       case 4:
-        tl1.trasladar(2, 2, 0);
+        tl1.trasladar(1.4, 2.4, -0.1);
         tp1.trasladar(-2, 0, 0);
-        tp2.trasladar(-0.7, 0, 0);
+        tp2.trasladar(-0.7, -0.35, 0);
         ep2.escalar(0.9, 0.75, 1);
-        tp3.trasladar(0.7, 0, 0);
+        tp3.trasladar(0.7, -0.21, 0);
         ep3.escalar(1, 0.85, 1);
-        tp4.trasladar(2, 0, 0);
+        tp4.trasladar(2.2, -0.2, 0.1);
         ep4.escalar(1, 0.8, 1);
         break;
       case 5:
@@ -400,6 +401,18 @@ window.onload = () => {
       else if (inhabilitar == true) {
         console.error("[ERROR] Establece un numero de personas entre 1 y 5");
       } else {
+        if(animando == true) {
+          console.log("deshabilitamos los botones porque esta animando");
+          document.getElementById("enviar").disabled = true;
+          document.getElementById("animar").innerHTML = "Parar animación";
+          animando = false;
+        }else {
+          console.log("habilitamos los botones");
+          document.getElementById("enviar").disabled = false;
+          document.getElementById("animar").innerHTML = "Animar";
+          animando = true;
+        }
+
         bucle = !bucle;
         if (bucle) {
           then = Date.now();
