@@ -224,18 +224,23 @@ window.onload = () => {
     switch (personas.length) {
       case 5:
         var mp5 = raiz.crearMalla(personas[4].malla);
+        mp5.numero_material = personas[4].material;
         raiz.crearNodo(escaladoP5, mp5, "mallaP5");
       case 4:
         var mp4 = raiz.crearMalla(personas[3].malla);
+        mp4.numero_material = personas[3].material;
         raiz.crearNodo(escaladoP4, mp4, "mallaP4");
       case 3:
         var mp3 = raiz.crearMalla(personas[2].malla);
+        mp3.numero_material = personas[2].material;
         raiz.crearNodo(escaladoP3, mp3, "mallaP3");
       case 2:
         var mp2 = raiz.crearMalla(personas[1].malla);
+        mp2.numero_material = personas[1].material;
         raiz.crearNodo(escaladoP2, mp2, "mallaP2");
       case 1:
         var mp1 = raiz.crearMalla(personas[0].malla);
+        mp1.numero_material = personas[0].material;
         raiz.crearNodo(escaladoP1, mp1, "mallaP1");
         break;
     }
@@ -361,12 +366,14 @@ window.onload = () => {
         // lo que habia en la matriz de transformación anterior
 
         frame++;
+        // La razón de que esto esté fuera del motor es porque solo es para limpiar en general, antes estaba en TMalla,
+        // y podría quedarse en TMotorTAG.
         // ========================= 1. Preparar Canvas =========================
         const gl = GLOBAL.gl;
         twgl.resizeCanvasToDisplaySize(gl.canvas); // Modifica el inline CSS del <canvas>
         gl.viewport(0, 0, gl.canvas.width, gl.canvas.height); // TODO: Para arreglar el aspect ratio, necesitamos una camara.
         gl.enable(gl.DEPTH_TEST);          // Activa la comparación de profundidad y actualiza el buffer de profundidad.
-        gl.enable(gl.CULL_FACE);           // Activa la eliminación de los polígonos no visibles.
+        // gl.enable(gl.CULL_FACE);           // Activa la eliminación de los polígonos no visibles.
         gl.depthFunc(gl.LEQUAL);           // Objetos cercanos opacan objetos lejanos.
         gl.cullFace(gl.FRONT);             // Elimina los poligonos traseros.
         gl.clearColor(0.2, 0.4, 0.4, 0.9); // Cambia el fondo del canvas.

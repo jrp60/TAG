@@ -62,10 +62,7 @@ shader.onchange = () => {
    cargar(shader.value, false).then(res => document.getElementById("fs").innerHTML = res);
 }
 
-// document.getElementById
-
 document.getElementById("mas").onclick = () => {
-
    if (i <= 4) { // Podemos ampliarlo a más, pero la vista está demasiado sobrecargado.
       const base = document.getElementById("base");
       const base_copy = base.cloneNode(true);

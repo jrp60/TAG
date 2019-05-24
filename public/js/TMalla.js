@@ -29,6 +29,12 @@ export class TMalla extends TEntidad {
 
   _matriz;
 
+  _material_num;
+
+  set numero_material(numero) {
+    this._material_num = numero;
+  }
+
   /**
    * @summary Carga la malla de un modelo.
    * @param {TFichero} fichero El fichero a cargar.
@@ -70,11 +76,11 @@ export class TMalla extends TEntidad {
    * o algo así parecido, porque... seguido de TMalla... no deberia haber...
    * ¿TMaterial? ¿TTextura? Y finalmente TDibujado
    */
-  draw(obj, i_mat = 0) {
+  draw(obj) {
     const gl = GLOBAL.gl;
     const programInfo = twgl.createProgramInfo(gl, ["vs", "fs"]);
     // TODO: Cuando Javi tenga las luces con Phong, se puede colocar los materiales.
-    // console.log(obj.material[i_mat]);
+    // console.log(obj.material[this._material_num]);
     const arrays = {   //atributes para el shader
       a_position: obj.malla.vertices,
       a_texcoord: obj.malla.texturas,
