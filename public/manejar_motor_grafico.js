@@ -295,6 +295,7 @@ window.onload = () => {
         tp3.trasladar(0.1, 0, 0);
         tp4.trasladar(1.4, 0, 0);
         tp5.trasladar(2.5, 0, 0);
+        break;
       default:
         inhabilitar = true;
         break;
@@ -362,9 +363,9 @@ window.onload = () => {
         frame++;
         // ========================= 1. Preparar Canvas =========================
         const gl = GLOBAL.gl;
-        twgl.resizeCanvasToDisplaySize(gl.canvas); // Modifica el inline CSS del <canvas> 
+        twgl.resizeCanvasToDisplaySize(gl.canvas); // Modifica el inline CSS del <canvas>
         gl.viewport(0, 0, gl.canvas.width, gl.canvas.height); // TODO: Para arreglar el aspect ratio, necesitamos una camara.
-        gl.enable(gl.DEPTH_TEST);          // Activa la comparación de profundidad y actualiza el buffer de profundidad. 
+        gl.enable(gl.DEPTH_TEST);          // Activa la comparación de profundidad y actualiza el buffer de profundidad.
         gl.enable(gl.CULL_FACE);           // Activa la eliminación de los polígonos no visibles.
         gl.depthFunc(gl.LEQUAL);           // Objetos cercanos opacan objetos lejanos.
         gl.cullFace(gl.FRONT);             // Elimina los poligonos traseros.
