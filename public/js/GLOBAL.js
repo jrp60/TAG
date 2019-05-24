@@ -138,7 +138,6 @@ export class GLOBAL {
  * @summary Establece una matriz view.
  * @param {mat4} matrix La matriz view.
  * @author Javi
- * @version
  */
   static set matrizView(matrix) {
     this._matrizView = matrix;
@@ -148,7 +147,6 @@ export class GLOBAL {
     * @summary Coge la matriz view.
     * @returns {mat4} La matriz view.
     * @author Javi
-    * @version
     */
   static get matrizView() {
     return this._matrizView;
@@ -158,7 +156,6 @@ export class GLOBAL {
  * @summary Establece una matriz luz.
  * @param {vec3} vec El vector luz.
  * @author Javi
- * @version
  */
   static set posicionLuz(vec) {
     this._posicionLuz = vec;
@@ -168,7 +165,6 @@ export class GLOBAL {
     * @summary Coge la matriz luz.
     * @returns {vec3} El vector luz.
     * @author Javi
-    * @version
     */
   static get posicionLuz() {
     return this._posicionLuz;
@@ -177,7 +173,6 @@ export class GLOBAL {
  * @summary Establece una matriz luz.
  * @param {vec3} vec El vector luz.
  * @author Javi
- * @version
  */
   static set intensidad(vec) {
     this._intensidadLuz = vec;
@@ -187,7 +182,6 @@ export class GLOBAL {
     * @summary Coge la matriz luz.
     * @returns {vec3} El vector luz.
     * @author Javi
-    * @version
     */
   static get intensidad() {
     return this._intensidadLuz;
@@ -197,7 +191,6 @@ export class GLOBAL {
  * @summary Establece una matriz luz.
  * @param {mat4} mat El vector luz.
  * @author Javi
- * @version
  */
   static set normal(mat) {
     this._normalMatrix = mat;
@@ -207,7 +200,6 @@ export class GLOBAL {
     * @summary Coge la matriz luz.
     * @returns {mat4} El vector luz.
     * @author Javi
-    * @version
     */
   static get normal() {
     return this._normalMatrix;
@@ -217,7 +209,6 @@ export class GLOBAL {
  * @summary Establece una matriz luz.
  * @param {mat4} mat El vector luz.
  * @author Javi
- * @version
  */
   static set projection(mat) {
     this._projectionmatrix = mat;
@@ -227,7 +218,6 @@ export class GLOBAL {
     * @summary Coge la matriz luz.
     * @returns {mat4} El vector luz.
     * @author Javi
-    * @version
     */
   static get projection() {
     return this._projectionmatrix;
@@ -238,7 +228,6 @@ export class GLOBAL {
  * @summary Establece una matriz luz.
  * @param {mat4} mat El vector luz.
  * @author Javi
- * @version
  */
   static set mvp(mat) {
     this._mvp = mat;
@@ -248,20 +237,15 @@ export class GLOBAL {
     * @summary Coge la matriz luz.
     * @returns {mat4} El vector luz.
     * @author Javi
-    * @version
     */
   static get mvp() {
     return this._mvp;
   }
 
-
-
-
   /**
  * @summary Establece una matriz luz.
  * @param {mat4} mat El vector luz.
  * @author Javi
- * @version
  */
   static set cam(camara) {
     this._camActiva = camara;
@@ -271,7 +255,6 @@ export class GLOBAL {
     * @summary Coge la matriz luz.
     * @returns {mat4} El vector luz.
     * @author Javi
-    * @version
     */
   static get cam() {
     return this._camActiva;

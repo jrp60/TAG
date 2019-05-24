@@ -139,7 +139,6 @@ export class TCamara extends TEntidad{
   }
 
   /**
-   * @summary
    * @param {float} x Axis X
    * @see {@link http://localhost:3000/pdf/S2.pdf#page=17 | S2.17}
    * @author Javi
@@ -153,7 +152,6 @@ export class TCamara extends TEntidad{
   }
 
   /**
-   * @summary
    * @param {float} x Axis X
    * @see {@link http://localhost:3000/pdf/S2.pdf#page=17 | S2.17}
    * @author Javi

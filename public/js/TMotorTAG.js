@@ -62,7 +62,6 @@ export class TMotorTAG {
    * @param {TNodo} El nodo hijo
    * @see {@link http://localhost:3000/pdf/S4.pdf#page=7 | S4.7}
    * @author - Javi
-   * @version
    */
 
   eliminaHijo(nodoPadre, hijo) {
@@ -161,7 +160,6 @@ export class TMotorTAG {
 
   // Métodos para el registro y manejo de las cámaras
   /**
-   * @summary
    * @param {TCamara} cam Entidad de la camara que se va a activar
    * @see {@link http://localhost:3000/pdf/S4.pdf#page=7 | S4.7}
    * @author Javi
@@ -172,7 +170,6 @@ export class TMotorTAG {
   }
 
   /**
-   * @summary
    * @param {TCamara} cam Entidad de la camara que se va a activar
    * @see {@link http://localhost:3000/pdf/S4.pdf#page=7 | S4.7}
    * @author Javi
@@ -198,7 +195,6 @@ export class TMotorTAG {
   }
 
   /**
-   * @summary
    * @param {TLuz} luz La luz la cual se va a activar
    * @see {@link http://localhost:3000/pdf/S4.pdf#page=7 | S4.7}
    * @author Javi
@@ -210,7 +206,6 @@ export class TMotorTAG {
   }
 
   /**
-   * @summary
    * @param {TLuz} luz La luz la cual se va a desactivar
    * @see {@link http://localhost:3000/pdf/S4.pdf#page=7 | S4.7}
    * @author Javi
@@ -222,20 +217,17 @@ export class TMotorTAG {
   }
 
   /**
-   * @summary
    * @param {TLuz} luz La luz la cual se va a modificar su intensidad
    * @param {vec3} intensidad intensidad nueva
    * @see {@link http://localhost:3000/pdf/S4.pdf#page=7 | S4.7}
    * @author Javi
    * @version 0.4 - rev.(03/09)
-   * @todo
    */
   setIntensidadVector(luz, intensidad) {
     luz.intensidadVector = intensidad;
   }
 
   /**
-   * @summary
    * @param {TLuz} luz La luz la cual se va a modificar su intensidad
    * @param {float} r red
    * @param {float} g green
@@ -243,7 +235,6 @@ export class TMotorTAG {
    * @see {@link http://localhost:3000/pdf/S4.pdf#page=7 | S4.7}
    * @author Javi
    * @version 0.4 - rev.(03/09)
-   * @todo 
    */
   setIntensidadRGB(luz, r, g, b) {
     luz.setintensidad(r, g, b);
