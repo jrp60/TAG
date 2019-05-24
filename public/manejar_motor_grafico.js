@@ -96,6 +96,8 @@ window.onload = () => {
       const i_malla = options_malla.selectedIndex;
       const options_mat = datos[3].options;
       const i_mat = options_mat.selectedIndex;
+      datos[1].value = datos[1].value > 3 ? 3 : datos[1].value;
+      datos[1].value = datos[1].value < 1 ? 1 : datos[1].value;
       const persona = new Persona(datos[0].value, datos[1].value, options_malla[i_malla].value, options_mat[i_mat].value);
       personas.push(persona);
 

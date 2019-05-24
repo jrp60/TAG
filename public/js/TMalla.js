@@ -71,7 +71,6 @@ export class TMalla extends TEntidad {
    * ¿TMaterial? ¿TTextura? Y finalmente TDibujado
    */
   draw(obj, i_mat = 0) {
-    console.log(obj.malla);
     const gl = GLOBAL.gl;
     const programInfo = twgl.createProgramInfo(gl, ["vs", "fs"]);
     // TODO: Cuando Javi tenga las luces con Phong, se puede colocar los materiales.
