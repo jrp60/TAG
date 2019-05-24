@@ -70,17 +70,6 @@ document.getElementById("imprimir").onclick = () => {
 };
 
 
-// Boton para que el motor dibuje.
-document.getElementById("draw").onclick = () => {
-  if (raiz == null) {
-    console.error("[ERROR] No existe el nodo Raiz");
-  }
-  else if (inhabilitar == true) {
-    console.error("[ERROR] Establece un numero de personas entre 1 y 5");
-  } else {
-    raiz.draw();
-  }
-};
 
 
 // ======================================================================
