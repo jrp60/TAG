@@ -2,6 +2,7 @@
 //=  - 0.3 Init. S3.19 [David]
 //=  - (02/24) Mejorado para recursos de malla. [David]
 //=  - (03/09) Ahora al ser estatico solo tiene una instancia. [David]
+//=  - (05/23) Integrado con los materiales. [David]
 //============================================================
 
 import { TRecurso } from './TRecurso.js';
@@ -26,7 +27,7 @@ export class TGestorRecursos {
     * @return {TRecurso} El Recurso si existe o -1 si no existe
     * @see {@link http://localhost:3000/pdf/S3.pdf#page=19 | S3.19}
     * @author David
-    * @version 0.3 - rev.(03/09)
+    * @version 0.3 - rev.(05/23)
     */
     static getRecurso(nombre) {
         return new Promise((resolve, reject) => {

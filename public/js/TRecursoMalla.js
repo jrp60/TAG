@@ -52,7 +52,7 @@ export class TRecursoMalla extends TRecurso {
     // Planificado
     vertices;
     texturas;
-    coordenadas;
+    normales;
 
 
     constructor(nombre) {

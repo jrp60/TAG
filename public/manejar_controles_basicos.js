@@ -11,9 +11,10 @@
 
 
 class Persona {
-   constructor(nombre, altura, material) {
+   constructor(nombre, altura, malla, material) {
       this.nombre = nombre;
       this.altura = altura;
+      this.malla = malla;
       this.material = material;
    }
 }

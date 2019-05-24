@@ -14,9 +14,6 @@ import { GLOBAL } from './GLOBAL.js';
 /** * glMatrix.ARRAY_TYPE(16) * @type {mat4} **/
 const mat4 = glMatrix.mat4;
 
-/** * glMatrix.ARRAY_TYPE(3) * @type {vec3} **/
-const vec3 = glMatrix.vec3;
-
 /**
  * @summary Gestiona los atributos de la camara.
  * @see {@link http://localhost:3000/pdf/S2.pdf#page=17 | S2.17}

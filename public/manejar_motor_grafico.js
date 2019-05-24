@@ -11,7 +11,8 @@
 //=  - 02/25 - Corrigiendo errores y añadiendo los nombres a los nodos [Javi]
 //=  - 03/04 - Usando TMotorTAG como escena y añadiendo los nodos en esa variable [Javi]
 //=  - 03/09 - Nombre a GLOBAL para que tenga más significado, limpieza y arreglos variados [David]
-//=  - 04/01 - Creando camara en el arbol a través de la fachada
+//=  - 04/01 - Creando camara en el arbol a través de la fachada [Javi]
+//=  - 05/23 - Reorganización de código y cambio de estructura. 850 lineas a 400 lineas [David]
 
 import { GLOBAL } from './js/GLOBAL.js';
 import { TMotorTAG } from './js/TMotorTAG.js';
@@ -91,9 +92,11 @@ window.onload = () => {
     const personas_aux = document.getElementsByTagName("article");
     for (const dom of personas_aux) {
       const datos = dom.children;
-      const options = datos[2].options;
-      const i_mat = options.selectedIndex;
-      const persona = new Persona(datos[0].value, datos[1].value, options[i_mat].value);
+      const options_malla = datos[2].options;
+      const i_malla = options_malla.selectedIndex;
+      const options_mat = datos[3].options;
+      const i_mat = options_mat.selectedIndex;
+      const persona = new Persona(datos[0].value, datos[1].value, options_malla[i_malla].value, options_mat[i_mat].value);
       personas.push(persona);
 
       if (cam1hecha == false) {
@@ -118,643 +121,183 @@ window.onload = () => {
     raiz.limpiaRaiz();
     //creo que tengo que hacer aqui el arbol, al menos la parte de las mallas, probar con un if con personas. length
 
+    // ======================================================================
+    // ==============================  Nodos  ===============================
+
+    //LUZ 1
+    var rl1 = raiz.crearTransform();
+    var rotacionL1 = raiz.crearNodo(raiz.escena, rl1, "rotacionL1")
+    var tl1 = raiz.crearTransform();
+    var traslacionL1 = raiz.crearNodo(rotacionL1, tl1, "traslacionL1");
+    var el1 = raiz.crearTransform();
+    var escaladoL1 = raiz.crearNodo(traslacionL1, el1, "escaladoL1");
+    var l1 = raiz.crearLuz();
+    raiz.crearNodo(escaladoL1, l1, "luz-1");
+
+    //CAMARA 1
+    var rc1 = raiz.crearTransform();
+    var rotacionC1 = raiz.crearNodo(raiz.escena, rc1, "rotacionC1");
+    var tc1 = raiz.crearTransform();
+    var traslacionC1 = raiz.crearNodo(rotacionC1, tc1, "traslacionC1");
+    var ec1 = raiz.crearTransform();
+    var escaladoC1 = raiz.crearNodo(traslacionC1, ec1, "escaladoC1");
+    var c1 = raiz.crearCamara("camara-1");
+    raiz.crearNodo(escaladoC1, c1, "camara-1");
+
+    //CAMARA 2
+    var rc2 = raiz.crearTransform();
+    var rotacionC2 = raiz.crearNodo(raiz.escena, rc2, "rotacionC2");
+    var tc2 = raiz.crearTransform();
+    var traslacionC2 = raiz.crearNodo(rotacionC2, tc2, "traslacionC2");
+    var ec2 = raiz.crearTransform();
+    var escaladoC2 = raiz.crearNodo(traslacionC2, ec2, "escaladoC2");
+    var c2 = raiz.crearCamara("camara-2");
+    raiz.crearNodo(escaladoC2, c2, "camara-2");
+
+    // Valores
+    raiz.setIntensidadRGB(l1, 20, 20, 15);
+    var vecAux = vec3.fromValues(30, 20, 60);
+    raiz.setIntensidadVector(l1, vecAux);
+    rc1.rotar(0, 1, 0, 1);
+    rc1.rotar(1, 0, 0, -40);
+    tc1.trasladar(7, 7, 12);
+    raiz.iniciarCamara(c1, 0.1, 100, 600, 0, 800, 0);
+    rc2.rotar(0, 1, 0, 1);
+    tc2.trasladar(0, 0, 5);
+    raiz.iniciarCamara(c2, 1, 200, 600, 0, 800, 0);
+
+    raiz.setLuzActiva(l1);
+    raiz.setPerspectiva(c1);
+    raiz.setCamaraActiva(c1); //establecemos la camara activa
+    raiz.setPerspectiva(c2);
+    raiz.setCamaraActiva(c2); //establecemos la camara activa
+
+    switch (personas.length) {
+      case 5:
+        //PERSONA 5
+        var rp5 = raiz.crearTransform();
+        var rotacionP5 = raiz.crearNodo(raiz.escena, rp5, "rotacionP5");
+        var tp5 = raiz.crearTransform();
+        var traslacionP5 = raiz.crearNodo(rotacionP5, tp5, "traslacionP5");
+        var ep5 = raiz.crearTransform();
+        var escaladoP5 = raiz.crearNodo(traslacionP5, ep5, "escaladoP5");
+      case 4:
+        //PERSONA 4
+        var rp4 = raiz.crearTransform();
+        var rotacionP4 = raiz.crearNodo(raiz.escena, rp4, "rotacionP4");
+        var tp4 = raiz.crearTransform();
+        var traslacionP4 = raiz.crearNodo(rotacionP4, tp4, "traslacionP4");
+        var ep4 = raiz.crearTransform();
+        var escaladoP4 = raiz.crearNodo(traslacionP4, ep4, "escaladoP4");
+      case 3:
+        //PERSONA 3
+        var rp3 = raiz.crearTransform();
+        var rotacionP3 = raiz.crearNodo(raiz.escena, rp3, "rotacionP3");
+        var tp3 = raiz.crearTransform();
+        var traslacionP3 = raiz.crearNodo(rotacionP3, tp3, "traslacionP3");
+        var ep3 = raiz.crearTransform();
+        var escaladoP3 = raiz.crearNodo(traslacionP3, ep3, "escaladoP3");
+      case 2:
+        //PERSONA 2
+        var rp2 = raiz.crearTransform();
+        var rotacionP2 = raiz.crearNodo(raiz.escena, rp2, "rotacionP2");
+        var tp2 = raiz.crearTransform();
+        var traslacionP2 = raiz.crearNodo(rotacionP2, tp2, "traslacionP2");
+        var ep2 = raiz.crearTransform();
+        var escaladoP2 = raiz.crearNodo(traslacionP2, ep2, "escaladoP2");
+      case 1:
+        //PERSONA 1
+        var rp1 = raiz.crearTransform();
+        var rotacionP1 = raiz.crearNodo(raiz.escena, rp1, "rotacionP1");
+        var tp1 = raiz.crearTransform();
+        var traslacionP1 = raiz.crearNodo(rotacionP1, tp1, "traslacionP1");
+        var ep1 = raiz.crearTransform();
+        var escaladoP1 = raiz.crearNodo(traslacionP1, ep1, "escaladoP1");
+        break;
+    }
+
+    // ======================================================================
+    // =======================  Gestión de personas  ========================
+
+    switch (personas.length) {
+      case 5:
+        var mp5 = raiz.crearMalla(personas[4].malla);
+        raiz.crearNodo(escaladoP5, mp5, "mallaP5");
+      case 4:
+        var mp4 = raiz.crearMalla(personas[3].malla);
+        raiz.crearNodo(escaladoP4, mp4, "mallaP4");
+      case 3:
+        var mp3 = raiz.crearMalla(personas[2].malla);
+        raiz.crearNodo(escaladoP3, mp3, "mallaP3");
+      case 2:
+        var mp2 = raiz.crearMalla(personas[1].malla);
+        raiz.crearNodo(escaladoP2, mp2, "mallaP2");
+      case 1:
+        var mp1 = raiz.crearMalla(personas[0].malla);
+        raiz.crearNodo(escaladoP1, mp1, "mallaP1");
+        break;
+    }
+    switch (personas.length) {
+      case 5:
+        rp5.escalar(1 + personas[4].altura / 5, personas[4].altura, 1);
+      case 4:
+        rp4.escalar(1 + personas[3].altura / 5, personas[3].altura, 1);
+      case 3:
+        rp3.escalar(1 + personas[2].altura / 5, personas[2].altura, 1);
+      case 2:
+        rp2.escalar(1 + personas[1].altura / 5, personas[1].altura, 1);
+      case 1:
+        rp1.escalar(1 + personas[0].altura / 5, personas[0].altura, 1);
+        break;
+    }
+
+    // ======================================================================
+    // ===========================  Plantillas   ============================
+
+    inhabilitar = false;
     switch (personas.length) {
       case 1:
-        inhabilitar = false;
-        //LUZ 1
-        //rotacion-l1
-        var rl1 = raiz.crearTransform();
-        var rotacionL1 = raiz.crearNodo(raiz.escena, rl1, "rotacionL1")
-        //traslacion-l1
-        var tl1 = raiz.crearTransform();
         tl1.trasladar(2, 2, 0);
-        var traslacionL1 = raiz.crearNodo(rotacionL1, tl1, "traslacionL1");
-        //escalado-l1
-        var el1 = raiz.crearTransform();
-        var escaladoL1 = raiz.crearNodo(traslacionL1, el1, "escaladoL1");
-        //luz1
-        var l1 = raiz.crearLuz();
-        raiz.crearNodo(escaladoL1, l1, "luz-1");
-
-        raiz.setLuzActiva(l1);
-        raiz.setIntensidadRGB(l1, 20, 20, 15);
-        //var vecAux= vec3.fromValues(1, 185, 160);
-        var vecAux = vec3.fromValues(30, 20, 60);
-        raiz.setIntensidadVector(l1, vecAux);
-        // console.log("VEMOS LA LUZ");
-        // console.log(l1);
-        // console.log("FIN LOG LUZ");
-
-        //CAMARA 1
-        //rotacion-c1
-        var rc1 = raiz.crearTransform();
-        rc1.rotar(0, 1, 0, 1)
-        rc1.rotar(1, 0, 0, -40)
-        var rotacionC1 = raiz.crearNodo(raiz.escena, rc1, "rotacionC1");
-        //traslacion-c1
-        var tc1 = raiz.crearTransform();
-        tc1.trasladar(7, 7, 12);
-        var traslacionC1 = raiz.crearNodo(rotacionC1, tc1, "traslacionC1");
-        //escalado-c1
-        var ec1 = raiz.crearTransform();
-        var escaladoC1 = raiz.crearNodo(traslacionC1, ec1, "escaladoC1");
-        //camara1
-        var c1 = raiz.crearCamara("camara-1");
-        raiz.crearNodo(escaladoC1, c1, "camara-1");
-        // console.log(camara.entidad);
-        // console.log(c1);
-        // console.log(camara1);
-        raiz.iniciarCamara(c1, 0.1, 100, 600, 0, 800, 0);
-        raiz.setPerspectiva(c1);
-        raiz.setCamaraActiva(c1); //establecemos la camara activa
-        // console.log("Camara despues de iniciar");
-        // console.log(c1);
-
-        //CAMARA 2
-        //rotacion-c2
-        var rc2 = raiz.crearTransform();
-        rc2.rotar(0, 1, 0, 1)
-        var rotacionC2 = raiz.crearNodo(raiz.escena, rc2, "rotacionC2");
-        //traslacion-c1
-        var tc2 = raiz.crearTransform();
-        tc2.trasladar(0, 0, 5);
-        var traslacionC2 = raiz.crearNodo(rotacionC2, tc2, "traslacionC2");
-        //escalado-c1
-        var ec2 = raiz.crearTransform();
-        var escaladoC2 = raiz.crearNodo(traslacionC2, ec2, "escaladoC2");
-        //camara1
-        var c2 = raiz.crearCamara("camara-2");
-        raiz.crearNodo(escaladoC2, c2, "camara-2");
-        // console.log(camara.entidad);
-
-        raiz.iniciarCamara(c2, 1, 200, 600, 0, 800, 0);
-        raiz.setPerspectiva(c2);
-        raiz.setCamaraActiva(c2); //establecemos la camara activa
-        //    raiz.setCamaraActiva(c1); //establecemos la camara activa
-
-
-        //PERSONA 1
-        //rotacion-p1
-        var rp1 = raiz.crearTransform();
-        var rotacionP1 = raiz.crearNodo(raiz.escena, rp1, "rotacionP1");
-        // rp1.rotar(1, 1, 1, 1);
-        //traslacion-p1
-        var tp1 = raiz.crearTransform();
-        var traslacionP1 = raiz.crearNodo(rotacionP1, tp1, "traslacionP1");
-        // tp1.trasladar(0.1, 0, 0);
-        //escalado-p1
-        var ep1 = raiz.crearTransform();
-        var escaladoP1 = raiz.crearNodo(traslacionP1, ep1, "escaladoP1");
-        // ep1.escalar(0.8, 0.8, 0.8);
-        //malla-p1
-        var mp1 = raiz.crearMalla('female-croupier-2013-03-26');
-        raiz.crearNodo(escaladoP1, mp1, "mallaP1");
-
         break;
-
-
       case 2:
-        inhabilitar = false;
-        //LUZ 1
-        //rotacion-l1
-        var rl1 = raiz.crearTransform();
-        var rotacionL1 = raiz.crearNodo(raiz.escena, rl1, "rotacionL1")
-        //traslacion-l1
-        var tl1 = raiz.crearTransform();
         tl1.trasladar(2, 2, 0);
-        var traslacionL1 = raiz.crearNodo(rotacionL1, tl1, "traslacionL1");
-        //escalado-l1
-        var el1 = raiz.crearTransform();
-        var escaladoL1 = raiz.crearNodo(traslacionL1, el1, "escaladoL1");
-        //luz1
-        var l1 = raiz.crearLuz();
-        raiz.crearNodo(escaladoL1, l1, "luz-1");
-
-        raiz.setLuzActiva(l1);
-        raiz.setIntensidadRGB(l1, 20, 20, 15);
-        //var vecAux= vec3.fromValues(1, 185, 160);
-        var vecAux = vec3.fromValues(30, 20, 60);
-        raiz.setIntensidadVector(l1, vecAux);
-        // console.log("VEMOS LA LUZ");
-        // console.log(l1);
-        // console.log("FIN LOG LUZ");
-
-        //CAMARA 1
-        //rotacion-c1
-        var rc1 = raiz.crearTransform();
-        rc1.rotar(0, 1, 0, 1)
-        rc1.rotar(1, 0, 0, -40)
-        var rotacionC1 = raiz.crearNodo(raiz.escena, rc1, "rotacionC1");
-        //traslacion-c1
-        var tc1 = raiz.crearTransform();
-        tc1.trasladar(7, 7, 12);
-        var traslacionC1 = raiz.crearNodo(rotacionC1, tc1, "traslacionC1");
-        //escalado-c1
-        var ec1 = raiz.crearTransform();
-        var escaladoC1 = raiz.crearNodo(traslacionC1, ec1, "escaladoC1");
-        //camara1
-        var c1 = raiz.crearCamara("camara-1");
-        raiz.crearNodo(escaladoC1, c1, "camara-1");
-        // console.log(camara.entidad);
-        // console.log(c1);
-        // console.log(camara1);
-        raiz.iniciarCamara(c1, 0.1, 100, 600, 0, 800, 0);
-        raiz.setPerspectiva(c1);
-        raiz.setCamaraActiva(c1); //establecemos la camara activa
-        // console.log("Camara despues de iniciar");
-        // console.log(c1);
-
-        //CAMARA 2
-        //rotacion-c2
-        var rc2 = raiz.crearTransform();
-        rc2.rotar(0, 1, 0, 1)
-        var rotacionC2 = raiz.crearNodo(raiz.escena, rc2, "rotacionC2");
-        //traslacion-c1
-        var tc2 = raiz.crearTransform();
-        tc2.trasladar(0, 0, 5);
-        var traslacionC2 = raiz.crearNodo(rotacionC2, tc2, "traslacionC2");
-        //escalado-c1
-        var ec2 = raiz.crearTransform();
-        var escaladoC2 = raiz.crearNodo(traslacionC2, ec2, "escaladoC2");
-        //camara1
-        var c2 = raiz.crearCamara("camara-2");
-        raiz.crearNodo(escaladoC2, c2, "camara-2");
-        // console.log(camara.entidad);
-
-        raiz.iniciarCamara(c2, 1, 200, 600, 0, 800, 0);
-        raiz.setPerspectiva(c2);
-        raiz.setCamaraActiva(c2); //establecemos la camara activa
-        //    raiz.setCamaraActiva(c1); //establecemos la camara activa
-
-
-        //PERSONA 1
-        //rotacion-p1
-        var rp1 = raiz.crearTransform();
-        var rotacionP1 = raiz.crearNodo(raiz.escena, rp1, "rotacionP1");
-        // rp1.rotar(1, 1, 1, 1);
-        //traslacion-p1
-        var tp1 = raiz.crearTransform();
-        var traslacionP1 = raiz.crearNodo(rotacionP1, tp1, "traslacionP1");
-        // tp1.trasladar(0.1, 0, 0);
-        //escalado-p1
-        var ep1 = raiz.crearTransform();
-        var escaladoP1 = raiz.crearNodo(traslacionP1, ep1, "escaladoP1");
-        // ep1.escalar(0.8, 0.8, 0.8);
-        //malla-p1
-        var mp1 = raiz.crearMalla('female-croupier-2013-03-26');
-        raiz.crearNodo(escaladoP1, mp1, "mallaP1");
-
-        //PERSONA 2
-        //rotacion-p2
-        var rp2 = raiz.crearTransform();
         rp2.rotar(0, 1, 0, 180);
-        // rp1.rotar(0.2, 1, 0, 2);
-        var rotacionP2 = raiz.crearNodo(raiz.escena, rp2, "rotacionP2");
-        //traslacion-p2
-        var tp2 = raiz.crearTransform();
         tp2.trasladar(-1, 0, 0.5);
-        var traslacionP2 = raiz.crearNodo(rotacionP2, tp2, "traslacionP2");
-        //escalado-p2
-        var ep2 = raiz.crearTransform();
         ep2.escalar(0.5, 0.5, 0.5);
-        var escaladoP2 = raiz.crearNodo(traslacionP2, ep2, "escaladoP2");
-        //malla-p2
-        var mp2 = raiz.crearMalla('female-croupier-2013-03-26');
-        raiz.crearNodo(escaladoP2, mp2, "mallaP2");
-
-
         break;
 
       case 3:
-        inhabilitar = false;
-        //LUZ 1
-        //rotacion-l1
-        var rl1 = raiz.crearTransform();
-        var rotacionL1 = raiz.crearNodo(raiz.escena, rl1, "rotacionL1")
-        //traslacion-l1
-        var tl1 = raiz.crearTransform();
         tl1.trasladar(2, 2, 0);
-        var traslacionL1 = raiz.crearNodo(rotacionL1, tl1, "traslacionL1");
-        //escalado-l1
-        var el1 = raiz.crearTransform();
-        var escaladoL1 = raiz.crearNodo(traslacionL1, el1, "escaladoL1");
-        //luz1
-        var l1 = raiz.crearLuz();
-        raiz.crearNodo(escaladoL1, l1, "luz-1");
-
-        raiz.setLuzActiva(l1);
-        raiz.setIntensidadRGB(l1, 20, 20, 15);
-        //var vecAux= vec3.fromValues(1, 185, 160);
-        var vecAux = vec3.fromValues(30, 20, 60);
-        raiz.setIntensidadVector(l1, vecAux);
-
-        //CAMARA 1
-        //rotacion-c1
-        var rc1 = raiz.crearTransform();
-        rc1.rotar(0, 1, 0, 1)
-        rc1.rotar(1, 0, 0, -40)
-        var rotacionC1 = raiz.crearNodo(raiz.escena, rc1, "rotacionC1");
-        //traslacion-c1
-        var tc1 = raiz.crearTransform();
-        tc1.trasladar(7, 7, 12);
-        var traslacionC1 = raiz.crearNodo(rotacionC1, tc1, "traslacionC1");
-        //escalado-c1
-        var ec1 = raiz.crearTransform();
-        var escaladoC1 = raiz.crearNodo(traslacionC1, ec1, "escaladoC1");
-        //camara1
-        var c1 = raiz.crearCamara("camara-1");
-        raiz.crearNodo(escaladoC1, c1, "camara-1");
-        // console.log(camara.entidad);
-        // console.log(c1);
-        // console.log(camara1);
-        raiz.iniciarCamara(c1, 0.1, 100, 600, 0, 800, 0);
-        raiz.setPerspectiva(c1);
-        raiz.setCamaraActiva(c1); //establecemos la camara activa
-        // console.log("Camara despues de iniciar");
-        // console.log(c1);
-
-        //CAMARA 2
-        //rotacion-c2
-        var rc2 = raiz.crearTransform();
-        rc2.rotar(0, 1, 0, 1)
-        var rotacionC2 = raiz.crearNodo(raiz.escena, rc2, "rotacionC2");
-        //traslacion-c1
-        var tc2 = raiz.crearTransform();
-        tc2.trasladar(0, 0, 5);
-        var traslacionC2 = raiz.crearNodo(rotacionC2, tc2, "traslacionC2");
-        //escalado-c1
-        var ec2 = raiz.crearTransform();
-        var escaladoC2 = raiz.crearNodo(traslacionC2, ec2, "escaladoC2");
-        //camara1
-        var c2 = raiz.crearCamara("camara-2");
-        raiz.crearNodo(escaladoC2, c2, "camara-2");
-        // console.log(camara.entidad);
-
-        raiz.iniciarCamara(c2, 1, 200, 600, 0, 800, 0);
-        raiz.setPerspectiva(c2);
-        raiz.setCamaraActiva(c2); //establecemos la camara activa
-        //    raiz.setCamaraActiva(c1); //establecemos la camara activa
-
-        //PERSONA 1
-        //rotacion-p1
-        var rp1 = raiz.crearTransform();
-        var rotacionP1 = raiz.crearNodo(raiz.escena, rp1, "rotacionP1");
-        // rp1.rotar(1, 1, 1, 1);
-        //traslacion-p1
-        var tp1 = raiz.crearTransform();
-        var traslacionP1 = raiz.crearNodo(rotacionP1, tp1, "traslacionP1");
-        // tp1.trasladar(0.1, 0, 0);
-        //escalado-p1
-        var ep1 = raiz.crearTransform();
-        var escaladoP1 = raiz.crearNodo(traslacionP1, ep1, "escaladoP1");
-        // ep1.escalar(0.8, 0.8, 0.8);
-        //malla-p1
-        var mp1 = raiz.crearMalla('female-croupier-2013-03-26');
-        raiz.crearNodo(escaladoP1, mp1, "mallaP1");
-
-        //PERSONA 2
-        //rotacion-p2
-        var rp2 = raiz.crearTransform();
         rp2.rotar(0, 1, 0, 180);
-        // rp1.rotar(0.2, 1, 0, 2);
-        var rotacionP2 = raiz.crearNodo(raiz.escena, rp2, "rotacionP2");
-        //traslacion-p2
-        var tp2 = raiz.crearTransform();
         tp2.trasladar(-1, 0, 0.5);
-        var traslacionP2 = raiz.crearNodo(rotacionP2, tp2, "traslacionP2");
-        //escalado-p2
-        var ep2 = raiz.crearTransform();
         ep2.escalar(0.5, 0.5, 0.5);
-        var escaladoP2 = raiz.crearNodo(traslacionP2, ep2, "escaladoP2");
-        //malla-p2
-        var mp2 = raiz.crearMalla('female-croupier-2013-03-26');
-        raiz.crearNodo(escaladoP2, mp2, "mallaP2");
-
-        //PERSONA 3
-        //rotacion-p3
-        var rp3 = raiz.crearTransform();
-        var rotacionP3 = raiz.crearNodo(raiz.escena, rp3, "rotacionP3");
-        // rp3.rotar(1, 1, 1, 1);
-        //traslacion-p3
-        var tp3 = raiz.crearTransform();
-        var traslacionP3 = raiz.crearNodo(rotacionP3, tp3, "traslacionP3");
         tp3.trasladar(2, 0, 0);
-        //escalado-p3
-        var ep3 = raiz.crearTransform();
-        var escaladoP3 = raiz.crearNodo(traslacionP3, ep3, "escaladoP3");
-        // ep3.escalar(0.8, 0.8, 0.8);
-        //malla-p3
-        var mp3 = raiz.crearMalla('female-croupier-2013-03-26');
-        raiz.crearNodo(escaladoP3, mp3, "mallaP3");
-
         break;
 
       case 4:
-        inhabilitar = false;
-        //LUZ 1
-        //rotacion-l1
-        var rl1 = raiz.crearTransform();
-        var rotacionL1 = raiz.crearNodo(raiz.escena, rl1, "rotacionL1")
-        //traslacion-l1
-        var tl1 = raiz.crearTransform();
         tl1.trasladar(2, 2, 0);
-        var traslacionL1 = raiz.crearNodo(rotacionL1, tl1, "traslacionL1");
-        //escalado-l1
-        var el1 = raiz.crearTransform();
-        var escaladoL1 = raiz.crearNodo(traslacionL1, el1, "escaladoL1");
-        //luz1
-        var l1 = raiz.crearLuz();
-        raiz.crearNodo(escaladoL1, l1, "luz-1");
-
-        raiz.setLuzActiva(l1);
-        raiz.setIntensidadRGB(l1, 20, 20, 15);
-        //var vecAux= vec3.fromValues(1, 185, 160);
-        var vecAux = vec3.fromValues(30, 20, 60);
-        raiz.setIntensidadVector(l1, vecAux);
-        // console.log("VEMOS LA LUZ");
-        // console.log(l1);
-        // console.log("FIN LOG LUZ");
-
-        //CAMARA 1
-        //rotacion-c1
-        var rc1 = raiz.crearTransform();
-        rc1.rotar(0, 1, 0, 1)
-        rc1.rotar(1, 0, 0, -40)
-        var rotacionC1 = raiz.crearNodo(raiz.escena, rc1, "rotacionC1");
-        //traslacion-c1
-        var tc1 = raiz.crearTransform();
-        tc1.trasladar(7, 7, 12);
-        var traslacionC1 = raiz.crearNodo(rotacionC1, tc1, "traslacionC1");
-        //escalado-c1
-        var ec1 = raiz.crearTransform();
-        var escaladoC1 = raiz.crearNodo(traslacionC1, ec1, "escaladoC1");
-        //camara1
-        var c1 = raiz.crearCamara("camara-1");
-        raiz.crearNodo(escaladoC1, c1, "camara-1");
-        // console.log(camara.entidad);
-        // console.log(c1);
-        // console.log(camara1);
-        raiz.iniciarCamara(c1, 0.1, 100, 600, 0, 800, 0);
-        raiz.setPerspectiva(c1);
-        raiz.setCamaraActiva(c1); //establecemos la camara activa
-        // console.log("Camara despues de iniciar");
-        // console.log(c1);
-
-        //CAMARA 2
-        //rotacion-c2
-        var rc2 = raiz.crearTransform();
-        rc2.rotar(0, 1, 0, 1)
-        var rotacionC2 = raiz.crearNodo(raiz.escena, rc2, "rotacionC2");
-        //traslacion-c1
-        var tc2 = raiz.crearTransform();
-        tc2.trasladar(0, 0, 5);
-        var traslacionC2 = raiz.crearNodo(rotacionC2, tc2, "traslacionC2");
-        //escalado-c1
-        var ec2 = raiz.crearTransform();
-        var escaladoC2 = raiz.crearNodo(traslacionC2, ec2, "escaladoC2");
-        //camara1
-        var c2 = raiz.crearCamara("camara-2");
-        raiz.crearNodo(escaladoC2, c2, "camara-2");
-        // console.log(camara.entidad);
-
-        raiz.iniciarCamara(c2, 1, 200, 600, 0, 800, 0);
-        raiz.setPerspectiva(c2);
-        raiz.setCamaraActiva(c2); //establecemos la camara activa
-        //    raiz.setCamaraActiva(c1); //establecemos la camara activa
-
-        //PERSONA 1
-        //rotacion-p1
-        var rp1 = raiz.crearTransform();
-        var rotacionP1 = raiz.crearNodo(raiz.escena, rp1, "rotacionP1");
-        // rp1.rotar(1, 1, 1, 1);
-        //traslacion-p1
-        var tp1 = raiz.crearTransform();
-        var traslacionP1 = raiz.crearNodo(rotacionP1, tp1, "traslacionP1");
         tp1.trasladar(-2, 0, 0);
-        //escalado-p1
-        var ep1 = raiz.crearTransform();
-        var escaladoP1 = raiz.crearNodo(traslacionP1, ep1, "escaladoP1");
-        // ep1.escalar(0.8, 0.8, 0.8);
-        //malla-p1
-        var mp1 = raiz.crearMalla('female-croupier-2013-03-26');
-        raiz.crearNodo(escaladoP1, mp1, "mallaP1");
-
-        //PERSONA 2
-        //rotacion-p2
-        var rp2 = raiz.crearTransform();
-        //rp2.rotar(0, 1, 0, 180);
-        // rp1.rotar(0.2, 1, 0, 2);
-        var rotacionP2 = raiz.crearNodo(raiz.escena, rp2, "rotacionP2");
-        //traslacion-p2
-        var tp2 = raiz.crearTransform();
         tp2.trasladar(-0.7, 0, 0);
-        var traslacionP2 = raiz.crearNodo(rotacionP2, tp2, "traslacionP2");
-        //escalado-p2
-        var ep2 = raiz.crearTransform();
         ep2.escalar(0.9, 0.75, 1);
-        var escaladoP2 = raiz.crearNodo(traslacionP2, ep2, "escaladoP2");
-        //malla-p2
-        var mp2 = raiz.crearMalla('female-croupier-2013-03-26');
-        raiz.crearNodo(escaladoP2, mp2, "mallaP2");
-
-        //PERSONA 3
-        //rotacion-p3
-        var rp3 = raiz.crearTransform();
-        var rotacionP3 = raiz.crearNodo(raiz.escena, rp3, "rotacionP3");
-        // rp3.rotar(1, 1, 1, 1);
-        //traslacion-p3
-        var tp3 = raiz.crearTransform();
-        var traslacionP3 = raiz.crearNodo(rotacionP3, tp3, "traslacionP3");
         tp3.trasladar(0.7, 0, 0);
-        //escalado-p3
-        var ep3 = raiz.crearTransform();
-        var escaladoP3 = raiz.crearNodo(traslacionP3, ep3, "escaladoP3");
         ep3.escalar(1, 0.85, 1);
-        //malla-p3
-        var mp3 = raiz.crearMalla('female-croupier-2013-03-26');
-        raiz.crearNodo(escaladoP3, mp3, "mallaP3");
-
-
-        //PERSONA 4
-        //rotacion-p4
-        var rp4 = raiz.crearTransform();
-        var rotacionP4 = raiz.crearNodo(raiz.escena, rp4, "rotacionP4");
-        // rp4.rotar(1, 1, 1, 1);
-        //traslacion-p4
-        var tp4 = raiz.crearTransform();
-        var traslacionP4 = raiz.crearNodo(rotacionP4, tp4, "traslacionP4");
         tp4.trasladar(2, 0, 0);
-        //escalado-p4
-        var ep4 = raiz.crearTransform();
-        var escaladoP4 = raiz.crearNodo(traslacionP4, ep4, "escaladoP4");
         ep4.escalar(1, 0.8, 1);
-        //malla-p4
-        var mp4 = raiz.crearMalla('female-croupier-2013-03-26');
-        raiz.crearNodo(escaladoP4, mp4, "mallaP4");
-
         break;
-
       case 5:
-        inhabilitar = false;
-        //LUZ 1
-        //rotacion-l1
-        var rl1 = raiz.crearTransform();
-        var rotacionL1 = raiz.crearNodo(raiz.escena, rl1, "rotacionL1")
-        //traslacion-l1
-        var tl1 = raiz.crearTransform();
         tl1.trasladar(3, 2, 0);
-        var traslacionL1 = raiz.crearNodo(rotacionL1, tl1, "traslacionL1");
-        //escalado-l1
-        var el1 = raiz.crearTransform();
-        var escaladoL1 = raiz.crearNodo(traslacionL1, el1, "escaladoL1");
-        //luz1
-        var l1 = raiz.crearLuz();
-        var luz1 = raiz.crearNodo(escaladoL1, l1, "luz-1");
-
-        raiz.setLuzActiva(l1);
-        raiz.setIntensidadRGB(l1, 20, 20, 15);
-        //var vecAux= vec3.fromValues(1, 185, 160);
-        // var vecAux = vec3.fromValues(0, 0, 0);
-        // raiz.setIntensidadVector(l1, vecAux);
-
-        //CAMARA 1
-        //rotacion-c1
-        var rc1 = raiz.crearTransform();
-        rc1.rotar(0, 1, 0, 1)
-        rc1.rotar(1, 0, 0, -40)
-        var rotacionC1 = raiz.crearNodo(raiz.escena, rc1, "rotacionC1");
-        //traslacion-c1
-        var tc1 = raiz.crearTransform();
-        tc1.trasladar(7, 7, 12);
-        var traslacionC1 = raiz.crearNodo(rotacionC1, tc1, "traslacionC1");
-        //escalado-c1
-        var ec1 = raiz.crearTransform();
-        var escaladoC1 = raiz.crearNodo(traslacionC1, ec1, "escaladoC1");
-        //camara1
-        var c1 = raiz.crearCamara("camara-1");
-        raiz.crearNodo(escaladoC1, c1, "camara-1");
-        // console.log(camara.entidad);
-        // console.log(c1);
-        // console.log(camara1);
-        raiz.iniciarCamara(c1, 0.1, 100, 600, 0, 800, 0);
-        raiz.setPerspectiva(c1);
-        raiz.setCamaraActiva(c1); //establecemos la camara activa
-        // console.log("Camara despues de iniciar");
-        // console.log(c1);
-
-        //CAMARA 2
-        //rotacion-c2
-        var rc2 = raiz.crearTransform();
-        rc2.rotar(0, 1, 0, 1)
-        var rotacionC2 = raiz.crearNodo(raiz.escena, rc2, "rotacionC2");
-        //traslacion-c1
-        var tc2 = raiz.crearTransform();
-        tc2.trasladar(0, 0, 5);
-        var traslacionC2 = raiz.crearNodo(rotacionC2, tc2, "traslacionC2");
-        //escalado-c1
-        var ec2 = raiz.crearTransform();
-        var escaladoC2 = raiz.crearNodo(traslacionC2, ec2, "escaladoC2");
-        //camara1
-        var c2 = raiz.crearCamara("camara-2");
-        raiz.crearNodo(escaladoC2, c2, "camara-2");
-        // console.log(camara.entidad);
-
-        raiz.iniciarCamara(c2, 1, 200, 600, 0, 800, 0);
-        raiz.setPerspectiva(c2);
-        raiz.setCamaraActiva(c2); //establecemos la camara activa
-        //    raiz.setCamaraActiva(c1); //establecemos la camara activa
-
-        //PERSONA 1
-        //rotacion-p1
-        var rp1 = raiz.crearTransform();
-        var rotacionP1 = raiz.crearNodo(raiz.escena, rp1, "rotacionP1");
-        // rp1.rotar(1, 1, 1, 1);
-        //traslacion-p1
-        var tp1 = raiz.crearTransform();
-        var traslacionP1 = raiz.crearNodo(rotacionP1, tp1, "traslacionP1");
         tp1.trasladar(-3, 0, 0);
-        //escalado-p1
-        var ep1 = raiz.crearTransform();
-        var escaladoP1 = raiz.crearNodo(traslacionP1, ep1, "escaladoP1");
-        // ep1.escalar(0.8, 0.8, 0.8);
-        //malla-p1
-        var mp1 = raiz.crearMalla('female-croupier-2013-03-26');
-        raiz.crearNodo(escaladoP1, mp1, "mallaP1");
-
-        //PERSONA 2
-        //rotacion-p2
-        var rp2 = raiz.crearTransform();
         rp2.rotar(0, 1, 0, 180);
-        // rp1.rotar(0.2, 1, 0, 2);
-        var rotacionP2 = raiz.crearNodo(raiz.escena, rp2, "rotacionP2");
-        //traslacion-p2
-        var tp2 = raiz.crearTransform();
-        tp2.trasladar(-2, 0, 0);
-        var traslacionP2 = raiz.crearNodo(rotacionP2, tp2, "traslacionP2");
-        //escalado-p2
-        var ep2 = raiz.crearTransform();
         ep2.escalar(0.5, 0.5, 0.5);
-        var escaladoP2 = raiz.crearNodo(traslacionP2, ep2, "escaladoP2");
-        //malla-p2
-        var mp2 = raiz.crearMalla('female-croupier-2013-03-26');
-        raiz.crearNodo(escaladoP2, mp2, "mallaP2");
-
-        //PERSONA 3
-        //rotacion-p3
-        var rp3 = raiz.crearTransform();
-        var rotacionP3 = raiz.crearNodo(raiz.escena, rp3, "rotacionP3");
-        // rp3.rotar(1, 1, 1, 1);
-        //traslacion-p3
-        var tp3 = raiz.crearTransform();
-        var traslacionP3 = raiz.crearNodo(rotacionP3, tp3, "traslacionP3");
+        tp2.trasladar(-2, 0, 0);
         tp3.trasladar(0.1, 0, 0);
-        //escalado-p3
-        var ep3 = raiz.crearTransform();
-        var escaladoP3 = raiz.crearNodo(traslacionP3, ep3, "escaladoP3");
-        // ep3.escalar(0.8, 0.8, 0.8);
-        //malla-p3
-        var mp3 = raiz.crearMalla('female-croupier-2013-03-26');
-        raiz.crearNodo(escaladoP3, mp3, "mallaP3");
-
-
-        //PERSONA 4
-        //rotacion-p4
-        var rp4 = raiz.crearTransform();
-        var rotacionP4 = raiz.crearNodo(raiz.escena, rp4, "rotacionP4");
-        // rp4.rotar(1, 1, 1, 1);
-        //traslacion-p4
-        var tp4 = raiz.crearTransform();
-        var traslacionP4 = raiz.crearNodo(rotacionP4, tp4, "traslacionP4");
         tp4.trasladar(1.4, 0, 0);
-        //escalado-p4
-        var ep4 = raiz.crearTransform();
-        var escaladoP4 = raiz.crearNodo(traslacionP4, ep4, "escaladoP4");
-        // ep4.escalar(0.8, 0.8, 0.8);
-        //malla-p4
-        var mp4 = raiz.crearMalla('female-croupier-2013-03-26');
-        raiz.crearNodo(escaladoP4, mp4, "mallaP4");
-
-        //PERSONA 5
-        //rotacion-p5
-        var rp5 = raiz.crearTransform();
-        var rotacionP5 = raiz.crearNodo(raiz.escena, rp5, "rotacionP5");
-        // rp5.rotar(1, 1, 1, 1);
-        //traslacion-p5
-        var tp5 = raiz.crearTransform();
-        var traslacionP5 = raiz.crearNodo(rotacionP5, tp5, "traslacionP5");
         tp5.trasladar(2.5, 0, 0);
-        //escalado-p5
-        var ep5 = raiz.crearTransform();
-        var escaladoP5 = raiz.crearNodo(traslacionP5, ep5, "escaladoP5");
-        // ep5.escalar(0.8, 0.8, 0.8);
-        //malla-p5
-        var mp5 = raiz.crearMalla('female-croupier-2013-03-26');
-        raiz.crearNodo(escaladoP5, mp5, "mallaP5");
-
-        break;
       default:
         inhabilitar = true;
+        break;
     }
+
     // ======================================================================
     // =========================  Código animacion  =========================
 
